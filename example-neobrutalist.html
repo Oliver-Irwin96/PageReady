@@ -366,27 +366,6 @@ footer a { color: var(--lime); text-decoration: none; }
 .sr-r{ opacity:0; transform:translateX(24px); transition:opacity .6s ease, transform .6s ease; }
 .sr.vis,.sr-l.vis,.sr-r.vis { opacity:1; transform:none; }
 .d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.19s}.d4{transition-delay:.26s}
-
-  /* ── MOBILE PASS ── */
-  @media (max-width: 640px) {
-    .hero { padding: 56px 20px 52px; }
-    .work, .about, .process { padding: 56px 20px; }
-    .services { padding: 56px 20px; }
-    .cta-section { padding: 64px 20px; }
-    footer { padding: 24px 20px; flex-direction: column; text-align: center; gap: 8px; }
-    .section-header { flex-direction: column; align-items: flex-start; }
-    .service-row { flex-wrap: wrap; padding: 16px 0; gap: 8px; }
-    .service-row > div:last-child { width: 100%; justify-content: flex-start; }
-    .about-sticker { position: static; margin-top: 16px; display: inline-block; }
-    .about-img-wrap { text-align: center; margin-bottom: 8px; }
-  }
-  @media (max-width: 480px) {
-    .hero h1 { font-size: clamp(40px, 11vw, 68px); letter-spacing: -1px; }
-    .hero-btns { flex-direction: column; }
-    .hero-btns a { width: 100%; text-align: center; }
-    .cta-row { flex-direction: column; align-items: stretch; }
-    .cta-row a { width: 100%; text-align: center; }
-  }
 </style>
 </head>
 <body>
@@ -407,7 +386,7 @@ footer a { color: var(--lime); text-decoration: none; }
 <section class="hero">
   <div class="hero-grid-bg"></div>
   <div class="hero-inner">
-    <div class="hero-tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;width:14px;height:14px;margin-right:6px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Wimborne, Dorset · Est. 2019</div>
+    <div class="hero-tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c8f135" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Wimborne, Dorset · Est. 2019</div>
     <h1>
       Brand &amp;<br>
       <em>Design</em> that<br>
@@ -593,7 +572,7 @@ footer a { color: var(--lime); text-decoration: none; }
   <h2 class="sr">Got a project in mind?</h2>
   <p class="sr">Drop us a message — first chat is always free and there's no pressure.</p>
   <div class="cta-row sr">
-    <a href="tel:07700000000" class="btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;width:16px;height:16px;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>07700 000 000</a>
+    <a href="tel:07700000000" class="btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 07700 000 000</a>
     <a href="mailto:hello@knockstudio.co.uk" class="btn-outline">hello@knockstudio.co.uk</a>
   </div>
 </section>

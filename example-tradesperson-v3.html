@@ -154,7 +154,7 @@
     transition: background .2s;
   }
   .contact-card:hover { background: rgba(255,255,255,.1); }
-  .contact-card .cc-icon { font-size: 32px; margin-bottom: 12px; }
+  .contact-card .cc-icon { display:flex;align-items:center;justify-content:center;font-size: 32px; margin-bottom: 12px; }
   .contact-card .cc-label { font-size: 11px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
   .contact-card .cc-val { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: var(--amber); }
 
@@ -171,25 +171,13 @@
     .hero { padding: 100px 20px 60px; }
     .services, .about, .contact { padding: 64px 20px; }
   }
-
-  /* ── MOBILE PASS ── */
-  @media (max-width: 480px) {
-    .hero h1 { font-size: clamp(42px, 11vw, 65px); }
-    .trust-bar { gap: 10px 20px; }
-    .trust-item { font-size: 13px; }
-    .btn-amber { font-size: 17px; padding: 14px 24px; }
-    .btn-ghost { font-size: 17px; padding: 12px 20px; }
-    .hero-btns { flex-direction: column; }
-    .hero-btns a { text-align: center; }
-    .sticky-call { bottom: 16px; right: 16px; font-size: 16px; padding: 12px 20px; }
-  }
 </style>
 </head>
 <body>
 
 <div class="watermark">✦ Example site by <a href="#">PageReady</a> — websites for local businesses from £250 · pageready.co.uk</div>
 
-<a href="tel:07700000000" class="sticky-call">📞 Call Now</a>
+<a href="tel:07700000000" class="sticky-call"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Call Now</a>
 
 <nav>
   <div class="logo">DS <span>Plumbing</span></div>
@@ -198,11 +186,11 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">📍 Wimborne & Bournemouth · Dorset</div>
+    <div class="hero-tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Wimborne & Bournemouth · Dorset</div>
     <h1>Your Local<br><em>Plumber</em></h1>
     <p>Straight-talking plumbing & heating across Dorset. Gas Safe registered, no call-out fee, here 7 days a week.</p>
     <div class="hero-btns">
-      <a href="tel:07700000000" class="btn-amber"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;width:16px;height:16px;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>07700 000 000</a>
+      <a href="tel:07700000000" class="btn-amber"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 07700 000 000</a>
       <a href="#contact" class="btn-ghost">GET A FREE QUOTE</a>
     </div>
     <div class="trust-bar">
@@ -228,22 +216,22 @@
   <div class="section-title">No Job Too Small,<br>No Problem Too Big</div>
   <div class="services-grid">
     <div class="service-card">
-      <div class="s-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+      <div class="s-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></div>
       <h3>Boiler Installs & Repairs</h3>
       <p>All makes and models. Gas Safe certified. Free quote within 24 hours, honest pricing guaranteed.</p>
     </div>
     <div class="service-card">
-      <div class="s-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg></div>
+      <div class="s-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l1.41-1.41A2 2 0 017 10h10a2 2 0 011.41.59L20 12"/><path d="M4 12v4"/><path d="M20 12v4"/><path d="M8 16v2"/><path d="M12 16v2"/><path d="M16 16v2"/><path d="M4 8a2 2 0 012-2h12a2 2 0 012 2"/></svg></div>
       <h3>Bathroom Plumbing</h3>
       <p>Taps, showers, full bathroom fits and re-pipes. Tidy work — no mess left behind when we leave.</p>
     </div>
     <div class="service-card">
-      <div class="s-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div class="s-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
       <h3>Emergency Call-Outs</h3>
       <p>Burst pipes, leaks, no hot water. We aim to be with you within 2 hours, 7 days a week.</p>
     </div>
     <div class="service-card">
-      <div class="s-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+      <div class="s-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
       <h3>Landlord Gas Safety</h3>
       <p>CP12 certificates for letting agents and landlords. Fast turnaround, competitive rates.</p>
     </div>
@@ -275,22 +263,22 @@
   <div class="section-title">Just Give Us a Shout</div>
   <div class="contact-grid">
     <div class="contact-card">
-      <div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg></div>
+      <div class="cc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
       <div class="cc-label">Call or Text</div>
       <div class="cc-val">07700 000 000</div>
     </div>
     <div class="contact-card">
-      <div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="cc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
       <div class="cc-label">WhatsApp</div>
       <div class="cc-val">Message Us</div>
     </div>
     <div class="contact-card">
-      <div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="cc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
       <div class="cc-label">Based In</div>
       <div class="cc-val">Wimborne, Dorset</div>
     </div>
     <div class="contact-card">
-      <div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="cc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
       <div class="cc-label">Hours</div>
       <div class="cc-val">7 Days, 7am–8pm</div>
     </div>

@@ -134,18 +134,6 @@
     .collections, .visit { padding: 64px 24px; }
     .about-text { padding: 56px 24px; }
   }
-
-  /* ── MOBILE PASS ── */
-  @media (max-width: 600px) {
-    .visit-cards { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
-    .visit-card { width: 100%; }
-    .about-stats { flex-wrap: wrap; gap: 20px 36px; }
-    .hero-btns { flex-direction: column; align-items: center; }
-    .hero-btns a { width: 240px; text-align: center; }
-  }
-  @media (max-width: 480px) {
-    .philosophy { padding: 32px 20px; }
-  }
 </style>
 </head>
 <body>
@@ -179,9 +167,9 @@
 </section>
 
 <div class="philosophy">
-  <div class="phil-item"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/></svg></div><p>Ethically sourced stones, every piece</p></div>
-  <div class="phil-item"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></div><p>Free consultation, no obligation</p></div>
-  <div class="phil-item"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 12c-2-2.5-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.5 6-4z"/><path d="M12 12c2 2.5 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.5-6 4z"/></svg></div><p>Lifetime cleaning & inspection service</p></div>
+  <div class="phil-item"><div class="pi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3L8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div><p>Ethically sourced stones, every piece</p></div>
+  <div class="phil-item"><div class="pi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l.77.77L12 21.23l7.65-7.65.77-.77a5.4 5.4 0 000-7.65v0z"/><path d="M7 8l3 3"/><path d="M17 8l-3 3"/></svg></div><p>Free consultation, no obligation</p></div>
+  <div class="phil-item"><div class="pi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.5-4-4-6-4a4 4 0 000 8c2 0 4-1.5 6-4z"/><path d="M12 12c2 2.5 4 4 6 4a4 4 0 000-8c-2 0-4 1.5-6 4z"/></svg></div><p>Lifetime cleaning & inspection service</p></div>
 </div>
 
 <section class="collections" id="collections">
@@ -234,9 +222,9 @@
   <div class="c-heading">Visit the <em>Studio</em></div>
   <p>Appointments preferred, walk-ins welcome. Free parking nearby.</p>
   <div class="visit-cards">
-    <div class="visit-card"><div class="vc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="vc-label">Studio</div><div class="vc-val">Old Christchurch Road, BH1</div></div>
-    <div class="visit-card"><div class="vc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg></div><div class="vc-label">Telephone</div><div class="vc-val">01202 000 000</div></div>
-    <div class="visit-card"><div class="vc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="vc-label">Hours</div><div class="vc-val">Tue – Sat, 10am – 5pm</div></div>
+    <div class="visit-card"><div class="vc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="vc-label">Studio</div><div class="vc-val">Old Christchurch Road, BH1</div></div>
+    <div class="visit-card"><div class="vc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div class="vc-label">Telephone</div><div class="vc-val">01202 000 000</div></div>
+    <div class="visit-card"><div class="vc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="vc-label">Hours</div><div class="vc-val">Tue – Sat, 10am – 5pm</div></div>
   </div>
 </section>
 

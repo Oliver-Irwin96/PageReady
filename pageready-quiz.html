@@ -7,551 +7,324 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --ink:        #0c1220;
-  --ink-2:      #162032;
-  --ink-3:      #1e2d42;
-  --slate:      #334155;
-  --slate-mid:  #4a5e78;
-  --slate-light:#7a8fa8;
-  --indigo:     #5b5ef4;
-  --indigo-hi:  #7b7ff6;
-  --indigo-glow:rgba(91,94,244,.18);
-  --cream:      #f8fafc;
-  --border:     #e2e8f0;
-  --border-dark:rgba(255,255,255,.07);
-  --muted:      #64748b;
-  --success:    #22c55e;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0c1220;--ink-2:#162032;
+  --indigo:#5b5ef4;--indigo-hi:#7b7ff6;
+  --cream:#f8fafc;--border:#e2e8f0;--border-dark:rgba(255,255,255,.07);
+  --muted:#64748b;
 }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: var(--ink);
-  background: var(--ink);
-  min-height: 100vh;
-  opacity: 0;
-  animation: bodyReveal .5s ease .1s forwards;
-}
-@keyframes bodyReveal { to { opacity: 1; } }
-
-#cg {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(91,94,244,.09) 0%, transparent 70%);
-  border-radius: 50%; position: fixed; pointer-events: none; z-index: 0;
-  transform: translate(-50%,-50%);
-  transition: left .5s cubic-bezier(.25,.46,.45,.94), top .5s cubic-bezier(.25,.46,.45,.94);
-  left: -999px; top: -999px;
-}
-
-/* NAV */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(12,18,32,.95); backdrop-filter: blur(18px);
-  padding: 0 48px; height: 66px;
-  display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 1px solid var(--border-dark);
-}
-.logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900; color: #fff; text-decoration: none; }
-.logo span { color: var(--indigo-hi); }
-.nav-back { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; display: flex; align-items: center; gap: 6px; }
-.nav-back:hover { color: #fff; }
-@media (max-width: 640px) { nav { padding: 0 20px; } }
-
-/* PAGE LAYOUT */
-.quiz-layout {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 0;
-  min-height: calc(100vh - 66px);
-  position: relative; z-index: 1;
-}
-@media (max-width: 900px) {
-  .quiz-layout { grid-template-columns: 1fr; }
-}
-
-/* LEFT: Questions */
-.quiz-left {
-  padding: 56px 48px;
-  border-right: 1px solid var(--border-dark);
-}
-@media (max-width: 900px) { .quiz-left { padding: 36px 24px; border-right: none; border-bottom: 1px solid var(--border-dark); } }
-
-.quiz-eyebrow {
-  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--indigo-hi); margin-bottom: 14px;
-}
-.quiz-left h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4vw, 42px); font-weight: 800;
-  color: #fff; line-height: 1.15; margin-bottom: 12px;
-}
-.quiz-left .sub {
-  font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.6; margin-bottom: 48px;
-}
-
-/* TOGGLE ROWS */
-.toggle-section { margin-bottom: 44px; }
-.toggle-section h2 {
-  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); margin-bottom: 20px;
-}
-
-.toggle-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  gap: 24px;
-}
-.toggle-row:first-of-type { border-top: 1px solid rgba(255,255,255,.06); }
-.toggle-info { flex: 1; }
-.toggle-label {
-  font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 3px;
-}
-.toggle-desc {
-  font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.5;
-}
-
-/* TOGGLE SWITCH */
-.toggle-switch { position: relative; width: 50px; height: 27px; flex-shrink: 0; }
-.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
-.toggle-track {
-  position: absolute; inset: 0; z-index: -1;
-  background: rgba(255,255,255,.1);
-  border-radius: 99px;
-  cursor: pointer;
-  transition: background .2s;
-}
-.toggle-thumb {
-  position: absolute; top: 3px; left: 3px;
-  width: 21px; height: 21px;
-  background: rgba(255,255,255,.5);
-  border-radius: 50%;
-  transition: transform .2s, background .2s;
-  pointer-events: none;
-}
-.toggle-switch input:checked ~ .toggle-track { background: var(--indigo); }
-.toggle-switch input:checked ~ .toggle-track .toggle-thumb { transform: translateX(23px); background: #fff; }
-
-/* BUDGET SLIDER */
-.budget-section { margin-bottom: 44px; }
-.budget-section h2 {
-  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); margin-bottom: 20px;
-}
-.budget-track { padding: 8px 0; }
-.budget-track input[type=range] {
-  -webkit-appearance: none;
-  width: 100%; height: 5px;
-  background: rgba(255,255,255,.1); border-radius: 99px;
-  outline: none; border: none; box-shadow: none; padding: 0;
-}
-.budget-track input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 24px; height: 24px;
-  background: var(--indigo); border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 0 4px var(--indigo-glow);
-  transition: transform .1s;
-}
-.budget-track input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
-.budget-display {
-  margin-top: 14px;
-  display: flex; justify-content: space-between; align-items: baseline;
-}
-.budget-val {
-  font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: #fff;
-}
-.budget-sub { font-size: 13px; color: rgba(255,255,255,.4); }
-
-/* RIGHT: Recommendation Panel */
-.quiz-right {
-  padding: 48px 40px;
-  position: sticky; top: 66px;
-  height: calc(100vh - 66px);
-  overflow-y: auto;
-  display: flex; flex-direction: column;
-}
-@media (max-width: 900px) { .quiz-right { position: static; height: auto; padding: 36px 24px; } }
-
-.rec-label {
-  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.3); margin-bottom: 24px;
-}
-
-/* PACKAGE CARDS */
-.pkg-card {
-  border: 1.5px solid rgba(255,255,255,.07);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 14px;
-  transition: all .3s cubic-bezier(.4,0,.2,1);
-  cursor: default;
-  position: relative; overflow: hidden; isolation: isolate;
-}
-.pkg-card::before {
-  content: '';
-  position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(135deg, rgba(91,94,244,.08) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity .3s;
-}
-.pkg-card.recommended {
-  border-color: var(--indigo);
-  box-shadow: 0 0 0 1px var(--indigo), 0 8px 32px rgba(91,94,244,.2);
-  transform: scale(1.02);
-}
-.pkg-card.recommended::before { opacity: 1; }
-.pkg-card.dim { opacity: .35; transform: scale(.97); }
-
-.pkg-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  padding: 4px 10px; border-radius: 99px;
-  margin-bottom: 14px;
-}
-.pkg-badge.match { background: rgba(91,94,244,.2); color: var(--indigo-hi); }
-.pkg-badge.good  { background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); }
-.pkg-badge.hide  { display: none; }
-
-.pkg-name {
-  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
-  color: #fff; margin-bottom: 4px;
-}
-.pkg-price {
-  font-size: 26px; font-weight: 800; font-family: 'Syne', sans-serif;
-  color: var(--indigo-hi); margin-bottom: 10px;
-}
-.pkg-price span { font-size: 14px; font-weight: 400; color: rgba(255,255,255,.35); font-family: 'Plus Jakarta Sans', sans-serif; }
-.pkg-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.6; margin-bottom: 16px; }
-
-.pkg-features { list-style: none; }
-.pkg-features li {
-  display: flex; align-items: flex-start; gap: 9px;
-  font-size: 13px; color: rgba(255,255,255,.6);
-  margin-bottom: 7px;
-}
-.pkg-features li::before { content: '✓'; color: var(--indigo-hi); font-weight: 700; flex-shrink: 0; }
-.pkg-features li.extra::before { content: '+'; color: var(--success); }
-.pkg-features li.warn::before { content: '→'; color: rgba(255,200,0,.7); }
-
-.pkg-cta {
-  display: block; width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  background: var(--indigo); color: #fff;
-  border: none; border-radius: 10px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px; font-weight: 700;
-  text-align: center; text-decoration: none;
-  cursor: pointer;
-  transition: background .15s, transform .1s;
-}
-.pkg-cta:hover { background: var(--indigo-hi); transform: translateY(-1px); }
-.pkg-card.dim .pkg-cta { display: none; }
-
-/* MATCH REASON */
-.match-reason {
-  background: rgba(91,94,244,.1);
-  border: 1px solid rgba(91,94,244,.2);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-top: 24px;
-  font-size: 13px; color: rgba(255,255,255,.7);
-  line-height: 1.6;
-}
-.match-reason strong { color: #fff; }
-
-  /* ── MOBILE PASS ── */
-  @media (max-width: 480px) {
-    .toggle-row { gap: 16px; }
-    .pkg-card { padding: 20px; }
-    .pkg-name { font-size: 17px; }
-    .quiz-left h1 { font-size: clamp(24px, 7vw, 36px); }
-    .budget-val { font-size: 26px; }
-  }
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--ink);min-height:100vh;overflow-x:hidden;opacity:0;animation:bodyReveal .5s ease forwards;}
+@keyframes bodyReveal{to{opacity:1;}}
+#cg{width:500px;height:500px;background:radial-gradient(circle,rgba(91,94,244,.08) 0%,transparent 70%);border-radius:50%;position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .6s,top .6s;left:-999px;top:-999px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:66px;display:flex;justify-content:space-between;align-items:center;background:rgba(12,18,32,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--border-dark);}
+.logo{font-family:'Syne',sans-serif;font-size:19px;font-weight:900;color:#fff;text-decoration:none;}
+.logo span{color:var(--indigo-hi);}
+.back-link{font-size:13px;font-weight:600;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s;}
+.back-link:hover{color:rgba(255,255,255,.8);}
+@media(max-width:600px){nav{padding:0 20px;}}
+.progress-wrap{position:fixed;top:66px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06);}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--indigo),var(--indigo-hi));transition:width .4s cubic-bezier(.4,0,.2,1);}
+.quiz-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 60px;position:relative;z-index:1;}
+.quiz-inner{width:100%;max-width:640px;}
+.step{display:none;animation:stepIn .4s cubic-bezier(.4,0,.2,1);}
+.step.active{display:block;}
+@keyframes stepIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.step-counter{font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px;}
+.step-q{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,42px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;}
+.step-hint{font-size:15px;color:rgba(255,255,255,.4);margin-bottom:36px;font-weight:300;line-height:1.7;}
+.options{display:flex;flex-direction:column;gap:12px;}
+.opt{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:16px;transition:border-color .2s,background .2s,transform .1s;}
+.opt:hover{border-color:var(--indigo);background:rgba(91,94,244,.06);transform:translateX(4px);}
+.opt.selected{border-color:var(--indigo);background:rgba(91,94,244,.1);}
+.opt-icon{width:42px;height:42px;border-radius:10px;background:rgba(91,94,244,.12);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.opt-text{flex:1;}
+.opt-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.opt-sub{font-size:13px;color:rgba(255,255,255,.35);line-height:1.5;}
+.opt-check{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.opt.selected .opt-check{background:var(--indigo);border-color:var(--indigo);}
+.opt.selected .opt-check::after{content:'✓';color:#fff;font-size:12px;font-weight:800;}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.options-grid{grid-template-columns:1fr;}}
+.opt-grid{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 18px;cursor:pointer;text-align:center;transition:border-color .2s,background .2s;}
+.opt-grid:hover{border-color:var(--indigo);background:rgba(91,94,244,.06);}
+.opt-grid.selected{border-color:var(--indigo);background:rgba(91,94,244,.1);}
+.opt-grid-price{font-family:'Syne',sans-serif;font-size:28px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;}
+.opt-grid-label{font-size:13px;color:rgba(255,255,255,.45);}
+.step-nav{display:flex;gap:12px;margin-top:32px;align-items:center;}
+.btn-next{background:var(--indigo);color:#fff;border:none;cursor:pointer;padding:15px 32px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;transition:background .15s,transform .1s;}
+.btn-next:hover{background:var(--indigo-hi);}
+.btn-next:active{transform:scale(.97);}
+.btn-next:disabled{opacity:.35;cursor:default;}
+.btn-back{background:transparent;color:rgba(255,255,255,.35);border:1.5px solid rgba(255,255,255,.1);cursor:pointer;padding:13px 22px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;transition:all .15s;}
+.btn-back:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7);}
+/* RESULT */
+.result-wrap{text-align:center;}
+.result-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(91,94,244,.15);border:1px solid rgba(91,94,244,.3);color:var(--indigo-hi);font-size:12px;font-weight:700;padding:7px 18px;border-radius:20px;margin-bottom:28px;letter-spacing:.08em;text-transform:uppercase;}
+.result-name{font-family:'Syne',sans-serif;font-size:clamp(36px,7vw,64px);font-weight:900;color:#fff;margin-bottom:8px;line-height:1.05;}
+.result-price{font-family:'Syne',sans-serif;font-size:clamp(22px,4vw,36px);font-weight:900;color:var(--indigo-hi);margin-bottom:16px;}
+.result-desc{font-size:16px;color:rgba(255,255,255,.5);line-height:1.8;max-width:480px;margin:0 auto 36px;font-weight:300;}
+.result-features{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px 32px;text-align:left;margin-bottom:20px;}
+.result-features h3{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;}
+.result-feat-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.result-feat-list li{font-size:15px;color:rgba(255,255,255,.7);padding-left:24px;position:relative;line-height:1.6;}
+.result-feat-list li::before{content:'✓';position:absolute;left:0;color:var(--indigo-hi);font-weight:800;}
+.warning-note{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:12px;padding:16px 20px;text-align:left;margin-bottom:20px;font-size:13px;color:rgba(255,255,255,.5);line-height:1.75;}
+.warning-note strong{color:rgba(251,191,36,.85);}
+.addon-box{background:rgba(91,94,244,.07);border:1px solid rgba(91,94,244,.2);border-radius:14px;padding:22px 26px;text-align:left;margin-bottom:28px;}
+.addon-box h4{font-size:13px;font-weight:700;color:var(--indigo-hi);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;}
+.addon-box p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;}
+.addon-price{font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:#fff;margin-top:4px;}
+.result-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-indigo{background:var(--indigo);color:#fff;padding:15px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 0 36px rgba(91,94,244,.28);transition:transform .15s,background .15s;}
+.btn-indigo:hover{transform:translateY(-2px);background:var(--indigo-hi);}
+.btn-outline-w{border:1.5px solid rgba(255,255,255,.18);color:#fff;padding:13px 26px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;transition:border-color .15s;}
+.btn-outline-w:hover{border-color:rgba(255,255,255,.55);}
+.retry-btn{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,.25);font-family:'Plus Jakarta Sans',sans-serif;display:block;margin:20px auto 0;transition:color .15s;}
+.retry-btn:hover{color:rgba(255,255,255,.55);}
 </style>
 </head>
 <body>
 <div id="cg"></div>
-
 <nav>
   <a href="pageready-portfolio.html" class="logo">Page<span>Ready</span></a>
-  <a href="pageready-portfolio.html" class="nav-back">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to portfolio
-  </a>
+  <a href="pageready-portfolio.html" class="back-link">← Back to portfolio</a>
 </nav>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:14%"></div></div>
 
-<div class="quiz-layout">
-  <!-- LEFT: Controls -->
-  <div class="quiz-left">
-    <div class="quiz-eyebrow">Package Finder</div>
-    <h1>What does your business actually need?</h1>
-    <p class="sub">Toggle what applies to you. The recommendation updates instantly — no emails, no sales calls.</p>
+<div class="quiz-wrap"><div class="quiz-inner">
 
-    <!-- Section 1: What you need to do -->
-    <div class="toggle-section">
-      <h2>What do you need to do?</h2>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Take online bookings</div>
-          <div class="toggle-desc">Appointments, reservations, or consultation slots</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-booking" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Sell products online</div>
-          <div class="toggle-desc">A shop with a basket, checkout, and payment</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-shop" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Show a menu or price list</div>
-          <div class="toggle-desc">Restaurant menu, service prices, or treatment list</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-menu" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Show a portfolio or gallery</div>
-          <div class="toggle-desc">Before/afters, project photos, previous work</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-gallery" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Have more than one page</div>
-          <div class="toggle-desc">Separate pages for services, about, contact, etc.</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-pages" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-    </div>
-
-    <!-- Section 2: Ongoing needs -->
-    <div class="toggle-section">
-      <h2>Ongoing needs</h2>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Update my own content</div>
-          <div class="toggle-desc">Change prices, add news, swap photos yourself</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-cms" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Someone to manage it for me</div>
-          <div class="toggle-desc">Keep it updated, fix issues, handle changes</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-managed" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">Show up higher on Google</div>
-          <div class="toggle-desc">Local SEO, Google Business setup, search rankings</div>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="t-seo" onchange="update()">
-          <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        </label>
-      </div>
-    </div>
-
-    <!-- Budget slider -->
-    <div class="budget-section">
-      <h2>Your rough budget</h2>
-      <div class="budget-track">
-        <input type="range" min="0" max="4" value="0" id="t-budget" oninput="update(); updateBudgetDisplay(this.value)">
-      </div>
-      <div class="budget-display">
-        <div class="budget-val" id="budget-val">Up to £250</div>
-        <div class="budget-sub" id="budget-sub">One-off</div>
-      </div>
-    </div>
+<!-- STEP 1 -->
+<div class="step active" id="s1">
+  <div class="step-counter">Step 1 of 7</div>
+  <div class="step-q">Do you have a website already?</div>
+  <div class="step-hint">This helps us understand what you're starting from.</div>
+  <div class="options">
+    <div class="opt" onclick="pick(this,'s1')"><div class="opt-icon">🆕</div><div class="opt-text"><div class="opt-title">No — starting from scratch</div><div class="opt-sub">I have nothing online at the moment</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s1')"><div class="opt-icon">🔄</div><div class="opt-text"><div class="opt-title">Yes — but it needs replacing</div><div class="opt-sub">My current site is outdated or not working</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s1')"><div class="opt-icon">➕</div><div class="opt-text"><div class="opt-title">Yes — and I want to add to it</div><div class="opt-sub">I want a new landing page or extra pages</div></div><div class="opt-check"></div></div>
   </div>
+  <div class="step-nav"><button class="btn-next" id="n1" onclick="goNext(2,28)" disabled>Continue →</button></div>
+</div>
 
-  <!-- RIGHT: Recommendation -->
-  <div class="quiz-right">
-    <div class="rec-label">Your recommendation</div>
+<!-- STEP 2 -->
+<div class="step" id="s2">
+  <div class="step-counter">Step 2 of 7</div>
+  <div class="step-q">How many pages do you need?</div>
+  <div class="step-hint">A single strong page is often all a local business needs.</div>
+  <div class="options">
+    <div class="opt" onclick="pick(this,'s2')" data-pages="1"><div class="opt-icon">📄</div><div class="opt-text"><div class="opt-title">Just one page</div><div class="opt-sub">One focused page — contact, services, map. Gets the job done.</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s2')" data-pages="3"><div class="opt-icon">📋</div><div class="opt-text"><div class="opt-title">2–3 pages</div><div class="opt-sub">Home, About, Contact — the classic set</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s2')" data-pages="5"><div class="opt-icon">📂</div><div class="opt-text"><div class="opt-title">4–5 pages</div><div class="opt-sub">Enough for services, gallery, testimonials and more</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s2')" data-pages="8"><div class="opt-icon">🗂️</div><div class="opt-text"><div class="opt-title">6 or more pages</div><div class="opt-sub">A full site — complex business with a lot to show</div></div><div class="opt-check"></div></div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(1,14)">← Back</button><button class="btn-next" id="n2" onclick="goNext(3,42)" disabled>Continue →</button></div>
+</div>
 
-    <!-- Package 1 -->
-    <div class="pkg-card recommended" id="pkg-1">
-      <div class="pkg-badge match" id="badge-1">⚡ Best match</div>
-      <div class="pkg-name">Landing Page</div>
-      <div class="pkg-price">£250 <span>one-off</span></div>
-      <div class="pkg-desc">A single, high-quality page that looks great and gets results. Perfect for most local businesses starting out.</div>
-      <ul class="pkg-features" id="features-1">
-        <li>Custom design — no templates</li>
-        <li>Mobile-friendly</li>
-        <li>Contact form + WhatsApp button</li>
-        <li>Google Business setup</li>
-        <li>Hosted free on Netlify</li>
-        <li>Delivered in 5–7 days</li>
-      </ul>
-      <a href="pageready-questionnaire.html" class="pkg-cta">Get started →</a>
+<!-- STEP 3 -->
+<div class="step" id="s3">
+  <div class="step-counter">Step 3 of 7</div>
+  <div class="step-q">Do you need to take bookings or sell products online?</div>
+  <div class="step-hint">Booking systems and shops need a platform to run on — we'll always be upfront about any ongoing costs before we start.</div>
+  <div class="options">
+    <div class="opt" onclick="pick(this,'s3')" data-booking="none"><div class="opt-icon">📞</div><div class="opt-text"><div class="opt-title">No — just get people to call or email</div><div class="opt-sub">A contact form or phone number is all I need</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s3')" data-booking="bookings"><div class="opt-icon">📅</div><div class="opt-text"><div class="opt-title">Yes — online bookings</div><div class="opt-sub">Appointments, reservations, consultation slots</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s3')" data-booking="shop"><div class="opt-icon">🛒</div><div class="opt-text"><div class="opt-title">Yes — sell products online</div><div class="opt-sub">A shop with basket, checkout and payment</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s3')" data-booking="both"><div class="opt-icon">⚡</div><div class="opt-text"><div class="opt-title">Both bookings and a shop</div><div class="opt-sub">I need the full setup</div></div><div class="opt-check"></div></div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(2,28)">← Back</button><button class="btn-next" id="n3" onclick="goNext(4,56)" disabled>Continue →</button></div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step" id="s4">
+  <div class="step-counter">Step 4 of 7</div>
+  <div class="step-q">What's your main goal?</div>
+  <div class="step-hint">Pick the one that matters most right now.</div>
+  <div class="options">
+    <div class="opt" onclick="pick(this,'s4')"><div class="opt-icon">📱</div><div class="opt-text"><div class="opt-title">Get more calls and enquiries</div><div class="opt-sub">I want my phone ringing and inbox filling up</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s4')"><div class="opt-icon">✨</div><div class="opt-text"><div class="opt-title">Look more professional</div><div class="opt-sub">I want something I'm proud to send people to</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s4')"><div class="opt-icon">🔍</div><div class="opt-text"><div class="opt-title">Get found on Google</div><div class="opt-sub">I need to rank locally when people search</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s4')"><div class="opt-icon">🔧</div><div class="opt-text"><div class="opt-title">Replace a site that isn't working</div><div class="opt-sub">My current one is slow, ugly or I just hate it</div></div><div class="opt-check"></div></div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(3,42)">← Back</button><button class="btn-next" id="n4" onclick="goNext(5,70)" disabled>Continue →</button></div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step" id="s5">
+  <div class="step-counter">Step 5 of 7</div>
+  <div class="step-q">What's your budget for the build?</div>
+  <div class="step-hint">Honest answer helps us point you at the right package. No pressure either way.</div>
+  <div class="options-grid">
+    <div class="opt-grid" onclick="pickGrid(this,'s5')" data-budget="low"><div class="opt-grid-price">Under £400</div><div class="opt-grid-label">Start lean, prove it works</div></div>
+    <div class="opt-grid" onclick="pickGrid(this,'s5')" data-budget="mid"><div class="opt-grid-price">£400–£700</div><div class="opt-grid-label">Most local businesses land here</div></div>
+    <div class="opt-grid" onclick="pickGrid(this,'s5')" data-budget="high"><div class="opt-grid-price">£700–£1,400</div><div class="opt-grid-label">Multi-page or booking system</div></div>
+    <div class="opt-grid" onclick="pickGrid(this,'s5')" data-budget="premium"><div class="opt-grid-price">£1,400+</div><div class="opt-grid-label">I want the full premium build</div></div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(4,56)">← Back</button><button class="btn-next" id="n5" onclick="goNext(6,84)" disabled>Continue →</button></div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step" id="s6">
+  <div class="step-counter">Step 6 of 7</div>
+  <div class="step-q">Would you like someone to keep your site updated each month?</div>
+  <div class="step-hint">Our care plans handle updates, monitoring, and reporting so you never have to think about it.</div>
+  <div class="options">
+    <div class="opt" onclick="pick(this,'s6')" data-care="yes"><div class="opt-icon">✅</div><div class="opt-text"><div class="opt-title">Yes — handle it for me</div><div class="opt-sub">I'd rather pay a small monthly fee and not think about it</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s6')" data-care="no"><div class="opt-icon">🙅</div><div class="opt-text"><div class="opt-title">No — I'll manage it myself</div><div class="opt-sub">Just the build for now, thanks</div></div><div class="opt-check"></div></div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(5,70)">← Back</button><button class="btn-next" id="n6" onclick="goNext(7,92)" disabled>Continue →</button></div>
+</div>
+
+<!-- STEP 7 -->
+<div class="step" id="s7">
+  <div class="step-counter">Step 7 of 7</div>
+  <div class="step-q">When do you need your site live?</div>
+  <div class="step-hint">We can turn most static sites around in 48 hours once we've had a quick chat.</div>
+  <div class="options">
+    <div class="opt" onclick="pick(this,'s7')"><div class="opt-icon">🚀</div><div class="opt-text"><div class="opt-title">ASAP — this week</div><div class="opt-sub">I need it live as soon as possible</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s7')"><div class="opt-icon">📆</div><div class="opt-text"><div class="opt-title">Within the next month</div><div class="opt-sub">No huge rush, but I want to get moving</div></div><div class="opt-check"></div></div>
+    <div class="opt" onclick="pick(this,'s7')"><div class="opt-icon">🤔</div><div class="opt-text"><div class="opt-title">Still planning</div><div class="opt-sub">I'm researching and not ready to commit yet</div></div><div class="opt-check"></div></div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(6,84)">← Back</button><button class="btn-next" id="n7" onclick="showResult()" disabled>See My Recommendation →</button></div>
+</div>
+
+<!-- RESULT -->
+<div class="step" id="sResult">
+  <div class="result-wrap">
+    <div class="result-badge">⚡ Best Match</div>
+    <div class="result-name" id="rName">—</div>
+    <div class="result-price" id="rPrice">—</div>
+    <p class="result-desc" id="rDesc">—</p>
+    <div class="result-features"><h3>What's included</h3><ul class="result-feat-list" id="rFeatures"></ul></div>
+    <div class="warning-note" id="rHostingNote" style="display:none"><strong>⚠️ Heads up on ongoing costs:</strong> <span id="rHostingText"></span></div>
+    <div class="addon-box" id="rAddon" style="display:none"><h4>We'd also recommend</h4><p id="rAddonDesc">—</p><div class="addon-price" id="rAddonPrice">—</div></div>
+    <div class="result-btns">
+      <a href="tel:07519420699" class="btn-indigo">📞 Call to Get Started</a>
+      <a href="pageready-questionnaire.html" class="btn-outline-w">Fill in the Brief →</a>
     </div>
-
-    <!-- Package 2 -->
-    <div class="pkg-card" id="pkg-2">
-      <div class="pkg-badge good" id="badge-2">Multi-page site</div>
-      <div class="pkg-name">Full Website</div>
-      <div class="pkg-price">£500–£800 <span>one-off</span></div>
-      <div class="pkg-desc">Multiple pages with proper navigation. Room for a gallery, full menu, team page, and more.</div>
-      <ul class="pkg-features" id="features-2">
-        <li>Everything in Landing Page</li>
-        <li>3–6 pages with navigation</li>
-        <li>Gallery / portfolio section</li>
-        <li>FAQ accordion</li>
-        <li>Booking form or menu</li>
-        <li>Delivered in 10–14 days</li>
-      </ul>
-      <a href="pageready-questionnaire.html" class="pkg-cta">Get started →</a>
-    </div>
-
-    <!-- Package 3 -->
-    <div class="pkg-card dim" id="pkg-3">
-      <div class="pkg-badge good" id="badge-3">Ongoing</div>
-      <div class="pkg-name">Care Plan</div>
-      <div class="pkg-price">£35–£55 <span>/month</span></div>
-      <div class="pkg-desc">We keep your site fresh. Updates, fixes, and changes handled — you just message us.</div>
-      <ul class="pkg-features" id="features-3">
-        <li>£35/mo — Oliver makes all changes</li>
-        <li>£55/mo — you get editor access too</li>
-        <li>Content updates within 48hrs</li>
-        <li>Monthly performance check</li>
-        <li>Priority support</li>
-      </ul>
-      <a href="pageready-questionnaire.html" class="pkg-cta">Get started →</a>
-    </div>
-
-    <!-- Match reason -->
-    <div class="match-reason" id="match-reason">
-      <strong>Why this matches:</strong> Most local businesses only need one strong page to get found on Google and turn visitors into calls. Simple, fast, and £250.
-    </div>
+    <button class="retry-btn" onclick="restart()">↩ Start again</button>
   </div>
 </div>
 
-<script>
-// Cursor glow
-const cg = document.getElementById('cg');
-document.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; });
+</div></div>
 
-// Budget labels
-const budgetLabels = [
-  { val: 'Up to £250',     sub: 'One-off' },
-  { val: 'Up to £500',     sub: 'One-off' },
-  { val: 'Up to £800',     sub: 'One-off' },
-  { val: 'Up to £1,500',   sub: 'One-off or retainer' },
-  { val: 'No strict limit', sub: 'Best outcome' },
-];
-function updateBudgetDisplay(val) {
-  const l = budgetLabels[val];
-  document.getElementById('budget-val').textContent = l.val;
-  document.getElementById('budget-sub').textContent = l.sub;
+<script>
+document.addEventListener('mousemove', e => {
+  const cg = document.getElementById('cg');
+  cg.style.left = e.clientX+'px'; cg.style.top = e.clientY+'px';
+});
+
+const answers = {};
+
+function pick(el, stepId) {
+  el.closest('.options').querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[stepId] = Object.assign({}, el.dataset);
+  const btn = document.getElementById('n' + stepId.replace('s',''));
+  if (btn) btn.disabled = false;
 }
 
-// Score → recommendation
-function update() {
-  const booking = document.getElementById('t-booking').checked;
-  const shop    = document.getElementById('t-shop').checked;
-  const menu    = document.getElementById('t-menu').checked;
-  const gallery = document.getElementById('t-gallery').checked;
-  const pages   = document.getElementById('t-pages').checked;
-  const cms     = document.getElementById('t-cms').checked;
-  const managed = document.getElementById('t-managed').checked;
-  const seo     = document.getElementById('t-seo').checked;
-  const budget  = parseInt(document.getElementById('t-budget').value);
+function pickGrid(el, stepId) {
+  el.closest('.options-grid').querySelectorAll('.opt-grid').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[stepId] = Object.assign({}, el.dataset);
+  const btn = document.getElementById('n' + stepId.replace('s',''));
+  if (btn) btn.disabled = false;
+}
 
-  // Scoring
-  let pkg1score = 10; // default: landing page
-  let pkg2score = 0;
-  let pkg3score = 0;
+function goNext(toStep, progress) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + toStep).classList.add('active');
+  document.getElementById('progressBar').style.width = progress + '%';
+  window.scrollTo(0, 0);
+}
+function goBack(toStep, progress) { goNext(toStep, progress); }
 
-  if (pages || gallery || menu) { pkg2score += 4; pkg1score -= 3; }
-  if (booking) { pkg2score += 2; }
-  if (shop) { pkg2score += 5; pkg1score -= 5; }
-  if (cms || managed) { pkg3score += 5; }
-  if (seo) { pkg1score += 1; pkg2score += 1; pkg3score += 2; }
-  if (budget >= 2) { pkg2score += 2; }
-  if (budget >= 3) { pkg3score += 1; }
-  if (budget === 0) { pkg1score += 2; pkg2score -= 3; }
+function restart() {
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.opt-grid').forEach(o => o.classList.remove('selected'));
+  Object.keys(answers).forEach(k => delete answers[k]);
+  ['n1','n2','n3','n4','n5','n6','n7'].forEach(id => { const b = document.getElementById(id); if (b) b.disabled = true; });
+  goNext(1, 14);
+}
 
-  const scores = [
-    { id: 1, score: pkg1score },
-    { id: 2, score: pkg2score },
-    { id: 3, score: pkg3score },
-  ];
+function showResult() {
+  document.getElementById('progressBar').style.width = '100%';
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('sResult').classList.add('active');
+  window.scrollTo(0, 0);
 
-  const best = scores.reduce((a, b) => a.score > b.score ? a : b);
+  const pages   = parseInt((answers.s2 || {}).pages || '1');
+  const booking = (answers.s3 || {}).booking || 'none';
+  const budget  = (answers.s5 || {}).budget || 'low';
+  const care    = (answers.s6 || {}).care || 'no';
 
-  // Update cards
-  scores.forEach(({ id, score }) => {
-    const card   = document.getElementById('pkg-' + id);
-    const badge  = document.getElementById('badge-' + id);
-    const isTop  = id === best.id;
-    const isGood = score > 0 && !isTop;
+  let pkg;
+  if (budget === 'premium' || pages >= 8 || booking === 'both') pkg = 'premium';
+  else if (budget === 'high' || pages >= 5 || booking === 'shop') pkg = 'pro';
+  else if (budget === 'mid' || pages >= 3 || booking === 'bookings') pkg = 'growth';
+  else pkg = 'starter';
 
-    card.className  = 'pkg-card' + (isTop ? ' recommended' : isGood ? '' : ' dim');
-    badge.className = 'pkg-badge' + (isTop ? ' match' : isGood ? ' good' : ' hide');
-    badge.textContent = isTop ? '⚡ Best match' : id === 1 ? 'Landing page' : id === 2 ? 'Multi-page site' : 'Care plan';
-  });
-
-  // Dynamic reason text
-  const reasons = {
-    1: () => {
-      if (!pages && !gallery && !booking && !shop)
-        return 'Most local businesses only need one strong page to get found on Google and turn visitors into calls. Simple, fast, and £250.';
-      if (seo)
-        return 'A focused landing page with strong SEO setup will get you found locally faster than a big site nobody visits.';
-      return 'Based on what you need, a single landing page covers everything — and it\'s the fastest way to get online.';
+  const packages = {
+    starter: {
+      name: 'Starter', price: 'From £299',
+      desc: 'One focused, fast, mobile-perfect landing page. Everything a local business needs to be found and trusted — built in 48 hours.',
+      features: ['1-page mobile-friendly site','Contact details, map & opening hours','Free hosting on Netlify — forever','Delivered in 48 hours','Unlimited tweaks until you\'re happy','WhatsApp click-to-chat button','Google Schema code for local SEO','QR code for your premises'],
+      hosting: null
     },
-    2: () => {
-      if (shop) return 'You need online selling — that means a proper multi-page site with product listings, a basket, and checkout built in.';
-      if (booking) return 'Online booking works best with its own dedicated page rather than squeezing it onto a landing page.';
-      if (gallery) return 'Showing a proper gallery alongside your services means you need more than one page to do it justice.';
-      return 'With multiple things to show off, a full multi-page site gives you the space to do it properly.';
+    growth: {
+      name: 'Growth', price: 'From £499',
+      desc: '3 linked pages — Home, About, Contact. The complete online presence most local businesses need, with your own domain included.',
+      features: ['Home, About & Contact pages','Your own .co.uk domain name','Enquiry form + WhatsApp button','Google Business Profile setup','Local SEO code throughout','Mobile & speed optimised','Scroll animations & polished design','Free static hosting — forever'],
+      hosting: null
     },
-    3: () => {
-      if (cms) return 'If you want to update your own content regularly, a care plan with editor access (£55/mo) is the right route.';
-      if (managed) return 'Sounds like you want someone to handle the site for you — that\'s exactly what the Care Plan is for at £35/mo.';
-      return 'Ongoing management means you never have to think about your site again. That\'s the care plan.';
+    pro: {
+      name: 'Pro', price: 'From £799',
+      desc: 'Up to 5 pages plus a booking system or online shop. For businesses ready to take things to the next level.',
+      features: ['Up to 5 fully designed pages','Online booking system or e-commerce shop','Secure payment processing via Stripe or PayPal','SSL certificate — all data encrypted','Custom animations & interactions','Full local SEO setup','Performance report on launch','Priority support & turnaround'],
+      hosting: 'Booking systems and shops need a platform to run on. Booking tools typically cost £8–£20/mo (e.g. SimplyBook.me or Calendly). Online shops are built on Shopify from £25/mo, which includes secure payment processing and SSL. We\'ll discuss every cost with you before we start — no surprises.'
     },
+    premium: {
+      name: 'Premium', price: 'From £1,400',
+      desc: 'Completely bespoke. 8+ pages, cinematic animations, booking and/or shop built in. Nothing else at this price looks like it.',
+      features: ['8+ fully bespoke pages','Cinematic GSAP animations','Online booking and/or e-commerce with secure payments','SSL & full security setup included','Full copywriting included','12-month priority support included','Full SEO launch campaign','Monthly performance reporting'],
+      hosting: 'Premium builds with booking or shop functionality require an ongoing platform (typically £15–£50/mo depending on solution chosen). Secure payment processing is handled through Stripe or PayPal — both are fully PCI compliant. We agree every cost with you upfront before work starts.'
+    }
   };
 
-  const reasonFn = reasons[best.id];
-  document.getElementById('match-reason').innerHTML =
-    '<strong>Why this matches:</strong> ' + reasonFn();
+  const carePlans = {
+    yes_starter:  { desc: 'Add our Essentials care plan — hosting cover, uptime monitoring, and 1 content update per month.', price: '+ £29/mo Essentials Care Plan' },
+    yes_growth:   { desc: 'Add our Growth care plan — Google Business updates, monthly performance report, and 4 content updates per month.', price: '+ £69/mo Growth Care Plan' },
+    yes_pro:      { desc: 'Add our Partner care plan — unlimited small edits, SEO improvements, review drafting, and social post templates.', price: '+ £149/mo Partner Care Plan' },
+    yes_premium:  { desc: 'Add our Marketing plan — blog posts, email newsletter, Google Ads management and a monthly strategy call.', price: '+ £299/mo Marketing Plan' }
+  };
+
+  const p = packages[pkg];
+  document.getElementById('rName').textContent = p.name;
+  document.getElementById('rPrice').textContent = p.price;
+  document.getElementById('rDesc').textContent = p.desc;
+
+  const featList = document.getElementById('rFeatures');
+  featList.innerHTML = '';
+  p.features.forEach(f => { const li = document.createElement('li'); li.textContent = f; featList.appendChild(li); });
+
+  const hostingEl = document.getElementById('rHostingNote');
+  if (p.hosting && booking !== 'none') {
+    hostingEl.style.display = 'block';
+    document.getElementById('rHostingText').textContent = p.hosting;
+  } else {
+    hostingEl.style.display = 'none';
+  }
+
+  if (care === 'yes') {
+    const plan = carePlans['yes_' + pkg];
+    document.getElementById('rAddon').style.display = 'block';
+    document.getElementById('rAddonDesc').textContent = plan.desc;
+    document.getElementById('rAddonPrice').textContent = plan.price;
+  } else {
+    document.getElementById('rAddon').style.display = 'none';
+  }
 }
 </script>
 </body>

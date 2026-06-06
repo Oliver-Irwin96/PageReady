@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seren Spa | Book Your Treatment · Dorset</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blush:    #f9f2ee;
+  --blush-2:  #f0e6df;
+  --rose:     #b5665e;
+  --rose-hi:  #d4857c;
+  --rose-dk:  #8a4940;
+  --sage:     #5c7a6e;
+  --sage-lt:  #7a9e90;
+  --ink:      #1e1a18;
+  --muted:    #7a6e6a;
+  --border:   #e8dbd6;
+  --white:    #ffffff;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden;opacity:0;animation:bodyReveal .7s ease .1s forwards;}
+@keyframes bodyReveal{to{opacity:1;}}
+#cg{width:600px;height:600px;background:radial-gradient(circle,rgba(181,102,94,.04) 0%,transparent 70%);border-radius:50%;position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .7s cubic-bezier(.25,.46,.45,.94),top .7s cubic-bezier(.25,.46,.45,.94);left:-999px;top:-999px;}
+.sr{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+.sr.vis{opacity:1;transform:none;}
+
+/* WATERMARK */
+.pr-watermark{background:#e8725a;color:#fff;text-align:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 20px;position:relative;z-index:200;}
+.pr-watermark a{color:#fff;text-decoration:none;opacity:.8;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(30,26,24,.95);backdrop-filter:blur(20px);padding:0 56px;height:70px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);}
+.logo-nav{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:.06em;}
+.logo-nav em{color:var(--rose-hi);font-style:italic;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s;letter-spacing:.02em;}
+.nav-links a:hover{color:rgba(255,255,255,.85);}
+.nav-book-btn{background:var(--rose);color:#fff !important;padding:9px 22px;border-radius:8px;font-weight:700 !important;transition:background .15s !important;}
+.nav-book-btn:hover{background:var(--rose-hi) !important;}
+@media(max-width:640px){nav{padding:0 20px;}.nav-links a:not(.nav-book-btn){display:none;}}
+
+/* HERO */
+.hero{
+  background:
+    linear-gradient(to right, rgba(30,26,24,.82) 40%, rgba(30,26,24,.3) 100%),
+    url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&q=80') center/cover no-repeat;
+  min-height: 88vh;
+  display:flex;align-items:center;padding:80px 56px;
+}
+.hero-inner{max-width:560px;}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(181,102,94,.15);border:1px solid rgba(181,102,94,.3);color:var(--rose-hi);font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;margin-bottom:24px;letter-spacing:.1em;text-transform:uppercase;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,80px);font-weight:700;line-height:1.02;color:#fff;margin-bottom:18px;letter-spacing:-.01em;}
+.hero h1 em{color:var(--rose-hi);font-style:italic;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.55);line-height:1.9;max-width:420px;margin-bottom:36px;font-weight:300;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-rose{background:var(--rose);color:#fff;padding:15px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 4px 32px rgba(181,102,94,.35);transition:transform .15s,background .15s;}
+.btn-rose:hover{transform:translateY(-2px);background:var(--rose-hi);}
+.btn-outline-w{border:1.5px solid rgba(255,255,255,.2);color:#fff;padding:13px 26px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;transition:border-color .15s;}
+.btn-outline-w:hover{border-color:rgba(255,255,255,.55);}
+
+/* PROOF */
+.proof-bar{background:var(--ink);display:flex;gap:0;overflow:hidden;}
+.proof-item{flex:1;padding:24px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.05);}
+.proof-item:last-child{border-right:none;}
+.proof-item strong{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--rose-hi);display:block;line-height:1;}
+.proof-item span{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;display:block;}
+@media(max-width:600px){.proof-bar{flex-wrap:wrap;}.proof-item{flex:1 1 50%;border-bottom:1px solid rgba(255,255,255,.05);}}
+
+/* TREATMENTS */
+.treatments{padding:96px 56px;background:var(--blush);}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:10px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,52px);font-weight:700;color:var(--ink);line-height:1.08;margin-bottom:48px;}
+.treat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1040px;}
+.treat-card{background:var(--white);border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:box-shadow .25s,transform .2s;cursor:pointer;}
+.treat-card:hover{box-shadow:0 20px 56px rgba(0,0,0,.09);transform:translateY(-4px);}
+.treat-card.selected-card{border-color:var(--rose);box-shadow:0 0 0 3px rgba(181,102,94,.15);}
+.treat-img{height:200px;background-size:cover;background-position:center;}
+.treat-body{padding:22px 24px;}
+.treat-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:6px;color:var(--ink);}
+.treat-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.treat-meta{display:flex;justify-content:space-between;align-items:center;}
+.treat-duration{font-size:12px;color:var(--muted);font-weight:600;}
+.treat-price{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--rose);}
+.treat-select-btn{width:100%;margin-top:14px;background:var(--blush);color:var(--rose);border:1.5px solid var(--rose);cursor:pointer;padding:11px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;transition:background .15s,color .15s;}
+.treat-select-btn:hover,.treat-card.selected-card .treat-select-btn{background:var(--rose);color:#fff;}
+
+/* BOOKING WIDGET */
+.booking-section{padding:96px 56px;}
+.booking-wrap{display:grid;grid-template-columns:1fr 380px;gap:48px;max-width:1040px;}
+@media(max-width:900px){.booking-wrap{grid-template-columns:1fr;}}
+
+.booking-widget{background:var(--white);border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 48px rgba(0,0,0,.07);overflow:hidden;}
+.widget-header{background:var(--ink);padding:28px 32px;}
+.widget-header h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:4px;}
+.widget-header p{font-size:13px;color:rgba(255,255,255,.4);}
+.widget-body{padding:32px;}
+
+/* STEPS */
+.steps-bar{display:flex;gap:0;margin-bottom:32px;}
+.step-dot{flex:1;text-align:center;position:relative;}
+.step-dot::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:var(--border);z-index:0;}
+.step-dot:last-child::after{display:none;}
+.step-circle{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);margin:0 auto 6px;position:relative;z-index:1;transition:all .3s;}
+.step-dot.active .step-circle{border-color:var(--rose);background:var(--rose);color:#fff;}
+.step-dot.done .step-circle{border-color:var(--sage);background:var(--sage);color:#fff;}
+.step-label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em;}
+.step-dot.active .step-label{color:var(--rose);}
+.step-dot.done .step-label{color:var(--sage);}
+
+/* STEP PANELS */
+.step-panel{display:none;}
+.step-panel.active{display:block;}
+
+/* Calendar */
+.cal-wrap{margin-bottom:20px;}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ink);}
+.cal-arrow{background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:16px;color:var(--muted);transition:border-color .15s,color .15s;}
+.cal-arrow:hover{border-color:var(--rose);color:var(--rose);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day-header{font-size:11px;font-weight:700;color:var(--muted);text-align:center;padding:4px;letter-spacing:.04em;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;transition:background .15s,color .15s;}
+.cal-day:hover:not(.empty):not(.past){background:var(--blush-2);color:var(--rose);}
+.cal-day.selected{background:var(--rose);color:#fff !important;}
+.cal-day.today{font-weight:800;color:var(--rose);}
+.cal-day.past{color:var(--border);cursor:default;}
+.cal-day.empty{cursor:default;}
+
+/* Time slots */
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.slot{border:1.5px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px;font-weight:600;color:var(--ink);}
+.slot:hover{border-color:var(--rose);color:var(--rose);background:rgba(181,102,94,.04);}
+.slot.selected{background:var(--rose);border-color:var(--rose);color:#fff;}
+.slot.unavailable{background:var(--blush);color:var(--border);cursor:default;border-color:var(--border);}
+
+/* Guest form */
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.form-group label{font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;}
+.form-group input,.form-group select,.form-group textarea{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--ink);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;background:var(--blush);transition:border-color .15s,box-shadow .15s;outline:none;width:100%;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(181,102,94,.1);}
+
+/* Nav buttons */
+.step-nav{display:flex;gap:12px;margin-top:20px;}
+.btn-next{flex:1;background:var(--rose);color:#fff;border:none;cursor:pointer;padding:14px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;transition:background .15s;}
+.btn-next:hover{background:var(--rose-hi);}
+.btn-back{background:var(--blush);color:var(--muted);border:none;cursor:pointer;padding:14px 20px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:14px;transition:background .15s;}
+.btn-back:hover{background:var(--blush-2);}
+
+/* Confirmation */
+.confirm-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.confirm-item:last-child{border:none;}
+.confirm-item span:first-child{color:var(--muted);}
+.confirm-item span:last-child{font-weight:700;color:var(--ink);}
+.confirm-total{background:var(--blush);border-radius:10px;padding:16px;margin:16px 0;display:flex;justify-content:space-between;align-items:center;}
+.confirm-total span:first-child{font-weight:700;color:var(--ink);}
+.confirm-total span:last-child{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--rose);}
+
+/* Success */
+.success-panel{text-align:center;padding:32px 20px;}
+.success-panel .icon{font-size:52px;margin-bottom:16px;}
+.success-panel h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;margin-bottom:10px;color:var(--ink);}
+.success-panel p{font-size:14px;color:var(--muted);line-height:1.8;max-width:280px;margin:0 auto;}
+
+/* SIDEBAR */
+.booking-sidebar h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:20px;color:var(--ink);}
+.side-block{background:var(--blush);border-radius:14px;padding:24px;border:1px solid var(--border);margin-bottom:20px;}
+.side-block h4{font-size:12px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+.side-block p{font-size:13px;color:var(--muted);line-height:1.75;}
+.side-block ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.side-block li{font-size:13px;color:var(--ink);padding-left:18px;position:relative;}
+.side-block li::before{content:'✓';position:absolute;left:0;color:var(--sage);font-weight:800;}
+
+/* TESTIMONIALS */
+.testimonials{padding:88px 56px;background:var(--blush);}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1040px;margin-top:44px;}
+.testi{background:#fff;border-radius:16px;padding:30px 28px;border:1px solid var(--border);transition:box-shadow .2s,transform .15s;}
+.testi:hover{box-shadow:0 12px 40px rgba(0,0,0,.06);transform:translateY(-3px);}
+.stars{color:var(--rose);font-size:13px;letter-spacing:2px;margin-bottom:14px;}
+.testi blockquote{font-size:15px;font-style:italic;color:var(--ink);line-height:1.85;margin-bottom:16px;opacity:.8;}
+.testi-who strong{font-size:13px;font-weight:700;color:var(--ink);display:block;}
+.testi-who span{font-size:12px;color:var(--muted);}
+
+/* FINAL CTA */
+.final-cta{background:var(--ink);padding:88px 56px;text-align:center;}
+.final-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,58px);font-weight:700;color:#fff;margin-bottom:14px;line-height:1.1;}
+.final-cta p{font-size:17px;color:rgba(255,255,255,.5);margin-bottom:32px;font-weight:300;}
+
+footer{background:#120e0d;color:rgba(255,255,255,.25);padding:32px 56px;font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+footer strong{color:rgba(255,255,255,.5);font-family:'Cormorant Garamond',serif;font-size:16px;}
+footer a{color:var(--rose-hi);text-decoration:none;}
+.footer-nav{display:flex;gap:20px;}
+.footer-nav a{color:rgba(255,255,255,.25);text-decoration:none;font-size:13px;transition:color .15s;}
+.footer-nav a:hover{color:rgba(255,255,255,.6);}
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero{padding:64px 20px;min-height:80vh;}
+  .treatments,.booking-section,.testimonials,.final-cta{padding:64px 20px;}
+  .hero-ctas{flex-direction:column;align-items:stretch;text-align:center;}
+  footer{padding:28px 20px;flex-direction:column;text-align:center;}
+  .footer-nav{flex-wrap:wrap;justify-content:center;}
+  .slots-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<div class="pr-watermark">Example site built by <a href="https://pageready.co.uk">PageReady</a> · pageready.co.uk · Booking systems from £499</div>
+
+<nav>
+  <div class="logo-nav"><em>Seren</em> Spa</div>
+  <div class="nav-links">
+    <a href="#">Treatments</a>
+    <a href="#">About</a>
+    <a href="#">Gift Vouchers</a>
+    <a href="#booking" class="nav-book-btn">Book Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-pill">Wareham, Dorset</div>
+    <h1>Your Space<br>to <em>Breathe Again</em></h1>
+    <p class="hero-sub">Award-winning treatments in the heart of Dorset. A place designed for the people who keep everything running — and never take a moment for themselves.</p>
+    <div class="hero-ctas">
+      <a href="#booking" class="btn-rose">Book a Treatment</a>
+      <a href="#treatments" class="btn-outline-w">See All Treatments</a>
+    </div>
+  </div>
+</section>
+
+<div class="proof-bar">
+  <div class="proof-item"><strong>4.9★</strong><span>Google Rating</span></div>
+  <div class="proof-item"><strong>800+</strong><span>Happy Clients</span></div>
+  <div class="proof-item"><strong>12</strong><span>Treatments</span></div>
+  <div class="proof-item"><strong>Same-day</strong><span>Booking Available</span></div>
+</div>
+
+<section class="treatments" id="treatments">
+  <div class="sec-label sr">What We Offer</div>
+  <div class="sec-title sr">Our Most Loved Treatments</div>
+  <div class="treat-grid">
+    <div class="treat-card sr" onclick="pickTreatment(this,'Full Body Massage','60 min','£75')">
+      <div class="treat-img" style="background-image:url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=700&q=80')"></div>
+      <div class="treat-body">
+        <div class="treat-name">Full Body Massage</div>
+        <p class="treat-desc">Deep tissue or Swedish — tailored to what your body actually needs. The one people rebook before they've left.</p>
+        <div class="treat-meta"><span class="treat-duration">⏱ 60 min</span><span class="treat-price">£75</span></div>
+        <button class="treat-select-btn">Select & Book</button>
+      </div>
+    </div>
+    <div class="treat-card sr" onclick="pickTreatment(this,'Luxury Facial','75 min','£85')">
+      <div class="treat-img" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=80')"></div>
+      <div class="treat-body">
+        <div class="treat-name">Luxury Facial</div>
+        <p class="treat-desc">A proper, unhurried facial. Cleanse, exfoliation, mask, massage. Your skin will genuinely thank you.</p>
+        <div class="treat-meta"><span class="treat-duration">⏱ 75 min</span><span class="treat-price">£85</span></div>
+        <button class="treat-select-btn">Select & Book</button>
+      </div>
+    </div>
+    <div class="treat-card sr" onclick="pickTreatment(this,'Hot Stone Therapy','90 min','£95')">
+      <div class="treat-img" style="background-image:url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=700&q=80')"></div>
+      <div class="treat-body">
+        <div class="treat-name">Hot Stone Therapy</div>
+        <p class="treat-desc">Warmed basalt stones, slow movements, total surrender. For the people who struggle to switch off — this does it for you.</p>
+        <div class="treat-meta"><span class="treat-duration">⏱ 90 min</span><span class="treat-price">£95</span></div>
+        <button class="treat-select-btn">Select & Book</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking-section" id="booking">
+  <div class="sec-label sr">Online Booking</div>
+  <div class="sec-title sr">Book in 3 Simple Steps</div>
+  <div class="booking-wrap">
+    <!-- WIDGET -->
+    <div class="booking-widget sr">
+      <div class="widget-header">
+        <h2>Book Your Treatment</h2>
+        <p id="widgetSubtitle">Choose a date, pick a time, done.</p>
+      </div>
+      <div class="widget-body">
+        <!-- Progress steps -->
+        <div class="steps-bar">
+          <div class="step-dot active" id="sdot1"><div class="step-circle">1</div><div class="step-label">Date & Time</div></div>
+          <div class="step-dot" id="sdot2"><div class="step-circle">2</div><div class="step-label">Your Details</div></div>
+          <div class="step-dot" id="sdot3"><div class="step-circle">3</div><div class="step-label">Confirm</div></div>
+        </div>
+
+        <!-- STEP 1: Date & Time -->
+        <div class="step-panel active" id="step1">
+          <div class="form-group" style="margin-bottom:20px;">
+            <label>Treatment</label>
+            <select id="treatSelect" onchange="updatePrice()">
+              <option value="75">Full Body Massage — 60 min — £75</option>
+              <option value="85">Luxury Facial — 75 min — £85</option>
+              <option value="95">Hot Stone Therapy — 90 min — £95</option>
+              <option value="65">Back, Neck & Shoulder — 45 min — £65</option>
+              <option value="55">Indian Head Massage — 30 min — £55</option>
+            </select>
+          </div>
+
+          <div class="cal-wrap">
+            <div class="cal-nav">
+              <button class="cal-arrow" onclick="prevMonth()">‹</button>
+              <div class="cal-month" id="calMonth"></div>
+              <button class="cal-arrow" onclick="nextMonth()">›</button>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+
+          <div id="timeSlotsWrap" style="display:none">
+            <label style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px;display:block;color:var(--ink)">Available Times — <span id="selectedDateLabel"></span></label>
+            <div class="slots-grid" id="slotsGrid"></div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-next" onclick="goStep(2)" id="step1Next" disabled>Choose a Date & Time →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Guest Details -->
+        <div class="step-panel" id="step2">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="fname" placeholder="Sophie">
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="lname" placeholder="Williams">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="femail" placeholder="sophie@example.com">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="fphone" placeholder="07700 000 000">
+          </div>
+          <div class="form-group">
+            <label>Anything We Should Know? <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+            <textarea placeholder="Health conditions, preferences, special occasion..."></textarea>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" onclick="goStep(1)">← Back</button>
+            <button class="btn-next" onclick="goStep(3)">Review Booking →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Confirm -->
+        <div class="step-panel" id="step3">
+          <div class="confirm-item"><span>Treatment</span><span id="cTreat">—</span></div>
+          <div class="confirm-item"><span>Date</span><span id="cDate">—</span></div>
+          <div class="confirm-item"><span>Time</span><span id="cTime">—</span></div>
+          <div class="confirm-item"><span>Name</span><span id="cName">—</span></div>
+          <div class="confirm-total"><span>Total</span><span id="cPrice">£—</span></div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.7;">No payment taken today. We'll confirm your booking by email and text within the hour.</p>
+          <div class="step-nav">
+            <button class="btn-back" onclick="goStep(2)">← Back</button>
+            <button class="btn-next" onclick="confirmBooking()">Confirm Booking ✓</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="step-panel" id="stepSuccess">
+          <div class="success-panel">
+            <div class="icon">🌿</div>
+            <h3>You're Booked In</h3>
+            <p>Confirmation sent to your email. We can't wait to see you. Please arrive 10 minutes early so you can settle in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="booking-sidebar sr">
+      <h3>Good to Know</h3>
+      <div class="side-block">
+        <h4>What's Included</h4>
+        <ul>
+          <li>Complimentary herbal tea on arrival</li>
+          <li>Use of relaxation lounge pre-treatment</li>
+          <li>Luxury robe & slippers provided</li>
+          <li>Premium organic products throughout</li>
+          <li>Post-treatment skincare advice</li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <h4>Our Cancellation Policy</h4>
+        <p>Cancel or reschedule up to 24 hours before your appointment, free of charge. Late cancellations may incur a 50% fee.</p>
+      </div>
+      <div class="side-block">
+        <h4>Location & Parking</h4>
+        <p>Seren Spa, 4 Mill Lane, Wareham, Dorset BH20 4PF<br><br>Free parking directly outside. 5 minute walk from Wareham station.</p>
+      </div>
+      <div class="side-block" style="background:var(--ink);border-color:transparent;">
+        <h4 style="color:var(--rose-hi);">Questions?</h4>
+        <p style="color:rgba(255,255,255,.5);margin-bottom:14px;">We're happy to recommend the best treatment for you.</p>
+        <a href="tel:01929000000" style="display:block;text-align:center;background:var(--rose);color:#fff;text-decoration:none;padding:12px;border-radius:9px;font-weight:700;font-size:13px;">Call 01929 000 000</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="sec-label sr">Reviews</div>
+  <div class="sec-title sr">What Our Clients Say</div>
+  <div class="testi-grid">
+    <div class="testi sr"><div class="stars">★★★★★</div><blockquote>"The hot stone massage was genuinely the most relaxed I have ever felt in my adult life. Already rebooked for next month."</blockquote><div class="testi-who"><strong>Joanna H.</strong><span>Wareham</span></div></div>
+    <div class="testi sr"><div class="stars">★★★★★</div><blockquote>"Booked online in under two minutes. Arrived, had the facial, left looking ten years younger. That's all I need to say."</blockquote><div class="testi-who"><strong>Clare M.</strong><span>Poole</span></div></div>
+    <div class="testi sr"><div class="stars">★★★★★</div><blockquote>"Bought a gift voucher for my wife's birthday. She's been back three times since. I think I've created a problem."</blockquote><div class="testi-who"><strong>David R.</strong><span>Dorchester</span></div></div>
+  </div>
+</section>
+
+<div class="final-cta">
+  <h2 class="sr">Ready to Feel Like Yourself Again?</h2>
+  <p class="sr">Book in seconds. Cancel up to 24 hours before. No strings.</p>
+  <a href="#booking" class="btn-rose sr">Book a Treatment →</a>
+</div>
+
+<footer>
+  <div><strong>Seren Spa</strong><br>4 Mill Lane, Wareham, Dorset BH20 4PF</div>
+  <nav class="footer-nav">
+    <a href="#">Treatments</a>
+    <a href="#">About</a>
+    <a href="#">Gift Vouchers</a>
+    <a href="#booking">Book</a>
+  </nav>
+  <div>© 2025 Seren Spa · <a href="tel:01929000000">01929 000 000</a></div>
+</footer>
+
+<script>
+// Cursor glow
+document.addEventListener('mousemove', e => {
+  const cg = document.getElementById('cg');
+  cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px';
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.sr').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.08 + 's'; obs.observe(el);
+});
+
+// Card glow
+document.querySelectorAll('.treat-card,.testi').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.background = `radial-gradient(circle at ${((e.clientX-r.left)/r.width)*100}% ${((e.clientY-r.top)/r.height)*100}%, rgba(181,102,94,.05) 0%, transparent 55%), #fff`;
+  });
+  card.addEventListener('mouseleave', () => card.style.background = '');
+});
+
+// Treatment picker from cards
+function pickTreatment(card, name, dur, price) {
+  document.querySelectorAll('.treat-card').forEach(c => c.classList.remove('selected-card'));
+  card.classList.add('selected-card');
+  const sel = document.getElementById('treatSelect');
+  const val = price.replace('£','');
+  for (let o of sel.options) { if (o.value === val) { sel.value = val; break; } }
+  document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+}
+function updatePrice() {}
+
+// Calendar
+let calDate = new Date();
+let selectedDay = null, selectedTime = null;
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function renderCal() {
+  document.getElementById('calMonth').textContent = months[calDate.getMonth()] + ' ' + calDate.getFullYear();
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  days.forEach(d => { const h = document.createElement('div'); h.className='cal-day-header'; h.textContent=d; grid.appendChild(h); });
+  const first = new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay();
+  const total = new Date(calDate.getFullYear(), calDate.getMonth()+1, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+  for (let i=0;i<first;i++) { const e=document.createElement('div'); e.className='cal-day empty'; grid.appendChild(e); }
+  for (let d=1;d<=total;d++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+    const thisDate = new Date(calDate.getFullYear(), calDate.getMonth(), d);
+    if (thisDate < today) { el.classList.add('past'); }
+    else {
+      if (thisDate.getTime() === today.getTime()) el.classList.add('today');
+      if (selectedDay && selectedDay.getDate()===d && selectedDay.getMonth()===calDate.getMonth() && selectedDay.getFullYear()===calDate.getFullYear()) el.classList.add('selected');
+      el.onclick = () => selectDay(thisDate, el);
+    }
+    grid.appendChild(el);
+  }
+}
+
+function selectDay(date, el) {
+  selectedDay = date; selectedTime = null;
+  document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('selectedDateLabel').textContent = date.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  renderSlots(date);
+  document.getElementById('timeSlotsWrap').style.display='block';
+  checkStep1();
+}
+
+const allSlots = ['9:00am','9:30am','10:00am','10:30am','11:00am','11:30am','2:00pm','2:30pm','3:00pm','3:30pm','4:00pm','4:30pm'];
+const unavailable = [2,5,8];
+function renderSlots(date) {
+  const grid = document.getElementById('slotsGrid');
+  grid.innerHTML = '';
+  allSlots.forEach((t, i) => {
+    const el = document.createElement('div');
+    el.className = 'slot' + (unavailable.includes(i) ? ' unavailable' : '');
+    el.textContent = t;
+    if (!unavailable.includes(i)) el.onclick = () => {
+      document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedTime = t;
+      checkStep1();
+    };
+    grid.appendChild(el);
+  });
+}
+
+function checkStep1() {
+  const btn = document.getElementById('step1Next');
+  btn.disabled = !(selectedDay && selectedTime);
+  btn.textContent = (selectedDay && selectedTime) ? 'Continue →' : 'Choose a Date & Time →';
+}
+
+function prevMonth() { calDate.setMonth(calDate.getMonth()-1); renderCal(); }
+function nextMonth() { calDate.setMonth(calDate.getMonth()+1); renderCal(); }
+
+// Steps
+function goStep(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById('step'+i).classList.toggle('active', i===n);
+    const dot = document.getElementById('sdot'+i);
+    dot.classList.remove('active','done');
+    if (i===n) dot.classList.add('active');
+    else if (i<n) dot.classList.add('done');
+  });
+  if (n===3) fillConfirm();
+}
+
+function fillConfirm() {
+  const sel = document.getElementById('treatSelect');
+  const optText = sel.options[sel.selectedIndex].text.split('—')[0].trim();
+  document.getElementById('cTreat').textContent = optText;
+  document.getElementById('cDate').textContent = selectedDay ? selectedDay.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'long'}) : '—';
+  document.getElementById('cTime').textContent = selectedTime || '—';
+  const fn = document.getElementById('fname').value || 'Guest';
+  const ln = document.getElementById('lname').value || '';
+  document.getElementById('cName').textContent = fn + ' ' + ln;
+  document.getElementById('cPrice').textContent = '£' + sel.value;
+}
+
+function confirmBooking() {
+  [1,2,3,'stepSuccess'].forEach(i => {
+    const el = document.getElementById('step'+(i==='stepSuccess'?'Success':i));
+    if (el) el.classList.remove('active');
+  });
+  document.getElementById('stepSuccess').classList.add('active');
+  document.getElementById('sdot1').classList.remove('active','done'); document.getElementById('sdot1').classList.add('done');
+  document.getElementById('sdot2').classList.remove('active','done'); document.getElementById('sdot2').classList.add('done');
+  document.getElementById('sdot3').classList.remove('active','done'); document.getElementById('sdot3').classList.add('done');
+  document.getElementById('widgetSubtitle').textContent = 'Booking confirmed ✓';
+}
+
+renderCal();
+</script>
+</body>
+</html>

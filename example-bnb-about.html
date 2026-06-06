@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | The Harbour Rooms · Swanage, Dorset</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --sand:#f5efe6; --sand-2:#ede3d5; --dusk:#2c3e50; --dusk-2:#1a2636;
+  --sea:#3d7a8a; --sea-hi:#5aa0b3; --warm:#c4793a; --warm-lt:#e8a870;
+  --ink:#1c2b38; --muted:#6b7c8d; --border:#ddd5c8; --white:#ffffff;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink); background: var(--white); overflow-x: hidden; opacity:0; animation: bodyReveal .65s ease .1s forwards; }
+@keyframes bodyReveal { to { opacity: 1; } }
+#cg { width:500px;height:500px;background:radial-gradient(circle,rgba(61,122,138,.05) 0%,transparent 70%);border-radius:50%;position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .6s,top .6s;left:-999px;top:-999px; }
+.sr { opacity:0;transform:translateY(30px);transition:opacity .75s ease,transform .75s ease; }
+.sr-l { opacity:0;transform:translateX(-30px);transition:opacity .75s ease,transform .75s ease; }
+.sr-r { opacity:0;transform:translateX(30px);transition:opacity .75s ease,transform .75s ease; }
+.sr.vis,.sr-l.vis,.sr-r.vis { opacity:1;transform:none; }
+.pr-watermark { background:#e8725a;color:#fff;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 20px;position:relative;z-index:200; }
+.pr-watermark a { color:#fff;text-decoration:none;opacity:.8; }
+nav { position:sticky;top:0;z-index:100;background:rgba(28,43,56,.96);backdrop-filter:blur(20px);padding:0 56px;height:68px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06); }
+.logo-nav { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:.02em; }
+.logo-nav em { color:var(--sea-hi);font-style:normal; }
+.nav-links { display:flex;gap:28px;align-items:center; }
+.nav-links a { font-size:13px;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s; }
+.nav-links a:hover,.nav-links a.active { color:rgba(255,255,255,.9); }
+.nav-book { background:var(--warm);color:#fff !important;padding:9px 22px;border-radius:8px;font-weight:700 !important;transition:background .15s !important; }
+.nav-book:hover { background:var(--warm-lt) !important; }
+@media (max-width:640px) { nav { padding:0 20px; } .nav-links a:not(.nav-book) { display:none; } }
+
+/* PAGE HERO */
+.page-hero {
+  background: linear-gradient(to bottom, rgba(28,38,54,.7), rgba(28,38,54,.4)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80') center/cover no-repeat;
+  padding: 88px 56px 72px; text-align: center;
+}
+.page-hero .sec-label { color: rgba(255,255,255,.6); }
+.page-hero h1 { font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:800;color:#fff;line-height:1.08;margin-bottom:14px; }
+.page-hero p { font-size:17px;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto;line-height:1.8;font-weight:300; }
+.sec-label { font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sea);margin-bottom:10px; }
+.sec-title { font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:20px; }
+
+/* STORY */
+.story { display:grid;grid-template-columns:1fr 1fr;min-height:560px; }
+.story-img { background:url('https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=900&q=80') center/cover no-repeat; }
+.story-content { padding:72px 64px;display:flex;flex-direction:column;justify-content:center; }
+.story-content p { font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:14px; }
+@media (max-width:768px) { .story { grid-template-columns:1fr; } .story-img { min-height:240px; } .story-content { padding:44px 24px; } }
+
+/* TEAM */
+.team { padding:88px 56px;background:var(--sand); }
+.team-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;max-width:960px;margin-top:48px; }
+.team-card { background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:box-shadow .25s,transform .2s; }
+.team-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.09);transform:translateY(-4px); }
+.team-photo { height:220px;background-size:cover;background-position:top center; }
+.team-body { padding:22px 24px; }
+.team-name { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px;color:var(--ink); }
+.team-role { font-size:12px;font-weight:700;color:var(--sea);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px; }
+.team-bio { font-size:13px;color:var(--muted);line-height:1.7; }
+
+/* VALUES */
+.values { padding:88px 56px; }
+.values-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:960px;margin-top:44px; }
+.value-card { padding:30px 26px;border:1px solid var(--border);border-radius:14px;transition:box-shadow .2s,transform .15s; }
+.value-card:hover { box-shadow:0 8px 32px rgba(0,0,0,.06);transform:translateY(-3px); }
+.v-num { font-family:'Playfair Display',serif;font-size:48px;font-weight:800;color:var(--sand-2);line-height:1;margin-bottom:10px; }
+.value-card h3 { font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ink); }
+.value-card p { font-size:13px;color:var(--muted);line-height:1.7; }
+
+/* CTA */
+.cta-strip { background:var(--dusk-2);padding:72px 56px;text-align:center; }
+.cta-strip h2 { font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);font-weight:800;color:#fff;margin-bottom:14px; }
+.cta-strip p { font-size:16px;color:rgba(255,255,255,.55);margin-bottom:32px;font-weight:300; }
+.btn-warm { background:var(--warm);color:#fff;padding:15px 34px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 4px 28px rgba(196,121,58,.3);transition:transform .15s,background .15s; display:inline-block; }
+.btn-warm:hover { transform:translateY(-2px);background:var(--warm-lt); }
+
+footer { background:var(--dusk-2);color:rgba(255,255,255,.35);padding:36px 56px;font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px; }
+footer strong { color:rgba(255,255,255,.6);font-family:'Playfair Display',serif; }
+footer a { color:var(--sea-hi);text-decoration:none; }
+.footer-nav { display:flex;gap:20px; }
+.footer-nav a { color:rgba(255,255,255,.35);text-decoration:none;font-size:13px;transition:color .15s; }
+.footer-nav a:hover { color:rgba(255,255,255,.7); }
+
+@media (max-width:600px) {
+  .page-hero { padding:60px 20px; }
+  .team, .values { padding:60px 20px; }
+  .cta-strip { padding:60px 20px; }
+  footer { padding:28px 20px;flex-direction:column;text-align:center; }
+  .footer-nav { flex-wrap:wrap;justify-content:center; }
+}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<div class="pr-watermark">Example site built by <a href="https://pageready.co.uk">PageReady</a> · pageready.co.uk · Get yours from £299</div>
+<nav>
+  <div class="logo-nav">The <em>Harbour</em> Rooms</div>
+  <div class="nav-links">
+    <a href="example-bnb-home.html">Home</a>
+    <a href="example-bnb-about.html" class="active">About</a>
+    <a href="example-bnb-contact.html">Find Us</a>
+    <a href="example-bnb-contact.html" class="nav-book">Book a Room</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="sec-label sr">Our Story</div>
+  <h1 class="sr">We're Not a Hotel.<br>That's the Point.</h1>
+  <p class="sr">Six rooms, one family, and sixteen years of knowing that the small things matter more than people think.</p>
+</div>
+
+<div class="story">
+  <div class="story-img"></div>
+  <div class="story-content">
+    <div class="sec-label sr">How It Started</div>
+    <div class="sec-title sr">A House Above the Harbour</div>
+    <p class="sr">My parents bought this place in 2009 when Swanage was still the kind of town that locals kept secret. It was a tired guest house with four rooms, a broken boiler, and the most extraordinary view either of them had ever seen from a kitchen window.</p>
+    <p class="sr">They spent a year doing it properly — not cheaply, properly. New plumbing, handmade furniture, beds from a maker in Shaftesbury. Six rooms instead of four, because the garden room was too good to waste.</p>
+    <p class="sr">I grew up here. Helped at breakfast from about age nine. Took over the keys in 2019. The boiler's still the same one, but everything else has been touched at least twice.</p>
+  </div>
+</div>
+
+<section class="team">
+  <div class="sec-label sr">The People</div>
+  <div class="sec-title sr">Who You'll Actually Meet</div>
+  <div class="team-grid">
+    <div class="team-card sr">
+      <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80')"></div>
+      <div class="team-body">
+        <div class="team-name">Emma Thornton</div>
+        <div class="team-role">Owner & Host</div>
+        <p class="team-bio">Grew up here, left for a few years, came back because nothing else made sense. Responsible for breakfast, the garden, and knowing which table in the Bay Restaurant is the best one.</p>
+      </div>
+    </div>
+    <div class="team-card sr">
+      <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=500&q=80')"></div>
+      <div class="team-body">
+        <div class="team-name">Dan Thornton</div>
+        <div class="team-role">Chef & Co-owner</div>
+        <p class="team-bio">Worked in kitchens in London for nine years before deciding that Dorset bacon was worth coming home for. Responsible for breakfast, the sourdough, and making it look effortless.</p>
+      </div>
+    </div>
+    <div class="team-card sr">
+      <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=500&q=80')"></div>
+      <div class="team-body">
+        <div class="team-name">Ruth Carver</div>
+        <div class="team-role">Housekeeping & Guest Services</div>
+        <p class="team-bio">Has worked here since 2014 and knows where everything is. If you need a restaurant recommendation, a taxi, or a very specific type of pillow, she's the one to ask.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="sec-label sr">What We Believe In</div>
+  <div class="sec-title sr">The Things We Don't Compromise On</div>
+  <div class="values-grid">
+    <div class="value-card sr">
+      <div class="v-num">01</div>
+      <h3>Breakfast is Sacred</h3>
+      <p>Local eggs, Dorset bacon, bread Dan baked at 6am. Not a buffet. Not a hot lamp. A proper breakfast cooked to order, every morning, no rush.</p>
+    </div>
+    <div class="value-card sr">
+      <div class="v-num">02</div>
+      <h3>Quality Over Quantity</h3>
+      <p>Six rooms is the right number. Small enough to actually know who's staying and why they're here. We're not trying to fill 40 rooms every night.</p>
+    </div>
+    <div class="value-card sr">
+      <div class="v-num">03</div>
+      <h3>Honest Local Knowledge</h3>
+      <p>We'll tell you the best walk, the best pub, and the beach that isn't on any map. And we'll also tell you which tourist trap to avoid, even if it's nearby.</p>
+    </div>
+    <div class="value-card sr">
+      <div class="v-num">04</div>
+      <h3>No Nasty Surprises</h3>
+      <p>What you see on the website is what you get. No resort fees. No auto-gratuity. No checkout at 9am sharp. We'll tell you if anything's different.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <h2 class="sr">Come and See for Yourself</h2>
+  <p class="sr">We're easy to get to, hard to leave, and we'll have the kettle on.</p>
+  <a href="example-bnb-contact.html" class="btn-warm sr">Check Availability</a>
+</div>
+
+<footer>
+  <div><strong>The Harbour Rooms</strong><br>12 Harbour Hill, Swanage, Dorset · BH19 1AA</div>
+  <nav class="footer-nav">
+    <a href="example-bnb-home.html">Home</a>
+    <a href="example-bnb-about.html">About</a>
+    <a href="example-bnb-contact.html">Find Us</a>
+    <a href="example-bnb-contact.html">Book</a>
+  </nav>
+  <div>© 2025 The Harbour Rooms · <a href="tel:01929000000">01929 000 000</a></div>
+</footer>
+
+<script>
+document.getElementById('cg') && document.addEventListener('mousemove', e => {
+  const cg = document.getElementById('cg');
+  cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px';
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.sr,.sr-l,.sr-r').forEach((el,i) => {
+  el.style.transitionDelay = (i % 4) * 0.08 + 's'; obs.observe(el);
+});
+document.querySelectorAll('.team-card,.value-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.background = `radial-gradient(circle at ${((e.clientX-r.left)/r.width)*100}% ${((e.clientY-r.top)/r.height)*100}%, rgba(61,122,138,.05) 0%, transparent 55%), #fff`;
+  });
+  card.addEventListener('mouseleave', () => card.style.background = '');
+});
+</script>
+</body>
+</html>

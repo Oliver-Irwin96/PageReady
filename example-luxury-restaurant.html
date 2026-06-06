@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember & Stone | Fine Dining · Dorset</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── WATERMARK ── */
+.pr-bar{background:#e8725a;color:#fff;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 20px;position:relative;z-index:300;}
+.pr-bar a{color:#fff;text-decoration:none;opacity:.8;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:   #0a0806;
+  --char:    #111008;
+  --char-2:  #1a160f;
+  --ember:   #c4793a;
+  --ember-lt:#e0a060;
+  --stone:   #8a8070;
+  --stone-lt:#b8ae9e;
+  --cream:   #f5f0e8;
+  --cream-2: #ebe5d8;
+  --border:  rgba(255,255,255,.08);
+  --white:   #ffffff;
+}
+
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;opacity:0;animation:reveal .8s ease .1s forwards;}
+@keyframes reveal{to{opacity:1;}}
+
+/* ── CURSOR GLOW ── */
+#cg{width:600px;height:600px;background:radial-gradient(circle,rgba(196,121,58,.06) 0%,transparent 65%);border-radius:50%;position:fixed;pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:left .8s cubic-bezier(.25,.46,.45,.94),top .8s cubic-bezier(.25,.46,.45,.94);left:-999px;top:-999px;}
+
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:200;padding:0 60px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:normal;}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--white);letter-spacing:.18em;text-transform:uppercase;}
+.logo em{color:var(--ember);font-style:normal;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-reserve{background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--white) !important;padding:10px 24px;border-radius:2px;transition:border-color .2s,background .2s !important;}
+.nav-reserve:hover{border-color:var(--ember);background:rgba(196,121,58,.08) !important;}
+@media(max-width:768px){nav{padding:0 24px;top:24px;}.nav-links a:not(.nav-reserve){display:none;}}
+
+/* ── SCROLL REVEAL ── */
+.sr{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease;}
+.sr-slow{opacity:0;transform:translateY(24px);transition:opacity 1.4s ease,transform 1.4s ease;}
+.sr-l{opacity:0;transform:translateX(-40px);transition:opacity 1s ease,transform 1s ease;}
+.sr-r{opacity:0;transform:translateX(40px);transition:opacity 1s ease,transform 1s ease;}
+.sr.vis,.sr-slow.vis,.sr-l.vis,.sr-r.vis{opacity:1;transform:none;}
+
+/* ── HERO ── */
+.hero{height:100vh;min-height:700px;position:relative;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85') center/cover no-repeat;transform:scale(1.08);transition:transform 8s ease-out;will-change:transform;}
+.hero-bg.loaded{transform:scale(1);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,6,.95) 0%,rgba(10,8,6,.5) 40%,rgba(10,8,6,.2) 70%,rgba(10,8,6,.4) 100%);}
+.hero-content{position:relative;z-index:2;padding:0 60px 88px;width:100%;}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--ember);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,110px);font-weight:300;line-height:.95;color:var(--white);letter-spacing:-.01em;margin-bottom:28px;}
+.hero h1 em{font-style:italic;color:var(--ember-lt);}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.45);font-weight:300;letter-spacing:.04em;max-width:400px;line-height:1.9;margin-bottom:40px;}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.btn-ember{background:var(--ember);color:var(--white);padding:16px 40px;border-radius:2px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .2s,transform .15s;}
+.btn-ember:hover{background:var(--ember-lt);transform:translateY(-1px);}
+.btn-ghost{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:15px 32px;border-radius:2px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.6);color:var(--white);}
+.hero-scroll{position:absolute;bottom:40px;right:60px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.35;}
+.hero-scroll span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;writing-mode:vertical-rl;}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--ember),transparent);animation:scrollPulse 2s ease infinite;}
+@keyframes scrollPulse{0%,100%{opacity:.4;transform:scaleY(1);}50%{opacity:1;transform:scaleY(.6) translateY(10px);}}
+@media(max-width:600px){.hero-content{padding:0 24px 64px;}.hero-scroll{display:none;}}
+
+/* ── INTRO ── */
+.intro{padding:120px 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto;}
+@media(max-width:900px){.intro{grid-template-columns:1fr;gap:48px;padding:80px 24px;}}
+.intro-text .label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);margin-bottom:16px;}
+.intro-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,58px);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:24px;}
+.intro-text h2 em{font-style:italic;color:var(--ember-lt);}
+.intro-text p{font-size:15px;color:var(--stone-lt);line-height:2;font-weight:300;margin-bottom:16px;}
+.intro-img{position:relative;height:500px;border-radius:2px;overflow:hidden;}
+.intro-img-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=900&q=85') center/cover no-repeat;transition:transform .6s ease;}
+.intro-img:hover .intro-img-bg{transform:scale(1.04);}
+.intro-img-caption{position:absolute;bottom:20px;left:20px;background:rgba(10,8,6,.7);padding:10px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+
+/* ── DIVIDER ── */
+.divider{display:flex;align-items:center;gap:24px;padding:0 60px;max-width:1200px;margin:0 auto;}
+.divider-line{flex:1;height:1px;background:var(--border);}
+.divider-mark{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--ember);opacity:.6;}
+@media(max-width:600px){.divider{padding:0 24px;}}
+
+/* ── MENU HIGHLIGHTS ── */
+.menu{padding:100px 60px;background:var(--char);}
+@media(max-width:600px){.menu{padding:72px 24px;}}
+.menu-header{display:flex;justify-content:space-between;align-items:flex-end;max-width:1100px;margin:0 auto 56px;flex-wrap:wrap;gap:20px;}
+.menu-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);}
+.menu-header h2 em{font-style:italic;color:var(--ember-lt);}
+.menu-link{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);text-decoration:none;display:flex;align-items:center;gap:8px;transition:gap .2s;}
+.menu-link:hover{gap:14px;}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:0 auto;}
+@media(max-width:800px){.menu-grid{grid-template-columns:1fr;}}
+.menu-item{background:var(--char-2);padding:40px 36px;transition:background .25s;cursor:default;position:relative;overflow:hidden;}
+.menu-item::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(196,121,58,.06) 0%,transparent 60%);opacity:0;transition:opacity .3s;}
+.menu-item:hover{background:#1f1a11;}
+.menu-item:hover::before{opacity:1;}
+.menu-course{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-bottom:16px;}
+.menu-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.2;}
+.menu-desc{font-size:13px;color:var(--stone-lt);line-height:1.8;font-weight:300;margin-bottom:20px;}
+.menu-price{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--ember);font-weight:300;}
+
+/* ── EXPERIENCE STRIP ── */
+.experience{padding:100px 60px;max-width:1200px;margin:0 auto;}
+@media(max-width:600px){.experience{padding:72px 24px;}}
+.exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:56px;}
+@media(max-width:800px){.exp-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.exp-grid{grid-template-columns:1fr;}}
+.exp-item{background:var(--black);padding:40px 32px;text-align:center;}
+.exp-num{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--ember);line-height:1;margin-bottom:8px;}
+.exp-label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;}
+.exp-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;font-weight:300;}
+
+/* ── PARALLAX IMAGE STRIP ── */
+.parallax-strip{height:60vh;min-height:400px;position:relative;overflow:hidden;}
+.parallax-bg{position:absolute;inset:-20%;background:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=85') center/cover no-repeat;will-change:transform;}
+.parallax-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,8,6,.7) 0%,rgba(10,8,6,.3) 100%);}
+.parallax-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;}
+.parallax-content blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,46px);font-weight:300;font-style:italic;color:var(--white);line-height:1.3;max-width:800px;}
+.parallax-content cite{display:block;margin-top:20px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);font-style:normal;}
+
+/* ── PRIVATE DINING ── */
+.private{display:grid;grid-template-columns:1fr 1fr;min-height:600px;}
+@media(max-width:900px){.private{grid-template-columns:1fr;}}
+.private-img{background:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=85') center/cover no-repeat;min-height:400px;position:relative;overflow:hidden;}
+.private-img::after{content:'';position:absolute;inset:0;background:rgba(10,8,6,.2);}
+.private-content{background:var(--char);padding:80px 64px;display:flex;flex-direction:column;justify-content:center;}
+@media(max-width:600px){.private-content{padding:56px 24px;}}
+.private-content .label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);margin-bottom:16px;}
+.private-content h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,50px);font-weight:300;color:var(--white);margin-bottom:20px;line-height:1.1;}
+.private-content h2 em{font-style:italic;color:var(--ember-lt);}
+.private-content p{font-size:14px;color:var(--stone-lt);line-height:2;font-weight:300;margin-bottom:12px;}
+.private-detail{display:flex;align-items:center;gap:10px;margin-top:24px;margin-bottom:8px;font-size:13px;color:var(--stone-lt);}
+.private-detail svg{color:var(--ember);flex-shrink:0;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{padding:100px 60px;background:var(--char-2);}
+@media(max-width:600px){.testimonials{padding:72px 24px;}}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:56px auto 0;}
+@media(max-width:800px){.testi-grid{grid-template-columns:1fr;}}
+.testi{background:var(--char);padding:40px 36px;transition:background .2s;}
+.testi:hover{background:#1a160f;}
+.testi-stars{color:var(--ember);font-size:14px;letter-spacing:3px;margin-bottom:20px;}
+.testi blockquote{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;font-style:italic;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:24px;}
+.testi-name{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);}
+.testi-detail{font-size:12px;color:var(--stone);opacity:.5;margin-top:4px;}
+
+/* ── RESERVE ── */
+.reserve{padding:120px 60px;text-align:center;position:relative;overflow:hidden;}
+@media(max-width:600px){.reserve{padding:80px 24px;}}
+.reserve::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(196,121,58,.07) 0%,transparent 70%);}
+.reserve-inner{position:relative;z-index:2;max-width:640px;margin:0 auto;}
+.reserve h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6vw,80px);font-weight:300;color:var(--white);line-height:1.05;margin-bottom:16px;}
+.reserve h2 em{font-style:italic;color:var(--ember-lt);}
+.reserve p{font-size:15px;color:var(--stone-lt);line-height:1.9;font-weight:300;margin-bottom:40px;}
+.reserve-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.reserve-note{margin-top:28px;font-size:12px;color:var(--stone);letter-spacing:.06em;}
+
+/* ── FOOTER ── */
+footer{background:var(--char);border-top:1px solid var(--border);padding:48px 60px;}
+@media(max-width:600px){footer{padding:40px 24px;}}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;}
+@media(max-width:768px){.footer-inner{grid-template-columns:1fr;gap:32px;}}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;}
+.footer-logo em{color:var(--ember);font-style:normal;}
+.footer-tagline{font-size:12px;color:var(--stone);line-height:1.7;font-weight:300;}
+.footer-col h4{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);margin-bottom:16px;}
+.footer-col p,.footer-col a{display:block;font-size:13px;color:var(--stone-lt);margin-bottom:8px;text-decoration:none;transition:color .15s;line-height:1.6;font-weight:300;}
+.footer-col a:hover{color:var(--white);}
+.footer-bottom{max-width:1100px;margin:40px auto 0;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom span{font-size:12px;color:var(--stone);opacity:.5;}
+.footer-bottom a{font-size:12px;color:var(--ember);text-decoration:none;opacity:.7;}
+
+/* ── MOBILE PASS ── */
+@media(max-width:600px){
+  .hero-actions{flex-direction:column;align-items:flex-start;}
+  .menu-header{flex-direction:column;align-items:flex-start;}
+  .reserve-actions{flex-direction:column;align-items:stretch;}
+  .reserve-actions a{text-align:center;}
+}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+
+<div class="pr-bar">Example site by <a href="https://pageready.co.uk">PageReady</a> · Premium builds from £1,400 · pageready.co.uk</div>
+
+<nav>
+  <div class="logo">Ember <em>&</em> Stone</div>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#private">Private Dining</a>
+    <a href="#reserve">Find Us</a>
+    <a href="#reserve" class="nav-reserve">Reserve a Table</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Fine Dining · Dorset</div>
+    <h1>Where Fire<br>Meets <em>Finesse</em></h1>
+    <p class="hero-sub">Seasonal ingredients. Open flame. A dining room above the Purbeck hills that earns its silence.</p>
+    <div class="hero-actions">
+      <a href="#reserve" class="btn-ember">Reserve a Table</a>
+      <a href="#menu" class="btn-ghost">View the Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<section style="padding:100px 60px 60px;" class="sr">
+  <div class="intro" style="padding:0;">
+    <div class="intro-text">
+      <div class="label sr">Our Philosophy</div>
+      <h2 class="sr">Cooking With<br><em>Intention</em></h2>
+      <p class="sr">Ember & Stone opened in 2018 with a single idea: that the best dining experiences come from restraint. From knowing what to leave out as much as what to put in.</p>
+      <p class="sr">Every dish is built around the open fire — a wood-burning hearth that drives our menu from the first course to the last. Suppliers are chosen because we know their names, not just their postcodes.</p>
+    </div>
+    <div class="intro-img sr-r">
+      <div class="intro-img-bg"></div>
+      <div class="intro-img-caption">The Kitchen — Ember & Stone</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider sr"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<section class="menu" id="menu">
+  <div class="menu-header sr">
+    <div>
+      <div class="label">Seasonal Menu</div>
+      <h2>A Taste of <em>What's Coming</em></h2>
+    </div>
+    <a href="#reserve" class="menu-link">Full menu on request →</a>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item sr">
+      <div class="menu-course">First Course</div>
+      <div class="menu-name">Cured Chalk Stream Trout</div>
+      <p class="menu-desc">Dorset watercress, burnt lemon oil, shaved fennel, buttermilk. From the River Piddle, caught Monday.</p>
+      <div class="menu-price">£18</div>
+    </div>
+    <div class="menu-item sr">
+      <div class="menu-course">Main Course</div>
+      <div class="menu-name">Flame-Roasted Lamb Rump</div>
+      <p class="menu-desc">Purbeck Hill lamb, ember-charred onion, wild garlic jus, Jersey Royals, salsa verde.</p>
+      <div class="menu-price">£42</div>
+    </div>
+    <div class="menu-item sr">
+      <div class="menu-course">Dessert</div>
+      <div class="menu-name">Dark Chocolate & Malt</div>
+      <p class="menu-desc">Valrhona ganache, smoked barley ice cream, salted caramel, puffed grain, sour cherry.</p>
+      <div class="menu-price">£14</div>
+    </div>
+    <div class="menu-item sr">
+      <div class="menu-course">First Course</div>
+      <div class="menu-name">Heritage Beetroot</div>
+      <p class="menu-desc">Whipped goat's curd, hazelnut crumb, pickled shallot, micro herbs, aged balsamic glaze.</p>
+      <div class="menu-price">£14</div>
+    </div>
+    <div class="menu-item sr">
+      <div class="menu-course">Main Course</div>
+      <div class="menu-name">Whole Dorset Sea Bass</div>
+      <p class="menu-desc">Grilled over vine wood, saffron beurre blanc, samphire, clams, charred lemon.</p>
+      <div class="menu-price">£38</div>
+    </div>
+    <div class="menu-item sr">
+      <div class="menu-course">Cheese</div>
+      <div class="menu-name">Dorset Cheese Selection</div>
+      <p class="menu-desc">A rotating selection of three local cheeses. Chutney, oat biscuits, honeycomb, candied walnut.</p>
+      <div class="menu-price">£16</div>
+    </div>
+  </div>
+</section>
+
+<section class="experience">
+  <div class="label sr">By the Numbers</div>
+  <h2 class="sr" style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,50px);font-weight:300;color:var(--white);">Seven Years of <em style="font-style:italic;color:var(--ember-lt);">Getting It Right</em></h2>
+  <div class="exp-grid">
+    <div class="exp-item sr"><div class="exp-num">7</div><div class="exp-label">Years Open</div><div class="exp-desc">Opened 2018. Still the same two people in the kitchen.</div></div>
+    <div class="exp-item sr"><div class="exp-num">4.9</div><div class="exp-label">Google Rating</div><div class="exp-desc">Over 340 reviews. We read every single one.</div></div>
+    <div class="exp-item sr"><div class="exp-num">14</div><div class="exp-label">Local Suppliers</div><div class="exp-desc">All within 30 miles. Most we visit ourselves.</div></div>
+    <div class="exp-item sr"><div class="exp-num">2</div><div class="exp-label">AA Rosettes</div><div class="exp-desc">Awarded 2022. We're quietly working on a third.</div></div>
+  </div>
+</section>
+
+<div class="parallax-strip" id="parallaxStrip">
+  <div class="parallax-bg" id="parallaxBg"></div>
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content">
+    <div>
+      <blockquote class="sr-slow">"One of the most quietly confident restaurants in the South West. Ember & Stone knows exactly what it is."</blockquote>
+      <cite class="sr-slow">— The Guardian, 2024</cite>
+    </div>
+  </div>
+</div>
+
+<section class="private" id="private">
+  <div class="private-img"></div>
+  <div class="private-content">
+    <div class="label sr">Exclusive Events</div>
+    <h2 class="sr">Private Dining &<br><em>Celebrations</em></h2>
+    <p class="sr">The Stone Room seats up to 18 guests for private dinners, corporate evenings, and celebrations. A dedicated space, a bespoke menu, and no shared dining room.</p>
+    <p class="sr">We work with you to design a menu around your guests and the occasion. Wine pairings, canapé arrivals, and full service are all included.</p>
+    <div class="private-detail sr">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Up to 18 guests · Bespoke menu from £85 per person
+    </div>
+    <div class="private-detail sr">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+      Enquire: <a href="tel:01929000000" style="color:var(--ember);text-decoration:none;">01929 000 000</a>
+    </div>
+    <div style="margin-top:32px;" class="sr">
+      <a href="#reserve" class="btn-ember">Enquire About Private Dining</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="label sr">What Guests Say</div>
+    <h2 class="sr" style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);font-weight:300;color:var(--white);">Words We're <em style="font-style:italic;color:var(--ember-lt);">Proud of</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi sr">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"The lamb was the single best thing I've eaten in five years of dining out. The room is just right. We're already back for our anniversary."</blockquote>
+      <div class="testi-name">James & Rachel T.</div>
+      <div class="testi-detail">Visited March 2025</div>
+    </div>
+    <div class="testi sr">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"Private dining room for my husband's 50th. They got every detail right without being asked twice. Extraordinary evening."</blockquote>
+      <div class="testi-name">Caroline M.</div>
+      <div class="testi-detail">Private Dining · February 2025</div>
+    </div>
+    <div class="testi sr">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"The kind of restaurant that reminds you why you love food. Quiet confidence in every plate. Will be back every season."</blockquote>
+      <div class="testi-name">David H.</div>
+      <div class="testi-detail">Visited January 2025</div>
+    </div>
+  </div>
+</section>
+
+<section class="reserve" id="reserve">
+  <div class="reserve-inner">
+    <div class="label sr">Reservations</div>
+    <h2 class="sr">Join Us for<br><em>an Evening</em></h2>
+    <p class="sr">We take reservations up to 8 weeks in advance. Parties of 7 or more, please call directly. We always hold a small number of walk-in covers at the bar.</p>
+    <div class="reserve-actions sr">
+      <a href="tel:01929000000" class="btn-ember">📞 Call 01929 000 000</a>
+      <a href="mailto:reservations@emberandstone.co.uk" class="btn-ghost">✉ Email Us</a>
+    </div>
+    <p class="reserve-note sr">Ember & Stone · Mill Lane, Wareham, Dorset · Open Wed–Sun from 6pm</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Ember <em>&</em> Stone</div>
+      <p class="footer-tagline">Fine dining in the Purbeck Hills.<br>Open Wednesday to Sunday from 6pm.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Find Us</h4>
+      <p>4 Mill Lane<br>Wareham<br>Dorset BH20 4PF</p>
+      <a href="tel:01929000000">01929 000 000</a>
+      <a href="mailto:reservations@emberandstone.co.uk">reservations@emberandstone.co.uk</a>
+    </div>
+    <div class="footer-col">
+      <h4>Opening Hours</h4>
+      <p>Wednesday – Friday: 6pm – 10pm</p>
+      <p>Saturday: 12pm – 2:30pm · 6pm – 10pm</p>
+      <p>Sunday: 12pm – 4pm</p>
+      <p style="margin-top:12px;">Monday & Tuesday: Closed</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Ember & Stone · All rights reserved</span>
+    <a href="https://pageready.co.uk">Site by PageReady</a>
+  </div>
+</footer>
+
+<script>
+// Cursor glow
+document.addEventListener('mousemove', e => {
+  const cg = document.getElementById('cg');
+  cg.style.left = e.clientX + 'px';
+  cg.style.top = e.clientY + 'px';
+});
+
+// Hero BG entrance zoom
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('heroBg').classList.add('loaded'), 100);
+});
+
+// Parallax on scroll
+const parallaxBg = document.getElementById('parallaxBg');
+const parallaxStrip = document.getElementById('parallaxStrip');
+function handleParallax() {
+  const rect = parallaxStrip.getBoundingClientRect();
+  const vh = window.innerHeight;
+  if (rect.bottom > 0 && rect.top < vh) {
+    const progress = (vh - rect.top) / (vh + rect.height);
+    parallaxBg.style.transform = `translateY(${(progress - 0.5) * 80}px)`;
+  }
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.sr,.sr-slow,.sr-l,.sr-r').forEach((el, i) => {
+  el.style.transitionDelay = (i % 5) * 0.1 + 's';
+  obs.observe(el);
+});
+
+// Menu card mouse glow
+document.querySelectorAll('.menu-item').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+
+// Testimonial hover glow
+document.querySelectorAll('.testi').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    card.style.background = `radial-gradient(circle at ${x}% ${y}%, #1f1a11 0%, #111008 60%)`;
+  });
+  card.addEventListener('mouseleave', () => card.style.background = '');
+});
+
+// Scroll handler
+window.addEventListener('scroll', handleParallax, { passive: true });
+handleParallax();
+</script>
+</body>
+</html>

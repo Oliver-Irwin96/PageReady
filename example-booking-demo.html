@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revive Beauty — Book an Appointment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0c1220;
+    --indigo: #5b5ef4;
+    --indigo-hi: #7b7ff6;
+    --indigo-light: rgba(91,94,244,.08);
+    --cream: #f8fafc;
+    --muted: #64748b;
+    --rose: #f472b6;
+    --sage: #86efac;
+    --surface: #ffffff;
+    --border: rgba(12,18,32,.08);
+    --radius: 14px;
+    --radius-lg: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    cursor: none;
+  }
+
+  /* PageReady watermark */
+  .pr-bar {
+    background: var(--ink);
+    color: rgba(255,255,255,.5);
+    font-size: 11px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-align: center;
+    padding: 7px 16px;
+    letter-spacing: .04em;
+  }
+  .pr-bar a { color: var(--indigo-hi); text-decoration: none; }
+
+  /* Cursor */
+  .cursor {
+    width: 20px; height: 20px;
+    border: 2px solid var(--indigo);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform .1s, width .2s, height .2s, background .2s;
+  }
+  .cursor.big { width: 40px; height: 40px; background: rgba(91,94,244,.1); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a0533 0%, #0c1220 40%, #0d1f3c 100%);
+    padding: 72px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(91,94,244,.35) 0%, transparent 70%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(91,94,244,.2);
+    border: 1px solid rgba(91,94,244,.3);
+    color: var(--indigo-hi);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .hero p {
+    color: rgba(255,255,255,.6);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Main layout */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: 0 4px 24px rgba(12,18,32,.06);
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title .step-badge {
+    width: 26px; height: 26px;
+    background: var(--indigo);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Services */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .service-btn {
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all .2s;
+    position: relative;
+  }
+  .service-btn:hover { border-color: var(--indigo); background: var(--indigo-light); }
+  .service-btn.selected {
+    border-color: var(--indigo);
+    background: var(--indigo-light);
+    box-shadow: 0 0 0 3px rgba(91,94,244,.15);
+  }
+  .service-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 18px; height: 18px;
+    background: var(--indigo);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+  .service-name { font-size: .9rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .service-meta { font-size: .78rem; color: var(--muted); }
+  .service-price { font-size: .85rem; font-weight: 700; color: var(--indigo); margin-top: 6px; }
+
+  /* Calendar */
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-nav {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+  }
+  .cal-nav:hover { border-color: var(--indigo); color: var(--indigo); }
+  .cal-month {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-day-label {
+    text-align: center;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 6px 0;
+    letter-spacing: .04em;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--ink);
+    border: 1.5px solid transparent;
+  }
+  .cal-day:hover:not(.empty):not(.past) { background: var(--indigo-light); border-color: var(--indigo); }
+  .cal-day.empty { cursor: default; }
+  .cal-day.past { color: #c8d0dc; cursor: default; }
+  .cal-day.today { border-color: var(--indigo); color: var(--indigo); font-weight: 700; }
+  .cal-day.selected { background: var(--indigo); color: #fff; border-color: var(--indigo); }
+  .cal-day.has-slots::after {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    background: var(--rose);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4px;
+  }
+  .cal-day { position: relative; }
+
+  /* Time slots */
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .slot-btn {
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 10px 6px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: center;
+    transition: all .15s;
+  }
+  .slot-btn:hover:not(.taken) { border-color: var(--indigo); background: var(--indigo-light); }
+  .slot-btn.selected { background: var(--indigo); color: #fff; border-color: var(--indigo); }
+  .slot-btn.taken { color: #c8d0dc; cursor: not-allowed; text-decoration: line-through; }
+
+  /* Summary panel */
+  .summary-panel { position: sticky; top: 24px; }
+
+  .summary-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-item:last-of-type { border-bottom: none; }
+  .summary-icon {
+    width: 36px; height: 36px;
+    background: var(--indigo-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .summary-label { font-size: .75rem; color: var(--muted); font-weight: 500; margin-bottom: 2px; }
+  .summary-value { font-size: .9rem; font-weight: 600; color: var(--ink); }
+  .summary-empty { color: #c8d0dc; font-weight: 400; font-style: italic; }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--indigo-light);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+  }
+  .total-label { font-size: .85rem; font-weight: 600; color: var(--muted); }
+  .total-price { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--indigo); }
+
+  .book-btn {
+    width: 100%;
+    background: var(--indigo);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    letter-spacing: .01em;
+  }
+  .book-btn:hover:not(:disabled) { background: var(--indigo-hi); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(91,94,244,.35); }
+  .book-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* Confirmation screen */
+  .confirm-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 24px;
+  }
+  .confirm-screen.visible { display: block; }
+  .confirm-icon {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--indigo), var(--indigo-hi));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 32px rgba(91,94,244,.3);
+  }
+  .confirm-screen h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .confirm-screen p { color: var(--muted); font-size: .95rem; line-height: 1.6; margin-bottom: 8px; }
+  .confirm-details {
+    background: var(--indigo-light);
+    border: 1px solid rgba(91,94,244,.15);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 24px 0;
+    text-align: left;
+  }
+  .confirm-detail { display: flex; gap: 12px; padding: 8px 0; font-size: .9rem; }
+  .confirm-detail strong { color: var(--ink); font-weight: 600; min-width: 90px; }
+  .confirm-detail span { color: var(--muted); }
+  .reset-btn {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 24px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s;
+    margin-top: 8px;
+  }
+  .reset-btn:hover { border-color: var(--indigo); color: var(--indigo); }
+
+  .section-gap { margin-top: 24px; }
+
+  .date-placeholder {
+    padding: 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: .9rem;
+    background: var(--cream);
+    border-radius: var(--radius);
+    border: 1.5px dashed var(--border);
+  }
+
+  /* Loading entrance */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp .5s ease forwards; }
+  .fade-up:nth-child(2) { animation-delay: .1s; opacity: 0; }
+  .fade-up:nth-child(3) { animation-delay: .2s; opacity: 0; }
+
+  @media (max-width: 700px) {
+    .booking-grid { grid-template-columns: 1fr; }
+    .summary-panel { position: static; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pr-bar">✦ Example page by <a href="#">PageReady</a> — Want a website like this? Call Oliver: 07XXX XXXXXX</div>
+
+<div class="cursor" id="cursor"></div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Book Online — 24/7</div>
+    <h1>Book Your Appointment</h1>
+    <p>Choose your treatment, pick a date and time, and you're done. Confirmation sent straight to your inbox.</p>
+  </div>
+</div>
+
+<div class="main">
+  <div id="bookingFlow">
+    <div class="booking-grid">
+
+      <!-- Left col -->
+      <div>
+
+        <!-- Step 1: Service -->
+        <div class="card fade-up">
+          <div class="card-title"><div class="step-badge">1</div> Choose Your Treatment</div>
+          <div class="services-grid">
+            <button class="service-btn" onclick="selectService(this, 'Classic Facial', 60, 55)">
+              <div class="service-name">Classic Facial</div>
+              <div class="service-meta">60 min · Deep cleanse &amp; hydrate</div>
+              <div class="service-price">£55</div>
+            </button>
+            <button class="service-btn" onclick="selectService(this, 'Luxury Massage', 90, 75)">
+              <div class="service-name">Luxury Massage</div>
+              <div class="service-meta">90 min · Full body relaxation</div>
+              <div class="service-price">£75</div>
+            </button>
+            <button class="service-btn" onclick="selectService(this, 'Gel Manicure', 45, 35)">
+              <div class="service-name">Gel Manicure</div>
+              <div class="service-meta">45 min · Long-lasting colour</div>
+              <div class="service-price">£35</div>
+            </button>
+            <button class="service-btn" onclick="selectService(this, 'Brow Shape &amp; Tint', 30, 22)">
+              <div class="service-name">Brow Shape &amp; Tint</div>
+              <div class="service-meta">30 min · Define &amp; colour</div>
+              <div class="service-price">£22</div>
+            </button>
+            <button class="service-btn" onclick="selectService(this, 'Luxury Pedicure', 60, 45)">
+              <div class="service-name">Luxury Pedicure</div>
+              <div class="service-meta">60 min · Scrub, soak &amp; polish</div>
+              <div class="service-price">£45</div>
+            </button>
+            <button class="service-btn" onclick="selectService(this, 'Mini Facial', 30, 32)">
+              <div class="service-name">Mini Facial</div>
+              <div class="service-meta">30 min · Quick refresh</div>
+              <div class="service-price">£32</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Date -->
+        <div class="card section-gap fade-up">
+          <div class="card-title"><div class="step-badge">2</div> Pick a Date</div>
+          <div class="calendar-header">
+            <button class="cal-nav" onclick="changeMonth(-1)">&#8249;</button>
+            <div class="cal-month" id="calMonth">June 2026</div>
+            <button class="cal-nav" onclick="changeMonth(1)">&#8250;</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <!-- Step 3: Time -->
+        <div class="card section-gap fade-up">
+          <div class="card-title"><div class="step-badge">3</div> Choose a Time</div>
+          <div id="slotsContainer">
+            <div class="date-placeholder">Select a date above to see available times</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right col: Summary -->
+      <div class="summary-panel fade-up">
+        <div class="card">
+          <div class="card-title" style="margin-bottom:16px">Your Booking</div>
+
+          <div class="summary-item">
+            <div class="summary-icon">💆</div>
+            <div>
+              <div class="summary-label">Treatment</div>
+              <div class="summary-value" id="sumService"><span class="summary-empty">Not selected</span></div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <div class="summary-icon">📅</div>
+            <div>
+              <div class="summary-label">Date</div>
+              <div class="summary-value" id="sumDate"><span class="summary-empty">Not selected</span></div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <div class="summary-icon">🕐</div>
+            <div>
+              <div class="summary-label">Time</div>
+              <div class="summary-value" id="sumTime"><span class="summary-empty">Not selected</span></div>
+            </div>
+          </div>
+
+          <div class="total-row">
+            <span class="total-label">Total</span>
+            <span class="total-price" id="sumPrice">—</span>
+          </div>
+
+          <button class="book-btn" id="bookBtn" disabled onclick="confirmBooking()">
+            Confirm Booking
+          </button>
+
+          <p style="text-align:center;font-size:.75rem;color:var(--muted);margin-top:12px;">
+            No payment now — pay on the day
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Confirmation screen -->
+  <div class="confirm-screen" id="confirmScreen">
+    <div class="card" style="max-width:480px;margin:0 auto;">
+      <div class="confirm-icon">✓</div>
+      <h2>You're booked in!</h2>
+      <p>We've confirmed your appointment and sent the details to your email.</p>
+      <p>If you need to change anything, call us on <strong>01202 000000</strong>.</p>
+      <div class="confirm-details">
+        <div class="confirm-detail"><strong>Treatment</strong><span id="confService">—</span></div>
+        <div class="confirm-detail"><strong>Date</strong><span id="confDate">—</span></div>
+        <div class="confirm-detail"><strong>Time</strong><span id="confTime">—</span></div>
+        <div class="confirm-detail"><strong>Total</strong><span id="confPrice">—</span></div>
+        <div class="confirm-detail"><strong>Location</strong><span>Revive Beauty, Wimborne Town Centre</span></div>
+      </div>
+      <button class="book-btn" onclick="resetBooking()" style="margin-bottom:12px;">Book Another Appointment</button>
+      <br>
+      <button class="reset-btn" onclick="resetBooking()">Back to Home</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('button, a').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+
+  // State
+  let state = { service: null, serviceLabel: '', price: 0, date: null, dateLabel: '', time: null };
+  let currentYear = 2026, currentMonth = 5; // June 2026 (0-indexed)
+
+  const takenSlots = {
+    '2026-6-8': ['09:00','11:00','14:00'],
+    '2026-6-9': ['10:00','13:00','15:00'],
+    '2026-6-11': ['09:00','10:00','16:00'],
+    '2026-6-15': ['12:00','13:00'],
+    '2026-6-16': ['09:00','11:00','14:00','15:00','16:00'],
+  };
+
+  const allSlots = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+
+  function selectService(btn, name, mins, price) {
+    document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.service = name; state.price = price;
+    document.getElementById('sumService').innerHTML = `${name} <span style="color:var(--muted);font-size:.8rem;">(${mins} min)</span>`;
+    document.getElementById('sumPrice').textContent = state.price ? `£${state.price}` : '—';
+    updateBookBtn();
+  }
+
+  function changeMonth(dir) {
+    currentMonth += dir;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+    renderCalendar();
+    state.date = null; state.dateLabel = ''; state.time = null;
+    document.getElementById('sumDate').innerHTML = '<span class="summary-empty">Not selected</span>';
+    document.getElementById('sumTime').innerHTML = '<span class="summary-empty">Not selected</span>';
+    document.getElementById('slotsContainer').innerHTML = '<div class="date-placeholder">Select a date above to see available times</div>';
+    updateBookBtn();
+  }
+
+  function renderCalendar() {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('calMonth').textContent = `${months[currentMonth]} ${currentYear}`;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+    const days = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+    days.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-day-label';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const today = new Date();
+    for (let i = 0; i < offset; i++) {
+      const el = document.createElement('div');
+      el.className = 'cal-day empty';
+      grid.appendChild(el);
+    }
+    for (let d = 1; d <= daysInMonth; d++) {
+      const el = document.createElement('div');
+      const date = new Date(currentYear, currentMonth, d);
+      const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const isToday = date.toDateString() === today.toDateString();
+      const isSelected = state.date === `${currentYear}-${currentMonth+1}-${d}`;
+      el.className = 'cal-day' + (isPast ? ' past' : '') + (isToday ? ' today' : '') + (isSelected ? ' selected' : '');
+      el.textContent = d;
+      if (!isPast) {
+        el.onclick = () => selectDate(d, el);
+      }
+      grid.appendChild(el);
+    }
+  }
+
+  function selectDate(day, el) {
+    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected');
+    state.date = `${currentYear}-${currentMonth+1}-${day}`;
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dateObj = new Date(currentYear, currentMonth, day);
+    state.dateLabel = `${weekdays[dateObj.getDay()]}, ${day} ${months[currentMonth]} ${currentYear}`;
+    document.getElementById('sumDate').textContent = state.dateLabel;
+    state.time = null;
+    document.getElementById('sumTime').innerHTML = '<span class="summary-empty">Not selected</span>';
+    renderSlots();
+    updateBookBtn();
+  }
+
+  function renderSlots() {
+    const taken = takenSlots[state.date] || [];
+    const container = document.getElementById('slotsContainer');
+    container.innerHTML = '<div class="slots-grid"></div>';
+    const grid = container.querySelector('.slots-grid');
+    allSlots.forEach(slot => {
+      const btn = document.createElement('button');
+      const isTaken = taken.includes(slot);
+      btn.className = 'slot-btn' + (isTaken ? ' taken' : '') + (state.time === slot ? ' selected' : '');
+      btn.textContent = slot;
+      if (!isTaken) btn.onclick = () => selectTime(slot, btn);
+      grid.appendChild(btn);
+    });
+  }
+
+  function selectTime(time, btn) {
+    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.time = time;
+    document.getElementById('sumTime').textContent = time;
+    updateBookBtn();
+  }
+
+  function updateBookBtn() {
+    const ready = state.service && state.date && state.time;
+    document.getElementById('bookBtn').disabled = !ready;
+  }
+
+  function confirmBooking() {
+    document.getElementById('confService').textContent = state.service;
+    document.getElementById('confDate').textContent = state.dateLabel;
+    document.getElementById('confTime').textContent = state.time;
+    document.getElementById('confPrice').textContent = `£${state.price}`;
+    document.getElementById('bookingFlow').style.display = 'none';
+    document.getElementById('confirmScreen').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetBooking() {
+    state = { service: null, serviceLabel: '', price: 0, date: null, dateLabel: '', time: null };
+    document.getElementById('confirmScreen').classList.remove('visible');
+    document.getElementById('bookingFlow').style.display = '';
+    document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('sumService').innerHTML = '<span class="summary-empty">Not selected</span>';
+    document.getElementById('sumDate').innerHTML = '<span class="summary-empty">Not selected</span>';
+    document.getElementById('sumTime').innerHTML = '<span class="summary-empty">Not selected</span>';
+    document.getElementById('sumPrice').textContent = '—';
+    document.getElementById('slotsContainer').innerHTML = '<div class="date-placeholder">Select a date above to see available times</div>';
+    document.getElementById('bookBtn').disabled = true;
+    renderCalendar();
+  }
+
+  // Init
+  renderCalendar();
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.style.opacity = 1; });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
