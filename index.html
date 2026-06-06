@@ -754,4 +754,28 @@ footer strong { color: rgba(255,255,255,.45); }
       const r = card.getBoundingClientRect();
       const x = ((e.clientX - r.left) / r.width) * 100;
       const y = ((e.clientY - r.top) / r.height) * 100;
-      const base = card.classList.c
+      const base = card.classList.contains('testi')
+        ? 'rgba(12,18,32,.04)'
+        : '#fff';
+      card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(91,94,244,.07) 0%, transparent 55%), ${base}`;
+    });
+    card.addEventListener('mouseleave', () => card.style.background = '');
+  });
+
+  // ── MARQUEE SPEED ON HOVER ──
+  const mq = document.getElementById('mq');
+  document.querySelector('.marquee-wrap').addEventListener('mouseenter', () => mq.style.animationDuration = '12s');
+  document.querySelector('.marquee-wrap').addEventListener('mouseleave', () => mq.style.animationDuration = '28s');
+
+  // ── ACTIVE NAV HIGHLIGHT ──
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'rgba(255,255,255,.9)' : '';
+    });
+  });
+</script>
+</body>
+</html>
