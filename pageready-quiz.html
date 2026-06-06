@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PageReady | Which Package Do I Need?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink:        #0c1220;
+  --ink-2:      #162032;
+  --ink-3:      #1e2d42;
+  --slate:      #334155;
+  --slate-mid:  #4a5e78;
+  --slate-light:#7a8fa8;
+  --indigo:     #5b5ef4;
+  --indigo-hi:  #7b7ff6;
+  --indigo-glow:rgba(91,94,244,.18);
+  --cream:      #f8fafc;
+  --border:     #e2e8f0;
+  --border-dark:rgba(255,255,255,.07);
+  --muted:      #64748b;
+  --success:    #22c55e;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--ink);
+  background: var(--ink);
+  min-height: 100vh;
+  opacity: 0;
+  animation: bodyReveal .5s ease .1s forwards;
+}
+@keyframes bodyReveal { to { opacity: 1; } }
+
+#cg {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(91,94,244,.09) 0%, transparent 70%);
+  border-radius: 50%; position: fixed; pointer-events: none; z-index: 0;
+  transform: translate(-50%,-50%);
+  transition: left .5s cubic-bezier(.25,.46,.45,.94), top .5s cubic-bezier(.25,.46,.45,.94);
+  left: -999px; top: -999px;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,18,32,.95); backdrop-filter: blur(18px);
+  padding: 0 48px; height: 66px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--border-dark);
+}
+.logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900; color: #fff; text-decoration: none; }
+.logo span { color: var(--indigo-hi); }
+.nav-back { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; display: flex; align-items: center; gap: 6px; }
+.nav-back:hover { color: #fff; }
+@media (max-width: 640px) { nav { padding: 0 20px; } }
+
+/* PAGE LAYOUT */
+.quiz-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 0;
+  min-height: calc(100vh - 66px);
+  position: relative; z-index: 1;
+}
+@media (max-width: 900px) {
+  .quiz-layout { grid-template-columns: 1fr; }
+}
+
+/* LEFT: Questions */
+.quiz-left {
+  padding: 56px 48px;
+  border-right: 1px solid var(--border-dark);
+}
+@media (max-width: 900px) { .quiz-left { padding: 36px 24px; border-right: none; border-bottom: 1px solid var(--border-dark); } }
+
+.quiz-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--indigo-hi); margin-bottom: 14px;
+}
+.quiz-left h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 42px); font-weight: 800;
+  color: #fff; line-height: 1.15; margin-bottom: 12px;
+}
+.quiz-left .sub {
+  font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.6; margin-bottom: 48px;
+}
+
+/* TOGGLE ROWS */
+.toggle-section { margin-bottom: 44px; }
+.toggle-section h2 {
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 20px;
+}
+
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  gap: 24px;
+}
+.toggle-row:first-of-type { border-top: 1px solid rgba(255,255,255,.06); }
+.toggle-info { flex: 1; }
+.toggle-label {
+  font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 3px;
+}
+.toggle-desc {
+  font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.5;
+}
+
+/* TOGGLE SWITCH */
+.toggle-switch { position: relative; width: 50px; height: 27px; flex-shrink: 0; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.toggle-track {
+  position: absolute; inset: 0; z-index: -1;
+  background: rgba(255,255,255,.1);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.toggle-thumb {
+  position: absolute; top: 3px; left: 3px;
+  width: 21px; height: 21px;
+  background: rgba(255,255,255,.5);
+  border-radius: 50%;
+  transition: transform .2s, background .2s;
+  pointer-events: none;
+}
+.toggle-switch input:checked ~ .toggle-track { background: var(--indigo); }
+.toggle-switch input:checked ~ .toggle-track .toggle-thumb { transform: translateX(23px); background: #fff; }
+
+/* BUDGET SLIDER */
+.budget-section { margin-bottom: 44px; }
+.budget-section h2 {
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 20px;
+}
+.budget-track { padding: 8px 0; }
+.budget-track input[type=range] {
+  -webkit-appearance: none;
+  width: 100%; height: 5px;
+  background: rgba(255,255,255,.1); border-radius: 99px;
+  outline: none; border: none; box-shadow: none; padding: 0;
+}
+.budget-track input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px; height: 24px;
+  background: var(--indigo); border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px var(--indigo-glow);
+  transition: transform .1s;
+}
+.budget-track input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+.budget-display {
+  margin-top: 14px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.budget-val {
+  font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: #fff;
+}
+.budget-sub { font-size: 13px; color: rgba(255,255,255,.4); }
+
+/* RIGHT: Recommendation Panel */
+.quiz-right {
+  padding: 48px 40px;
+  position: sticky; top: 66px;
+  height: calc(100vh - 66px);
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+@media (max-width: 900px) { .quiz-right { position: static; height: auto; padding: 36px 24px; } }
+
+.rec-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 24px;
+}
+
+/* PACKAGE CARDS */
+.pkg-card {
+  border: 1.5px solid rgba(255,255,255,.07);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 14px;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  cursor: default;
+  position: relative; overflow: hidden; isolation: isolate;
+}
+.pkg-card::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(135deg, rgba(91,94,244,.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.pkg-card.recommended {
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 1px var(--indigo), 0 8px 32px rgba(91,94,244,.2);
+  transform: scale(1.02);
+}
+.pkg-card.recommended::before { opacity: 1; }
+.pkg-card.dim { opacity: .35; transform: scale(.97); }
+
+.pkg-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 99px;
+  margin-bottom: 14px;
+}
+.pkg-badge.match { background: rgba(91,94,244,.2); color: var(--indigo-hi); }
+.pkg-badge.good  { background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); }
+.pkg-badge.hide  { display: none; }
+
+.pkg-name {
+  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
+  color: #fff; margin-bottom: 4px;
+}
+.pkg-price {
+  font-size: 26px; font-weight: 800; font-family: 'Syne', sans-serif;
+  color: var(--indigo-hi); margin-bottom: 10px;
+}
+.pkg-price span { font-size: 14px; font-weight: 400; color: rgba(255,255,255,.35); font-family: 'Plus Jakarta Sans', sans-serif; }
+.pkg-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.6; margin-bottom: 16px; }
+
+.pkg-features { list-style: none; }
+.pkg-features li {
+  display: flex; align-items: flex-start; gap: 9px;
+  font-size: 13px; color: rgba(255,255,255,.6);
+  margin-bottom: 7px;
+}
+.pkg-features li::before { content: '✓'; color: var(--indigo-hi); font-weight: 700; flex-shrink: 0; }
+.pkg-features li.extra::before { content: '+'; color: var(--success); }
+.pkg-features li.warn::before { content: '→'; color: rgba(255,200,0,.7); }
+
+.pkg-cta {
+  display: block; width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: var(--indigo); color: #fff;
+  border: none; border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px; font-weight: 700;
+  text-align: center; text-decoration: none;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.pkg-cta:hover { background: var(--indigo-hi); transform: translateY(-1px); }
+.pkg-card.dim .pkg-cta { display: none; }
+
+/* MATCH REASON */
+.match-reason {
+  background: rgba(91,94,244,.1);
+  border: 1px solid rgba(91,94,244,.2);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-top: 24px;
+  font-size: 13px; color: rgba(255,255,255,.7);
+  line-height: 1.6;
+}
+.match-reason strong { color: #fff; }
+
+  /* ── MOBILE PASS ── */
+  @media (max-width: 480px) {
+    .toggle-row { gap: 16px; }
+    .pkg-card { padding: 20px; }
+    .pkg-name { font-size: 17px; }
+    .quiz-left h1 { font-size: clamp(24px, 7vw, 36px); }
+    .budget-val { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div id="cg"></div>
+
+<nav>
+  <a href="pageready-portfolio.html" class="logo">Page<span>Ready</span></a>
+  <a href="pageready-portfolio.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<div class="quiz-layout">
+  <!-- LEFT: Controls -->
+  <div class="quiz-left">
+    <div class="quiz-eyebrow">Package Finder</div>
+    <h1>What does your business actually need?</h1>
+    <p class="sub">Toggle what applies to you. The recommendation updates instantly — no emails, no sales calls.</p>
+
+    <!-- Section 1: What you need to do -->
+    <div class="toggle-section">
+      <h2>What do you need to do?</h2>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Take online bookings</div>
+          <div class="toggle-desc">Appointments, reservations, or consultation slots</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-booking" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Sell products online</div>
+          <div class="toggle-desc">A shop with a basket, checkout, and payment</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-shop" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Show a menu or price list</div>
+          <div class="toggle-desc">Restaurant menu, service prices, or treatment list</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-menu" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Show a portfolio or gallery</div>
+          <div class="toggle-desc">Before/afters, project photos, previous work</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-gallery" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Have more than one page</div>
+          <div class="toggle-desc">Separate pages for services, about, contact, etc.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-pages" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 2: Ongoing needs -->
+    <div class="toggle-section">
+      <h2>Ongoing needs</h2>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Update my own content</div>
+          <div class="toggle-desc">Change prices, add news, swap photos yourself</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-cms" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Someone to manage it for me</div>
+          <div class="toggle-desc">Keep it updated, fix issues, handle changes</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-managed" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-label">Show up higher on Google</div>
+          <div class="toggle-desc">Local SEO, Google Business setup, search rankings</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="t-seo" onchange="update()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Budget slider -->
+    <div class="budget-section">
+      <h2>Your rough budget</h2>
+      <div class="budget-track">
+        <input type="range" min="0" max="4" value="0" id="t-budget" oninput="update(); updateBudgetDisplay(this.value)">
+      </div>
+      <div class="budget-display">
+        <div class="budget-val" id="budget-val">Up to £250</div>
+        <div class="budget-sub" id="budget-sub">One-off</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Recommendation -->
+  <div class="quiz-right">
+    <div class="rec-label">Your recommendation</div>
+
+    <!-- Package 1 -->
+    <div class="pkg-card recommended" id="pkg-1">
+      <div class="pkg-badge match" id="badge-1">⚡ Best match</div>
+      <div class="pkg-name">Landing Page</div>
+      <div class="pkg-price">£250 <span>one-off</span></div>
+      <div class="pkg-desc">A single, high-quality page that looks great and gets results. Perfect for most local businesses starting out.</div>
+      <ul class="pkg-features" id="features-1">
+        <li>Custom design — no templates</li>
+        <li>Mobile-friendly</li>
+        <li>Contact form + WhatsApp button</li>
+        <li>Google Business setup</li>
+        <li>Hosted free on Netlify</li>
+        <li>Delivered in 5–7 days</li>
+      </ul>
+      <a href="pageready-questionnaire.html" class="pkg-cta">Get started →</a>
+    </div>
+
+    <!-- Package 2 -->
+    <div class="pkg-card" id="pkg-2">
+      <div class="pkg-badge good" id="badge-2">Multi-page site</div>
+      <div class="pkg-name">Full Website</div>
+      <div class="pkg-price">£500–£800 <span>one-off</span></div>
+      <div class="pkg-desc">Multiple pages with proper navigation. Room for a gallery, full menu, team page, and more.</div>
+      <ul class="pkg-features" id="features-2">
+        <li>Everything in Landing Page</li>
+        <li>3–6 pages with navigation</li>
+        <li>Gallery / portfolio section</li>
+        <li>FAQ accordion</li>
+        <li>Booking form or menu</li>
+        <li>Delivered in 10–14 days</li>
+      </ul>
+      <a href="pageready-questionnaire.html" class="pkg-cta">Get started →</a>
+    </div>
+
+    <!-- Package 3 -->
+    <div class="pkg-card dim" id="pkg-3">
+      <div class="pkg-badge good" id="badge-3">Ongoing</div>
+      <div class="pkg-name">Care Plan</div>
+      <div class="pkg-price">£35–£55 <span>/month</span></div>
+      <div class="pkg-desc">We keep your site fresh. Updates, fixes, and changes handled — you just message us.</div>
+      <ul class="pkg-features" id="features-3">
+        <li>£35/mo — Oliver makes all changes</li>
+        <li>£55/mo — you get editor access too</li>
+        <li>Content updates within 48hrs</li>
+        <li>Monthly performance check</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="pageready-questionnaire.html" class="pkg-cta">Get started →</a>
+    </div>
+
+    <!-- Match reason -->
+    <div class="match-reason" id="match-reason">
+      <strong>Why this matches:</strong> Most local businesses only need one strong page to get found on Google and turn visitors into calls. Simple, fast, and £250.
+    </div>
+  </div>
+</div>
+
+<script>
+// Cursor glow
+const cg = document.getElementById('cg');
+document.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; });
+
+// Budget labels
+const budgetLabels = [
+  { val: 'Up to £250',     sub: 'One-off' },
+  { val: 'Up to £500',     sub: 'One-off' },
+  { val: 'Up to £800',     sub: 'One-off' },
+  { val: 'Up to £1,500',   sub: 'One-off or retainer' },
+  { val: 'No strict limit', sub: 'Best outcome' },
+];
+function updateBudgetDisplay(val) {
+  const l = budgetLabels[val];
+  document.getElementById('budget-val').textContent = l.val;
+  document.getElementById('budget-sub').textContent = l.sub;
+}
+
+// Score → recommendation
+function update() {
+  const booking = document.getElementById('t-booking').checked;
+  const shop    = document.getElementById('t-shop').checked;
+  const menu    = document.getElementById('t-menu').checked;
+  const gallery = document.getElementById('t-gallery').checked;
+  const pages   = document.getElementById('t-pages').checked;
+  const cms     = document.getElementById('t-cms').checked;
+  const managed = document.getElementById('t-managed').checked;
+  const seo     = document.getElementById('t-seo').checked;
+  const budget  = parseInt(document.getElementById('t-budget').value);
+
+  // Scoring
+  let pkg1score = 10; // default: landing page
+  let pkg2score = 0;
+  let pkg3score = 0;
+
+  if (pages || gallery || menu) { pkg2score += 4; pkg1score -= 3; }
+  if (booking) { pkg2score += 2; }
+  if (shop) { pkg2score += 5; pkg1score -= 5; }
+  if (cms || managed) { pkg3score += 5; }
+  if (seo) { pkg1score += 1; pkg2score += 1; pkg3score += 2; }
+  if (budget >= 2) { pkg2score += 2; }
+  if (budget >= 3) { pkg3score += 1; }
+  if (budget === 0) { pkg1score += 2; pkg2score -= 3; }
+
+  const scores = [
+    { id: 1, score: pkg1score },
+    { id: 2, score: pkg2score },
+    { id: 3, score: pkg3score },
+  ];
+
+  const best = scores.reduce((a, b) => a.score > b.score ? a : b);
+
+  // Update cards
+  scores.forEach(({ id, score }) => {
+    const card   = document.getElementById('pkg-' + id);
+    const badge  = document.getElementById('badge-' + id);
+    const isTop  = id === best.id;
+    const isGood = score > 0 && !isTop;
+
+    card.className  = 'pkg-card' + (isTop ? ' recommended' : isGood ? '' : ' dim');
+    badge.className = 'pkg-badge' + (isTop ? ' match' : isGood ? ' good' : ' hide');
+    badge.textContent = isTop ? '⚡ Best match' : id === 1 ? 'Landing page' : id === 2 ? 'Multi-page site' : 'Care plan';
+  });
+
+  // Dynamic reason text
+  const reasons = {
+    1: () => {
+      if (!pages && !gallery && !booking && !shop)
+        return 'Most local businesses only need one strong page to get found on Google and turn visitors into calls. Simple, fast, and £250.';
+      if (seo)
+        return 'A focused landing page with strong SEO setup will get you found locally faster than a big site nobody visits.';
+      return 'Based on what you need, a single landing page covers everything — and it\'s the fastest way to get online.';
+    },
+    2: () => {
+      if (shop) return 'You need online selling — that means a proper multi-page site with product listings, a basket, and checkout built in.';
+      if (booking) return 'Online booking works best with its own dedicated page rather than squeezing it onto a landing page.';
+      if (gallery) return 'Showing a proper gallery alongside your services means you need more than one page to do it justice.';
+      return 'With multiple things to show off, a full multi-page site gives you the space to do it properly.';
+    },
+    3: () => {
+      if (cms) return 'If you want to update your own content regularly, a care plan with editor access (£55/mo) is the right route.';
+      if (managed) return 'Sounds like you want someone to handle the site for you — that\'s exactly what the Care Plan is for at £35/mo.';
+      return 'Ongoing management means you never have to think about your site again. That\'s the care plan.';
+    },
+  };
+
+  const reasonFn = reasons[best.id];
+  document.getElementById('match-reason').innerHTML =
+    '<strong>Why this matches:</strong> ' + reasonFn();
+}
+</script>
+</body>
+</html>

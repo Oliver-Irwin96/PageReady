@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PageReady | Tell Us About Your Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink:        #0c1220;
+  --ink-2:      #162032;
+  --ink-3:      #1e2d42;
+  --slate:      #334155;
+  --slate-mid:  #4a5e78;
+  --slate-light:#7a8fa8;
+  --indigo:     #5b5ef4;
+  --indigo-hi:  #7b7ff6;
+  --indigo-glow:rgba(91,94,244,.18);
+  --cream:      #f8fafc;
+  --border:     #e2e8f0;
+  --border-dark:rgba(255,255,255,.07);
+  --muted:      #64748b;
+  --success:    #22c55e;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  min-height: 100vh;
+  opacity: 0;
+  animation: bodyReveal .5s ease .1s forwards;
+}
+@keyframes bodyReveal { to { opacity: 1; } }
+
+/* cursor glow */
+#cg {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(91,94,244,.07) 0%, transparent 70%);
+  border-radius: 50%; position: fixed; pointer-events: none; z-index: 0;
+  transform: translate(-50%,-50%);
+  transition: left .5s cubic-bezier(.25,.46,.45,.94), top .5s cubic-bezier(.25,.46,.45,.94);
+  left: -999px; top: -999px;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,18,32,.95); backdrop-filter: blur(18px);
+  padding: 0 48px; height: 66px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--border-dark);
+}
+.logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900; color: #fff; text-decoration: none; }
+.logo span { color: var(--indigo-hi); }
+.nav-back { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; display: flex; align-items: center; gap: 6px; }
+.nav-back:hover { color: #fff; }
+@media (max-width: 640px) { nav { padding: 0 20px; } }
+
+/* LAYOUT */
+.page-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+  position: relative; z-index: 1;
+}
+
+/* PROGRESS */
+.progress-bar-wrap {
+  height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--indigo);
+  border-radius: 99px;
+  transition: width .45s cubic-bezier(.4,0,.2,1);
+}
+.progress-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate-light);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* STEP */
+.step { display: none; }
+.step.active { display: block; animation: stepIn .35s ease; }
+@keyframes stepIn { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform:none; } }
+
+.step-number {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--indigo); background: rgba(91,94,244,.1);
+  padding: 4px 12px; border-radius: 99px;
+  margin-bottom: 16px;
+}
+.step h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(26px, 5vw, 38px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.step-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+/* FIELDS */
+.field { margin-bottom: 24px; }
+.field label {
+  display: block;
+  font-size: 13px; font-weight: 600;
+  color: var(--slate);
+  margin-bottom: 8px;
+  letter-spacing: .01em;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+  transition: border-color .15s, box-shadow .15s;
+  outline: none;
+  appearance: none;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 3px var(--indigo-glow);
+}
+.field textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
+
+/* CHECKBOXES / PILL SELECT */
+.pill-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.pill-option { display: none; }
+.pill-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  font-size: 14px; font-weight: 500; color: var(--slate);
+  cursor: pointer;
+  transition: all .15s;
+  background: #fff;
+  user-select: none;
+}
+.pill-label:hover { border-color: var(--indigo); color: var(--indigo); }
+.pill-option:checked + .pill-label {
+  background: var(--indigo); border-color: var(--indigo); color: #fff;
+}
+.pill-icon { font-size: 16px; }
+
+/* CARD SELECT (single choice big cards) */
+.card-group { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 520px) { .card-group { grid-template-columns: 1fr; } }
+.card-radio { display: none; }
+.card-label {
+  display: block;
+  padding: 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  transition: all .15s;
+}
+.card-label:hover { border-color: var(--indigo); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(91,94,244,.08); }
+.card-radio:checked + .card-label {
+  border-color: var(--indigo); background: rgba(91,94,244,.04);
+  box-shadow: 0 0 0 3px var(--indigo-glow);
+}
+.card-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+.card-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* RANGE SLIDER */
+.slider-wrap { padding: 8px 0; }
+.slider-wrap input[type=range] {
+  -webkit-appearance: none;
+  width: 100%; height: 6px;
+  background: var(--border); border-radius: 99px;
+  outline: none; border: none; box-shadow: none;
+  padding: 0;
+}
+.slider-wrap input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  background: var(--indigo);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px var(--indigo-glow);
+  transition: transform .1s;
+}
+.slider-wrap input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.slider-value {
+  font-size: 22px; font-weight: 800; font-family: 'Syne', sans-serif;
+  color: var(--indigo); margin-top: 10px;
+}
+.slider-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* NAV BUTTONS */
+.btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; gap: 12px; }
+.btn {
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+  border: none;
+}
+.btn-primary { background: var(--indigo); color: #fff; }
+.btn-primary:hover { background: var(--indigo-hi); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(91,94,244,.3); }
+.btn-primary:active { transform: scale(.98); }
+.btn-secondary { background: transparent; color: var(--slate); border: 1.5px solid var(--border); }
+.btn-secondary:hover { border-color: var(--slate); color: var(--ink); }
+.btn-full { width: 100%; justify-content: center; display: flex; }
+
+/* SUMMARY PAGE */
+#summary-page { display: none; }
+#summary-page.active { display: block; animation: stepIn .35s ease; }
+
+.summary-hero {
+  background: var(--ink);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.summary-tick {
+  width: 64px; height: 64px;
+  background: rgba(34,197,94,.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin: 0 auto 20px;
+}
+.summary-hero h2 {
+  font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800;
+  color: #fff; margin-bottom: 10px;
+}
+.summary-hero p { font-size: 15px; color: rgba(255,255,255,.55); line-height: 1.6; }
+
+.summary-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 16px;
+}
+.summary-card h3 {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--indigo); margin-bottom: 18px;
+}
+.summary-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 8px 16px;
+  font-size: 14px; margin-bottom: 10px;
+}
+.summary-row:last-child { margin-bottom: 0; }
+.summary-key { color: var(--muted); font-weight: 500; }
+.summary-val { color: var(--ink); font-weight: 600; }
+
+.action-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn-email { background: var(--indigo); color: #fff; flex: 1; min-width: 160px; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-pdf { background: #fff; color: var(--ink); border: 1.5px solid var(--border); flex: 1; min-width: 160px; }
+.btn-pdf:hover { border-color: var(--ink); }
+
+/* REQUIRED INDICATOR */
+.req { color: var(--indigo); margin-left: 3px; }
+
+  /* ── MOBILE PASS ── */
+  @media (max-width: 420px) {
+    .summary-row { grid-template-columns: auto 1fr; gap: 4px 10px; }
+    .card-icon { font-size: 22px; }
+    .pill-label { padding: 9px 14px; font-size: 13px; }
+    .step h2 { font-size: clamp(22px, 7vw, 32px); }
+    .action-row { flex-direction: column; }
+    .action-row a, .action-row button { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div id="cg"></div>
+
+<nav>
+  <a href="pageready-portfolio.html" class="logo">Page<span>Ready</span></a>
+  <a href="pageready-portfolio.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<div class="page-wrap">
+  <div class="progress-label" id="progress-label">Step 1 of 7</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width: 14.28%"></div>
+  </div>
+
+  <!-- STEP 1: About You -->
+  <div class="step active" id="step-1">
+    <div class="step-number">Step 1 — About You</div>
+    <h2>Let's start with the basics</h2>
+    <p class="step-sub">Tell us who you are and how we can reach you. No obligation — just helps us prepare.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Your name <span class="req">*</span></label>
+        <input type="text" id="q-name" placeholder="e.g. Sarah Mitchell">
+      </div>
+      <div class="field">
+        <label>Business name <span class="req">*</span></label>
+        <input type="text" id="q-biz" placeholder="e.g. Mitchell Plumbing">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Phone number</label>
+        <input type="tel" id="q-phone" placeholder="e.g. 07700 900000">
+      </div>
+      <div class="field">
+        <label>Email address <span class="req">*</span></label>
+        <input type="email" id="q-email" placeholder="e.g. sarah@example.com">
+      </div>
+    </div>
+    <div class="field">
+      <label>What area are you based in?</label>
+      <input type="text" id="q-area" placeholder="e.g. Wimborne, Dorset">
+    </div>
+
+    <div class="btn-row">
+      <span></span>
+      <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Industry -->
+  <div class="step" id="step-2">
+    <div class="step-number">Step 2 — Your Trade</div>
+    <h2>What type of business are you?</h2>
+    <p class="step-sub">This helps us pick the right style and layout from day one.</p>
+
+    <div class="card-group">
+      <div>
+        <input class="card-radio" type="radio" name="industry" id="ind-trade" value="Tradesperson / Builder">
+        <label class="card-label" for="ind-trade">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">Tradesperson</div>
+          <div class="card-desc">Plumber, electrician, builder, landscaper, roofer</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="industry" id="ind-salon" value="Beauty / Wellness">
+        <label class="card-label" for="ind-salon">
+          <span class="card-icon">💅</span>
+          <div class="card-title">Beauty & Wellness</div>
+          <div class="card-desc">Salon, barber, nail studio, therapist, spa</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="industry" id="ind-food" value="Food & Drink">
+        <label class="card-label" for="ind-food">
+          <span class="card-icon">☕</span>
+          <div class="card-title">Food & Drink</div>
+          <div class="card-desc">Café, restaurant, pub, bakery, takeaway</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="industry" id="ind-retail" value="Retail / Shop">
+        <label class="card-label" for="ind-retail">
+          <span class="card-icon">🛍️</span>
+          <div class="card-title">Retail / Shop</div>
+          <div class="card-desc">Physical shop, boutique, gift store</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="industry" id="ind-fitness" value="Fitness / Sport">
+        <label class="card-label" for="ind-fitness">
+          <span class="card-icon">🏋️</span>
+          <div class="card-title">Fitness & Sport</div>
+          <div class="card-desc">Gym, PT, yoga studio, sports club</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="industry" id="ind-other" value="Other">
+        <label class="card-label" for="ind-other">
+          <span class="card-icon">🏢</span>
+          <div class="card-title">Something else</div>
+          <div class="card-desc">Professional services, creative, or another trade</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field" id="ind-other-field" style="display:none; margin-top:16px;">
+      <label>What type of business?</label>
+      <input type="text" id="q-industry-other" placeholder="Describe your business">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Current Website -->
+  <div class="step" id="step-3">
+    <div class="step-number">Step 3 — Right Now</div>
+    <h2>What's your current situation?</h2>
+    <p class="step-sub">Be honest — we've seen it all. There's no wrong answer here.</p>
+
+    <div class="card-group">
+      <div>
+        <input class="card-radio" type="radio" name="current" id="cur-none" value="No website at all">
+        <label class="card-label" for="cur-none">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">No website at all</div>
+          <div class="card-desc">Starting from scratch — blank slate</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="current" id="cur-bad" value="Outdated or embarrassing website">
+        <label class="card-label" for="cur-bad">
+          <span class="card-icon">😬</span>
+          <div class="card-title">Old / embarrassing site</div>
+          <div class="card-desc">It exists but I wouldn't show it to anyone</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="current" id="cur-diy" value="DIY website (Wix / Squarespace)">
+        <label class="card-label" for="cur-diy">
+          <span class="card-icon">🔨</span>
+          <div class="card-title">DIY site (Wix/Squarespace)</div>
+          <div class="card-desc">Built it myself, not happy with how it looks</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="current" id="cur-ok" value="Decent site, want an upgrade">
+        <label class="card-label" for="cur-ok">
+          <span class="card-icon">⬆️</span>
+          <div class="card-title">Decent site, want upgrade</div>
+          <div class="card-desc">It works but I want something more professional</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:20px;">
+      <label>Current website URL (if you have one)</label>
+      <input type="url" id="q-current-url" placeholder="e.g. https://mybusiness.com">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: What They Want -->
+  <div class="step" id="step-4">
+    <div class="step-number">Step 4 — Goals</div>
+    <h2>What do you want your website to do?</h2>
+    <p class="step-sub">Pick everything that applies. More than one is fine.</p>
+
+    <div class="pill-group">
+      <div><input class="pill-option" type="checkbox" id="g1" value="Show up on Google"><label class="pill-label" for="g1"><span class="pill-icon">🔍</span> Show up on Google</label></div>
+      <div><input class="pill-option" type="checkbox" id="g2" value="Get more phone calls"><label class="pill-label" for="g2"><span class="pill-icon">📞</span> Get more phone calls</label></div>
+      <div><input class="pill-option" type="checkbox" id="g3" value="Let people book online"><label class="pill-label" for="g3"><span class="pill-icon">📅</span> Let people book online</label></div>
+      <div><input class="pill-option" type="checkbox" id="g4" value="Show my work / portfolio"><label class="pill-label" for="g4"><span class="pill-icon">🖼️</span> Show my work / portfolio</label></div>
+      <div><input class="pill-option" type="checkbox" id="g5" value="Sell products online"><label class="pill-label" for="g5"><span class="pill-icon">🛒</span> Sell products online</label></div>
+      <div><input class="pill-option" type="checkbox" id="g6" value="Display my menu or services"><label class="pill-label" for="g6"><span class="pill-icon">📋</span> Display my menu / services</label></div>
+      <div><input class="pill-option" type="checkbox" id="g7" value="Build trust with new customers"><label class="pill-label" for="g7"><span class="pill-icon">⭐</span> Build trust / look professional</label></div>
+      <div><input class="pill-option" type="checkbox" id="g8" value="Get enquiries via a contact form"><label class="pill-label" for="g8"><span class="pill-icon">✉️</span> Get enquiry form submissions</label></div>
+      <div><input class="pill-option" type="checkbox" id="g9" value="Collect WhatsApp messages"><label class="pill-label" for="g9"><span class="pill-icon">💬</span> WhatsApp button</label></div>
+    </div>
+
+    <div class="field" style="margin-top:24px;">
+      <label>Anything else you want the site to do?</label>
+      <textarea id="q-goals-extra" placeholder="e.g. I want to show off our before & after photos…"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Style Preferences -->
+  <div class="step" id="step-5">
+    <div class="step-number">Step 5 — Look & Feel</div>
+    <h2>What style feels right for you?</h2>
+    <p class="step-sub">Don't overthink it — first instinct is usually right.</p>
+
+    <div class="card-group">
+      <div>
+        <input class="card-radio" type="radio" name="style" id="sty-bold" value="Bold & High-Contrast">
+        <label class="card-label" for="sty-bold">
+          <span class="card-icon">⚡</span>
+          <div class="card-title">Bold & High-Contrast</div>
+          <div class="card-desc">Strong colours, big type, makes a statement</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="style" id="sty-warm" value="Warm & Premium">
+        <label class="card-label" for="sty-warm">
+          <span class="card-icon">✨</span>
+          <div class="card-title">Warm & Premium</div>
+          <div class="card-desc">Soft tones, elegant, feels upscale</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="style" id="sty-modern" value="Clean & Modern">
+        <label class="card-label" for="sty-modern">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Clean & Modern</div>
+          <div class="card-desc">Minimal, spacious, lets the work speak</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="style" id="sty-retro" value="Retro / Character">
+        <label class="card-label" for="sty-retro">
+          <span class="card-icon">🍺</span>
+          <div class="card-title">Retro / Character</div>
+          <div class="card-desc">Vintage feel, personality, tells a story</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="style" id="sty-dark" value="Dark & Luxurious">
+        <label class="card-label" for="sty-dark">
+          <span class="card-icon">🖤</span>
+          <div class="card-title">Dark & Luxurious</div>
+          <div class="card-desc">Dark background, gold accents, prestige feel</div>
+        </label>
+      </div>
+      <div>
+        <input class="card-radio" type="radio" name="style" id="sty-notfussed" value="Not fussed — surprise me">
+        <label class="card-label" for="sty-notfussed">
+          <span class="card-icon">🎨</span>
+          <div class="card-title">Not fussed — surprise me</div>
+          <div class="card-desc">I trust your judgment, make it great</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:20px;">
+      <label>Any websites you like the look of? (optional)</label>
+      <input type="text" id="q-inspo" placeholder="e.g. apple.com, a competitor's site, etc.">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 6: Pages & Content -->
+  <div class="step" id="step-6">
+    <div class="step-number">Step 6 — Content</div>
+    <h2>What do you have ready?</h2>
+    <p class="step-sub">We can work with whatever you've got — even just a rough idea.</p>
+
+    <div class="field">
+      <label>How many pages do you think you need?</label>
+      <div class="slider-wrap">
+        <input type="range" min="1" max="6" value="1" id="q-pages" oninput="updatePageSlider(this.value)">
+        <div class="slider-value" id="pages-val">1 page</div>
+        <div class="slider-labels"><span>1 (landing page)</span><span>6+ (full site)</span></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Do you have photos / images to use?</label>
+      <div class="pill-group">
+        <div><input class="pill-option" type="radio" name="photos" id="ph-yes" value="Yes — professional photos"><label class="pill-label" for="ph-yes">📸 Yes — pro photos</label></div>
+        <div><input class="pill-option" type="radio" name="photos" id="ph-phone" value="Yes — phone photos"><label class="pill-label" for="ph-phone">📱 Yes — phone photos</label></div>
+        <div><input class="pill-option" type="radio" name="photos" id="ph-no" value="No photos yet"><label class="pill-label" for="ph-no">🖼️ No photos yet</label></div>
+        <div><input class="pill-option" type="radio" name="photos" id="ph-stock" value="Use stock photos for now"><label class="pill-label" for="ph-stock">🌐 Use stock for now</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Anything else we should know about your content?</label>
+      <textarea id="q-content" placeholder="e.g. I have a logo already, my prices are listed on Facebook, etc."></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 7: Budget + Timeline -->
+  <div class="step" id="step-7">
+    <div class="step-number">Step 7 — Budget & Timeline</div>
+    <h2>Nearly there — last few questions</h2>
+    <p class="step-sub">No commitment needed. This just helps us tailor the proposal.</p>
+
+    <div class="field">
+      <label>What's your rough budget?</label>
+      <select id="q-budget">
+        <option value="">Select a range...</option>
+        <option value="£250 (basic landing page)">£250 — Basic landing page</option>
+        <option value="£250–£500 (landing page + add-ons)">£250–£500 — Landing page + add-ons</option>
+        <option value="£500–£800 (multi-page site)">£500–£800 — Multi-page site</option>
+        <option value="£800–£1,500 (full website)">£800–£1,500 — Full website</option>
+        <option value="£1,500+ (premium / ecommerce)">£1,500+ — Premium / ecommerce</option>
+        <option value="Not sure yet">Not sure yet — tell me what I need</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>When do you need it by?</label>
+      <div class="pill-group">
+        <div><input class="pill-option" type="radio" name="timeline" id="tl-asap" value="ASAP — within 2 weeks"><label class="pill-label" for="tl-asap">🚀 ASAP (within 2 weeks)</label></div>
+        <div><input class="pill-option" type="radio" name="timeline" id="tl-month" value="Within a month"><label class="pill-label" for="tl-month">📆 Within a month</label></div>
+        <div><input class="pill-option" type="radio" name="timeline" id="tl-flexible" value="Flexible — no rush"><label class="pill-label" for="tl-flexible">🌿 Flexible — no rush</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Anything else you'd like us to know?</label>
+      <textarea id="q-extra" placeholder="Extra context, specific requests, questions for us…"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="submitForm()">See my summary →</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY PAGE -->
+  <div id="summary-page">
+    <div class="summary-hero">
+      <div class="summary-tick">✅</div>
+      <h2>Thanks, <span id="s-first-name">there</span>!</h2>
+      <p>Here's everything you told us. Send it to Oliver and he'll be in touch within 24 hours to talk through the best option for <span id="s-biz-name-hero">your business</span>.</p>
+    </div>
+
+    <div class="summary-card">
+      <h3>Your Details</h3>
+      <div class="summary-row"><span class="summary-key">Name</span><span class="summary-val" id="s-name">—</span></div>
+      <div class="summary-row"><span class="summary-key">Business</span><span class="summary-val" id="s-biz">—</span></div>
+      <div class="summary-row"><span class="summary-key">Phone</span><span class="summary-val" id="s-phone">—</span></div>
+      <div class="summary-row"><span class="summary-key">Email</span><span class="summary-val" id="s-email">—</span></div>
+      <div class="summary-row"><span class="summary-key">Area</span><span class="summary-val" id="s-area">—</span></div>
+    </div>
+
+    <div class="summary-card">
+      <h3>About Your Business</h3>
+      <div class="summary-row"><span class="summary-key">Industry</span><span class="summary-val" id="s-industry">—</span></div>
+      <div class="summary-row"><span class="summary-key">Current site</span><span class="summary-val" id="s-current">—</span></div>
+      <div class="summary-row"><span class="summary-key">Current URL</span><span class="summary-val" id="s-url">—</span></div>
+    </div>
+
+    <div class="summary-card">
+      <h3>What You Want</h3>
+      <div class="summary-row"><span class="summary-key">Goals</span><span class="summary-val" id="s-goals">—</span></div>
+      <div class="summary-row"><span class="summary-key">Extra notes</span><span class="summary-val" id="s-goals-extra">—</span></div>
+    </div>
+
+    <div class="summary-card">
+      <h3>Look & Feel</h3>
+      <div class="summary-row"><span class="summary-key">Style</span><span class="summary-val" id="s-style">—</span></div>
+      <div class="summary-row"><span class="summary-key">Inspiration</span><span class="summary-val" id="s-inspo">—</span></div>
+    </div>
+
+    <div class="summary-card">
+      <h3>Content & Budget</h3>
+      <div class="summary-row"><span class="summary-key">Pages needed</span><span class="summary-val" id="s-pages">—</span></div>
+      <div class="summary-row"><span class="summary-key">Photos</span><span class="summary-val" id="s-photos">—</span></div>
+      <div class="summary-row"><span class="summary-key">Budget</span><span class="summary-val" id="s-budget">—</span></div>
+      <div class="summary-row"><span class="summary-key">Timeline</span><span class="summary-val" id="s-timeline">—</span></div>
+      <div class="summary-row"><span class="summary-key">Extra notes</span><span class="summary-val" id="s-extra">—</span></div>
+    </div>
+
+    <div class="action-row">
+      <a id="email-btn" href="#" class="btn btn-email btn-primary">
+        ✉️ Send to PageReady
+      </a>
+      <button class="btn btn-pdf btn-secondary" onclick="downloadPDF()">
+        ⬇️ Download as PDF
+      </button>
+    </div>
+
+    <p style="font-size:13px; color:var(--muted); margin-top:16px; text-align:center;">
+      Clicking "Send to PageReady" opens your email app with everything pre-filled. Oliver will reply within 24 hours.
+    </p>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+// Cursor glow
+const cg = document.getElementById('cg');
+document.addEventListener('mousemove', e => { cg.style.left = e.clientX + 'px'; cg.style.top = e.clientY + 'px'; });
+
+let currentStep = 1;
+const totalSteps = 7;
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('step-' + n);
+  if (el) el.classList.add('active');
+  // update progress
+  const pct = (n / totalSteps) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Step ' + n + ' of ' + totalSteps;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (currentStep < totalSteps) {
+    currentStep++;
+    showStep(currentStep);
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
+// Show/hide "other industry" field
+document.querySelectorAll('[name="industry"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('ind-other-field').style.display = r.value === 'Other' ? 'block' : 'none';
+  });
+});
+
+// Page slider
+function updatePageSlider(val) {
+  const labels = { 1:'1 page', 2:'2 pages', 3:'3 pages', 4:'4 pages', 5:'5 pages', 6:'6+ pages' };
+  document.getElementById('pages-val').textContent = labels[val] || val + ' pages';
+}
+
+// Get checked pills/radios
+function getChecked(name) {
+  return Array.from(document.querySelectorAll('[name="' + name + '"]:checked')).map(el => el.value).join(', ') || '—';
+}
+function getCheckboxes(ids) {
+  return ids.filter(id => document.getElementById(id).checked).map(id => document.getElementById(id).value).join(', ') || '—';
+}
+
+function submitForm() {
+  // Gather all data
+  const name    = document.getElementById('q-name').value || '—';
+  const biz     = document.getElementById('q-biz').value || '—';
+  const phone   = document.getElementById('q-phone').value || '—';
+  const email   = document.getElementById('q-email').value || '—';
+  const area    = document.getElementById('q-area').value || '—';
+
+  let industry = getChecked('industry');
+  if (industry === 'Other') industry = document.getElementById('q-industry-other').value || 'Other';
+
+  const current    = getChecked('current');
+  const currentUrl = document.getElementById('q-current-url').value || '—';
+  const goals      = getCheckboxes(['g1','g2','g3','g4','g5','g6','g7','g8','g9']);
+  const goalsExtra = document.getElementById('q-goals-extra').value || '—';
+  const style      = getChecked('style');
+  const inspo      = document.getElementById('q-inspo').value || '—';
+  const pages      = document.getElementById('pages-val').textContent;
+  const photos     = getChecked('photos');
+  const budget     = document.getElementById('q-budget').value || '—';
+  const timeline   = getChecked('timeline');
+  const extra      = document.getElementById('q-extra').value || '—';
+
+  // Populate summary
+  document.getElementById('s-first-name').textContent = name.split(' ')[0];
+  document.getElementById('s-biz-name-hero').textContent = biz !== '—' ? biz : 'your business';
+  document.getElementById('s-name').textContent    = name;
+  document.getElementById('s-biz').textContent     = biz;
+  document.getElementById('s-phone').textContent   = phone;
+  document.getElementById('s-email').textContent   = email;
+  document.getElementById('s-area').textContent    = area;
+  document.getElementById('s-industry').textContent= industry;
+  document.getElementById('s-current').textContent = current;
+  document.getElementById('s-url').textContent     = currentUrl;
+  document.getElementById('s-goals').textContent   = goals;
+  document.getElementById('s-goals-extra').textContent = goalsExtra;
+  document.getElementById('s-style').textContent   = style;
+  document.getElementById('s-inspo').textContent   = inspo;
+  document.getElementById('s-pages').textContent   = pages;
+  document.getElementById('s-photos').textContent  = photos;
+  document.getElementById('s-budget').textContent  = budget;
+  document.getElementById('s-timeline').textContent= timeline;
+  document.getElementById('s-extra').textContent   = extra;
+
+  // Build mailto
+  const subject = encodeURIComponent('PageReady enquiry from ' + biz);
+  const body = encodeURIComponent(
+`PageReady Website Enquiry
+==========================
+Name:           ${name}
+Business:       ${biz}
+Phone:          ${phone}
+Email:          ${email}
+Area:           ${area}
+
+Industry:       ${industry}
+Current site:   ${current}
+Current URL:    ${currentUrl}
+
+Goals:          ${goals}
+Extra goals:    ${goalsExtra}
+
+Style:          ${style}
+Inspiration:    ${inspo}
+
+Pages needed:   ${pages}
+Photos:         ${photos}
+Budget:         ${budget}
+Timeline:       ${timeline}
+Extra notes:    ${extra}
+`);
+  document.getElementById('email-btn').href = `mailto:oliver.irwin@hotmail.co.uk?subject=${subject}&body=${body}`;
+
+  // Show summary, hide steps + progress
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.progress-bar-wrap').style.display = 'none';
+  document.querySelector('.progress-label').style.display = 'none';
+  document.getElementById('summary-page').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// PDF download using print
+function downloadPDF() {
+  window.print();
+}
+</script>
+
+<style>
+@media print {
+  nav, .progress-bar-wrap, .progress-label, .action-row, #cg, p[style] { display: none !important; }
+  body { opacity: 1 !important; background: white !important; }
+  .summary-card { break-inside: avoid; border: 1px solid #ccc; }
+}
+</style>
+
+</body>
+</html>

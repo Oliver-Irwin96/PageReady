@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found | PageReady</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink:      #0c1220;
+  --ink-2:    #162032;
+  --indigo:   #5b5ef4;
+  --indigo-hi:#7b7ff6;
+  --cream:    #f8fafc;
+  --muted:    #64748b;
+  --border-dark: rgba(255,255,255,.07);
+}
+html, body { height: 100%; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  opacity: 0;
+  animation: in .5s ease .1s forwards;
+}
+@keyframes in { to { opacity: 1; } }
+
+/* grid bg */
+.bg-grid {
+  position: fixed; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(91,94,244,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,94,244,.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+
+/* cursor glow */
+#cg {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(91,94,244,.08) 0%, transparent 70%);
+  border-radius: 50%; position: fixed; pointer-events: none; z-index: 0;
+  transform: translate(-50%,-50%);
+  transition: left .55s cubic-bezier(.25,.46,.45,.94), top .55s cubic-bezier(.25,.46,.45,.94);
+  left: -999px; top: -999px;
+}
+
+nav {
+  position: relative; z-index: 10;
+  padding: 0 48px; height: 66px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--border-dark);
+}
+.logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 900; color: #fff; text-decoration: none; }
+.logo span { color: var(--indigo-hi); }
+.nav-home {
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,.5);
+  text-decoration: none; transition: color .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-home:hover { color: #fff; }
+
+main {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 48px 24px;
+  position: relative; z-index: 1;
+}
+
+.four-oh-four {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(100px, 22vw, 200px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(91,94,244,.3);
+  margin-bottom: 8px;
+  position: relative;
+  user-select: none;
+}
+.four-oh-four::after {
+  content: '404';
+  position: absolute; inset: 0;
+  color: transparent;
+  -webkit-text-stroke: 0;
+  background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-hi) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: .12;
+}
+
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(91,94,244,.12); border: 1px solid rgba(91,94,244,.25);
+  color: var(--indigo-hi); font-size: 12px; font-weight: 700;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.pill::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--indigo-hi);
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 800; line-height: 1.1;
+  margin-bottom: 16px; letter-spacing: -.01em;
+}
+
+p {
+  font-size: 16px; color: rgba(255,255,255,.5);
+  line-height: 1.7; max-width: 400px;
+  margin: 0 auto 40px; font-weight: 300;
+}
+
+.btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.btn-indigo {
+  background: var(--indigo); color: #fff;
+  padding: 14px 28px; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  box-shadow: 0 0 32px rgba(91,94,244,.25);
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+.btn-indigo:hover { transform: translateY(-2px); box-shadow: 0 4px 40px rgba(91,94,244,.4); }
+
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,.15); color: #fff;
+  padding: 13px 24px; border-radius: 10px;
+  text-decoration: none; font-weight: 600; font-size: 14px;
+  transition: border-color .15s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.45); }
+
+/* floating decorative numbers */
+.deco {
+  position: fixed; pointer-events: none;
+  font-family: 'Syne', sans-serif; font-weight: 900;
+  color: rgba(91,94,244,.06); line-height: 1;
+  animation: floatDeco 8s ease-in-out infinite;
+}
+.deco:nth-child(1) { font-size: 180px; top: 10%; left: -2%; animation-delay: 0s; }
+.deco:nth-child(2) { font-size: 120px; bottom: 15%; right: -1%; animation-delay: 2s; }
+.deco:nth-child(3) { font-size: 80px;  top: 55%; left: 5%; animation-delay: 4s; }
+@keyframes floatDeco {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-20px); }
+}
+
+footer {
+  position: relative; z-index: 1;
+  text-align: center; padding: 24px;
+  font-size: 12px; color: rgba(255,255,255,.2);
+  border-top: 1px solid var(--border-dark);
+}
+footer a { color: var(--indigo-hi); text-decoration: none; }
+
+@media (max-width: 480px) {
+  nav { padding: 0 20px; }
+  .btns { flex-direction: column; align-items: center; }
+  .btns a { width: 240px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div id="cg"></div>
+<div class="deco">4</div>
+<div class="deco">0</div>
+<div class="deco">4</div>
+
+<nav>
+  <a href="pageready-portfolio.html" class="logo">Page<span>Ready</span></a>
+  <a href="pageready-portfolio.html" class="nav-home">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back home
+  </a>
+</nav>
+
+<main>
+  <div class="pill">Error 404</div>
+  <div class="four-oh-four">404</div>
+  <h1>This page doesn't exist.</h1>
+  <p>Looks like the page you're after has moved, or never existed. Let's get you somewhere useful.</p>
+  <div class="btns">
+    <a href="pageready-portfolio.html" class="btn-indigo">Go to Homepage</a>
+    <a href="tel:07700000000" class="btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;width:15px;height:15px;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+      Call Us
+    </a>
+  </div>
+</main>
+
+<footer>
+  © 2026 PageReady · <a href="pageready-portfolio.html">pageready.co.uk</a>
+</footer>
+
+<script>
+const cg = document.getElementById('cg');
+document.addEventListener('mousemove', e => {
+  cg.style.left = e.clientX + 'px';
+  cg.style.top  = e.clientY + 'px';
+});
+</script>
+</body>
+</html>

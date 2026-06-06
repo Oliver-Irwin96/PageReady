@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harrington & Co. | Fine Jewellery | Bournemouth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #080808;
+    --black-2: #111111;
+    --black-3: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-light: #e4c87a;
+    --gold-pale: rgba(201,168,76,.12);
+    --white: #ffffff;
+    --offwhite: #f8f5f0;
+    --muted: rgba(255,255,255,.45);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+
+  .watermark { background: var(--gold); color: var(--black); text-align: center; padding: 11px; font-size: 13px; font-weight: 600; }
+  .watermark a { color: var(--black); }
+
+  /* ── HAIRLINE TOP ── */
+  .hairline { height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+
+  /* ── NAV ── */
+  nav {
+    padding: 28px 56px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 500; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold-light);
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; font-weight: 300; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links .nav-cta { border: 1px solid var(--gold); color: var(--gold); padding: 9px 24px; font-size: 11px; letter-spacing: .18em; transition: background .2s; }
+  .nav-links .nav-cta:hover { background: var(--gold-pale); }
+  @media (max-width: 680px) { nav { padding: 20px 24px; } .nav-links a:not(.nav-cta) { display: none; } }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    background:
+      radial-gradient(ellipse 50% 60% at 20% 40%, rgba(212,175,55,.12) 0%, transparent 60%),
+      radial-gradient(ellipse 35% 40% at 80% 75%, rgba(212,175,55,.07) 0%, transparent 55%),
+      url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: rgba(8,8,8,.78); }
+  .hero-inner { position: relative; z-index: 2; padding: 120px 24px 80px; max-width: 720px; }
+  .hero-rule-top { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold)); margin: 0 auto 32px; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
+  .hero h1 { font-size: clamp(44px, 7vw, 86px); font-weight: 400; line-height: 1.0; color: var(--white); margin-bottom: 24px; font-style: italic; }
+  .hero h1 em { font-style: normal; color: var(--gold); display: block; font-size: .75em; letter-spacing: .14em; text-transform: uppercase; font-family: 'DM Sans', sans-serif; font-weight: 300; margin-bottom: 8px; }
+  .hero-rule { width: 40px; height: 1px; background: var(--gold); margin: 28px auto; }
+  .hero p { font-size: 16px; color: var(--muted); line-height: 1.85; max-width: 440px; margin: 0 auto 40px; font-weight: 300; }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold {
+    background: var(--gold); color: var(--black);
+    padding: 14px 36px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
+    text-decoration: none; font-weight: 500; transition: background .2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-ghost-gold {
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 13px 32px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
+    text-decoration: none; font-weight: 400; transition: background .2s;
+  }
+  .btn-ghost-gold:hover { background: var(--gold-pale); }
+  .hero-rule-bottom { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent); margin: 60px auto 0; }
+
+  /* ── PHILOSOPHY STRIP ── */
+  .philosophy { border-top: 1px solid rgba(201,168,76,.2); border-bottom: 1px solid rgba(201,168,76,.2); padding: 36px 56px; display: flex; gap: 0; justify-content: center; }
+  .phil-item { flex: 1; text-align: center; padding: 0 32px; border-right: 1px solid rgba(201,168,76,.15); max-width: 260px; }
+  .phil-item:last-child { border: none; }
+  .phil-item .pi-icon { font-size: 22px; margin-bottom: 10px; opacity: .6; }
+  .phil-item p { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 600px) { .philosophy { flex-direction: column; gap: 20px; padding: 32px 24px; } .phil-item { border: none; border-bottom: 1px solid rgba(201,168,76,.15); padding-bottom: 20px; } }
+
+  /* ── COLLECTIONS ── */
+  .collections { padding: 100px 56px; }
+  .c-eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 400; }
+  .c-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 400; margin-bottom: 60px; font-style: italic; color: var(--white); }
+  .c-heading em { font-style: normal; color: var(--gold); }
+  .collections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: rgba(201,168,76,.15); max-width: 960px; }
+  .coll-item { background: var(--black-2); padding: 40px 32px; position: relative; overflow: hidden; transition: background .2s; }
+  .coll-item:hover { background: var(--black-3); }
+  .coll-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0; transition: opacity .2s; }
+  .coll-item:hover::before { opacity: 1; }
+  .coll-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: rgba(201,168,76,.1); font-weight: 700; line-height: 1; margin-bottom: 16px; }
+  .coll-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 10px; font-style: italic; }
+  .coll-item p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  /* ── ABOUT ── */
+  .about { display: grid; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 768px) { .about { grid-template-columns: 1fr; } }
+  .about-img { overflow: hidden; min-height: 500px; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7) sepia(.15); display: block; }
+  .about-text { background: var(--black-2); padding: 80px 56px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(201,168,76,.15); }
+  .about-text .c-eyebrow { margin-bottom: 14px; }
+  .about-text .c-heading { margin-bottom: 20px; }
+  .about-text p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 14px; font-weight: 300; }
+  .about-divider { width: 40px; height: 1px; background: var(--gold); margin: 28px 0; }
+  .about-stats { display: flex; gap: 36px; }
+  .a-stat .num { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: var(--gold); font-style: italic; line-height: 1; }
+  .a-stat .lbl { font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+
+  /* ── VISIT ── */
+  .visit { padding: 100px 56px; text-align: center; border-top: 1px solid rgba(201,168,76,.15); }
+  .visit .c-eyebrow { display: block; margin-bottom: 14px; }
+  .visit .c-heading { margin-bottom: 12px; }
+  .visit p { color: var(--muted); font-size: 15px; margin-bottom: 48px; font-weight: 300; }
+  .visit-cards { display: flex; gap: 1px; justify-content: center; flex-wrap: wrap; background: rgba(201,168,76,.15); display: inline-flex; }
+  .visit-card { background: var(--black-2); padding: 32px 40px; text-align: center; }
+  .visit-card .vc-icon { font-size: 24px; margin-bottom: 14px; opacity: .6; }
+  .visit-card .vc-label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(201,168,76,.5); margin-bottom: 6px; }
+  .visit-card .vc-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold-light); font-style: italic; }
+
+  footer { border-top: 1px solid rgba(201,168,76,.15); padding: 32px; text-align: center; }
+  footer p { font-size: 12px; letter-spacing: .12em; color: rgba(255,255,255,.2); text-transform: uppercase; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .collections, .visit { padding: 64px 24px; }
+    .about-text { padding: 56px 24px; }
+  }
+
+  /* ── MOBILE PASS ── */
+  @media (max-width: 600px) {
+    .visit-cards { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
+    .visit-card { width: 100%; }
+    .about-stats { flex-wrap: wrap; gap: 20px 36px; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-btns a { width: 240px; text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .philosophy { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="watermark">✦ Example site by <a href="#">PageReady</a> — websites for local businesses from £250 · pageready.co.uk</div>
+<div class="hairline"></div>
+
+<nav>
+  <div class="logo">Harrington & Co.</div>
+  <div class="nav-links">
+    <a href="#collections">Collections</a>
+    <a href="#about">Our Story</a>
+    <a href="#visit" class="nav-cta">Visit Us</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-rule-top"></div>
+    <div class="hero-eyebrow">Fine Jewellery · Bournemouth · Est. 1962</div>
+    <h1><em>Crafted to</em>Last<br>a Lifetime</h1>
+    <div class="hero-rule"></div>
+    <p>Bespoke jewellery crafted by hand in Bournemouth since 1962. Engagement rings, commissions, and heirloom repairs — with the same care we've always given.</p>
+    <div class="hero-btns">
+      <a href="tel:01202000000" class="btn-gold">Book a Consultation</a>
+      <a href="#collections" class="btn-ghost-gold">View Collections</a>
+    </div>
+    <div class="hero-rule-bottom"></div>
+  </div>
+</section>
+
+<div class="philosophy">
+  <div class="phil-item"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/></svg></div><p>Ethically sourced stones, every piece</p></div>
+  <div class="phil-item"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></div><p>Free consultation, no obligation</p></div>
+  <div class="phil-item"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 12c-2-2.5-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.5 6-4z"/><path d="M12 12c2 2.5 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.5-6 4z"/></svg></div><p>Lifetime cleaning & inspection service</p></div>
+</div>
+
+<section class="collections" id="collections">
+  <div class="c-eyebrow">What We Create</div>
+  <div class="c-heading">Our <em>Collections</em></div>
+  <div class="collections-grid">
+    <div class="coll-item">
+      <div class="coll-num">01</div>
+      <h3>Engagement Rings</h3>
+      <p>Bespoke designs crafted around your story. We work with you from the first sketch to the final polish.</p>
+    </div>
+    <div class="coll-item">
+      <div class="coll-num">02</div>
+      <h3>Wedding Bands</h3>
+      <p>Matching sets or unique individual pieces. Plain, set, or engraved — entirely your choice.</p>
+    </div>
+    <div class="coll-item">
+      <div class="coll-num">03</div>
+      <h3>Bespoke Commissions</h3>
+      <p>An idea in your head, made real in precious metal. We've brought every kind of vision to life.</p>
+    </div>
+    <div class="coll-item">
+      <div class="coll-num">04</div>
+      <h3>Heirloom Restoration</h3>
+      <p>Grandmother's ring, a lost clasp, a broken chain. We restore and re-set jewellery with the respect it deserves.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=900&q=80" alt="Jeweller at work">
+  </div>
+  <div class="about-text">
+    <div class="c-eyebrow">Our Story</div>
+    <div class="c-heading">Six Decades of<br><em>Fine Craft</em></div>
+    <p>Harrington & Co. was founded in 1962 by Gerald Harrington, a master goldsmith trained in London's Hatton Garden. Today his granddaughter Claire continues the tradition in the same Bournemouth studio.</p>
+    <p>We have never been a chain. Every piece passes through the same hands, with the same attention to detail that has kept customers returning — and recommending us — for generations.</p>
+    <div class="about-divider"></div>
+    <div class="about-stats">
+      <div class="a-stat"><div class="num">62</div><div class="lbl">Years established</div></div>
+      <div class="a-stat"><div class="num">3rd</div><div class="lbl">Generation</div></div>
+      <div class="a-stat"><div class="num">5★</div><div class="lbl">Google rating</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <span class="c-eyebrow">Come & See Us</span>
+  <div class="c-heading">Visit the <em>Studio</em></div>
+  <p>Appointments preferred, walk-ins welcome. Free parking nearby.</p>
+  <div class="visit-cards">
+    <div class="visit-card"><div class="vc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="vc-label">Studio</div><div class="vc-val">Old Christchurch Road, BH1</div></div>
+    <div class="visit-card"><div class="vc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 2.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg></div><div class="vc-label">Telephone</div><div class="vc-val">01202 000 000</div></div>
+    <div class="visit-card"><div class="vc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="vc-label">Hours</div><div class="vc-val">Tue – Sat, 10am – 5pm</div></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Harrington & Co. · Fine Jewellery · Bournemouth · Built by <a href="#">PageReady</a></p>
+</footer>
+
+
+<!-- ── CURSOR GLOW + SCROLL REVEAL ── -->
+<div id="cg" style="width:420px;height:420px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 70%);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:left .6s cubic-bezier(.25,.46,.45,.94),top .6s cubic-bezier(.25,.46,.45,.94);left:-999px;top:-999px;"></div>
+<style>
+  .sr{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+  .sr.vis{opacity:1;transform:translateY(0);}
+  .sr-l{opacity:0;transform:translateX(-24px);transition:opacity .8s ease,transform .8s ease;}
+  .sr-l.vis{opacity:1;transform:translateX(0);}
+  .sr-r{opacity:0;transform:translateX(24px);transition:opacity .8s ease,transform .8s ease;}
+  .sr-r.vis{opacity:1;transform:translateX(0);}
+</style>
+<script>
+  const cg=document.getElementById('cg');
+  document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';});
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.1});
+  document.querySelectorAll('.coll-item,.phil-item,.visit-card,.a-stat').forEach((el,i)=>{el.classList.add(i%3===0?'sr-l':i%3===1?'sr':'sr-r');obs.observe(el);});
+  // Gold hairline reveal on coll-item hover
+  document.querySelectorAll('.coll-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>el.style.borderTop='1px solid rgba(201,168,76,.5)');
+    el.addEventListener('mouseleave',()=>el.style.borderTop='');
+  });
+  // Page entrance
+  (function(){var d=document.documentElement;d.style.cssText='opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease;';requestAnimationFrame(function(){requestAnimationFrame(function(){d.style.opacity='1';d.style.transform='translateY(0)';});});})();
+  // Mouse-tracking card glow (gold on pure black)
+  document.querySelectorAll('.coll-item,.visit-card,.phil-item').forEach(function(el){
+    el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();el.style.backgroundImage='radial-gradient(circle at '+(e.clientX-r.left)+'px '+(e.clientY-r.top)+'px,rgba(201,168,76,.08) 0%,transparent 65%)';});
+    el.addEventListener('mouseleave',function(){el.style.backgroundImage='';});
+  });
+</script>
+</body>
+</html>
