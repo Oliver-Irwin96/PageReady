@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dorset Garden Co — Landscaping &amp; Garden Design, Wimborne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f1c0e;
+  --forest:#166534;
+  --forest-hi:#16a34a;
+  --lime:#86efac;
+  --sage:#f0fdf4;
+  --cream:#f7fbf7;
+  --border:#bbf7d0;
+  --muted:#4b5563;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--cream);overflow-x:hidden;opacity:0;animation:reveal .5s .1s forwards}
+@keyframes reveal{to{opacity:1}}
+#cg{position:fixed;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(22,101,52,.1) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:9999;transition:left .08s,top .08s}
+.sr{opacity:0;transform:translateY(22px);transition:opacity .55s,transform .55s}
+.sr.vis{opacity:1;transform:none}
+.sr-l{opacity:0;transform:translateX(-30px);transition:opacity .6s,transform .6s}
+.sr-l.vis{opacity:1;transform:none}
+.sr-r{opacity:0;transform:translateX(30px);transition:opacity .6s,transform .6s}
+.sr-r.vis{opacity:1;transform:none}
+.pr-bar{background:var(--ink);color:#fff;text-align:center;font-size:.7rem;padding:7px 16px;letter-spacing:.04em}
+.pr-bar a{color:var(--lime);text-decoration:none}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none}
+.nav-logo span{color:var(--forest-hi)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--forest)}
+.nav-cta{background:var(--forest);color:#fff;padding:9px 20px;border-radius:7px;font-size:.88rem;font-weight:600;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--forest-hi)}
+.hero{min-height:90vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80') center/cover no-repeat;filter:brightness(.28)}
+.hero-inner{position:relative;z-index:2;padding:80px 6%;max-width:760px}
+.hero-pill{display:inline-block;background:rgba(22,101,52,.28);color:var(--lime);border:1px solid rgba(134,239,172,.35);padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,5.5vw,3.9rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:18px}
+.hero h1 span{color:var(--lime)}
+.hero p{color:rgba(255,255,255,.8);font-size:1.1rem;max-width:520px;margin-bottom:32px;line-height:1.7}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-forest{background:var(--forest);color:#fff;padding:14px 28px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;transition:background .2s}
+.btn-forest:hover{background:var(--forest-hi)}
+.btn-ghost{border:2px solid rgba(255,255,255,.5);color:#fff;padding:13px 26px;border-radius:8px;font-size:1rem;font-weight:600;text-decoration:none;transition:border-color .2s}
+.btn-ghost:hover{border-color:#fff}
+.trust-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;justify-content:center;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px;padding:18px 36px;border-right:1px solid var(--border);font-size:.85rem;font-weight:600;color:var(--ink)}
+.trust-item:last-child{border-right:none}
+.trust-item .ti{font-size:1.3rem}
+.services{padding:88px 6%;background:var(--cream)}
+.sec-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--forest);margin-bottom:10px}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--ink);margin-bottom:48px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.service-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;transition:box-shadow .2s,transform .2s}
+.service-card:hover{box-shadow:0 8px 28px rgba(22,101,52,.12);transform:translateY(-3px)}
+.sc-icon{font-size:2rem;margin-bottom:14px}
+.sc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:8px}
+.sc-desc{font-size:.86rem;color:var(--muted);line-height:1.6}
+.gallery{padding:88px 6%;background:var(--sage)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:48px}
+.gallery-item{border-radius:12px;overflow:hidden;aspect-ratio:4/3;position:relative}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gallery-item:hover img{transform:scale(1.04)}
+.about{padding:88px 6%;background:#fff}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1100px;margin:0 auto}
+.about-img{border-radius:16px;overflow:hidden;aspect-ratio:4/3}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-content p{color:var(--muted);line-height:1.8;margin-bottom:14px}
+.about-ticks{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.about-ticks li{display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;color:var(--ink)}
+.about-ticks li::before{content:"✓";background:var(--forest);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.testimonials{padding:88px 6%;background:var(--ink)}
+.testimonials .sec-label{color:var(--lime)}
+.testimonials .sec-title{color:#fff}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.testi{background:rgba(255,255,255,.05);border:1px solid rgba(22,101,52,.25);border-radius:14px;padding:28px}
+.testi-stars{color:var(--lime);font-size:1rem;margin-bottom:12px}
+.testi blockquote{color:rgba(255,255,255,.85);font-size:.92rem;line-height:1.7;font-style:italic;margin-bottom:16px}
+.testi-name{font-weight:700;color:#fff;font-size:.88rem}
+.testi-loc{color:rgba(255,255,255,.4);font-size:.8rem}
+.final-cta{padding:100px 6%;background:linear-gradient(135deg,var(--forest) 0%,var(--forest-hi) 100%);text-align:center}
+.final-inner h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:16px}
+.final-inner p{color:rgba(255,255,255,.88);font-size:1.05rem;margin-bottom:32px}
+.btn-white{background:#fff;color:var(--forest);padding:15px 32px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;display:inline-block;transition:transform .2s}
+.btn-white:hover{transform:translateY(-2px)}
+footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:28px 6%;font-size:.8rem;line-height:1.8}
+footer a{color:var(--lime);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.about-inner{grid-template-columns:1fr}.trust-item{padding:14px 18px}}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<div class="pr-bar">✦ Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · Local websites from £299 · pageready.co.uk ✦</div>
+<nav>
+  <a href="#" class="nav-logo">Dorset<span>Garden Co.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Free Quote</a></li>
+  </ul>
+  <a href="tel:01202000000" class="nav-cta">Free Quote</a>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">Garden Design &amp; Landscaping · Dorset</div>
+    <h1>Gardens That Make<br><span>You Want to Be Outside.</span></h1>
+    <p>Landscape design, decking, patios, planting, and year-round maintenance. We transform outdoor spaces across Wimborne and Dorset — from weekend projects to full garden builds.</p>
+    <div class="hero-ctas">
+      <a href="tel:01202000000" class="btn-forest">📞 Free Garden Quote</a>
+      <a href="#gallery" class="btn-ghost">View Our Work</a>
+    </div>
+  </div>
+</section>
+<div class="trust-bar">
+  <div class="trust-item"><span class="ti">🌿</span> 15+ Years Experience</div>
+  <div class="trust-item"><span class="ti">⭐</span> 4.9 Google Rating</div>
+  <div class="trust-item"><span class="ti">📍</span> Wimborne &amp; Dorset</div>
+  <div class="trust-item"><span class="ti">🤝</span> Free Consultation</div>
+</div>
+<section class="services" id="services">
+  <div class="sec-label">What We Do</div>
+  <div class="sec-title">Garden Services</div>
+  <div class="services-grid">
+    <div class="service-card sr"><div class="sc-icon">🎨</div><div class="sc-title">Garden Design</div><p class="sc-desc">Bespoke design plans for any space — from courtyard makeovers to full half-acre redesigns. 3D visuals included.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🪨</div><div class="sc-title">Patios &amp; Paving</div><p class="sc-desc">Natural stone, porcelain, and block paving installed to last. Clean edges, proper drainage, no shortcuts.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🌳</div><div class="sc-title">Planting &amp; Borders</div><p class="sc-desc">Year-round colour and structure using plants suited to Dorset's climate. Seasonal planting plans included.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🪵</div><div class="sc-title">Decking &amp; Fencing</div><p class="sc-desc">Composite or hardwood decking, garden structures, and boundary fencing. Fully designed and built to spec.</p></div>
+    <div class="service-card sr"><div class="sc-icon">✂️</div><div class="sc-title">Maintenance</div><p class="sc-desc">Regular maintenance packages — lawns, hedges, weeding, and seasonal tidy-ups. Monthly or fortnightly.</p></div>
+    <div class="service-card sr"><div class="sc-icon">💧</div><div class="sc-title">Irrigation &amp; Drainage</div><p class="sc-desc">Automatic irrigation systems and surface water drainage solutions. Your garden, hassle-free.</p></div>
+  </div>
+</section>
+<section class="gallery" id="gallery">
+  <div class="sec-label">Recent Projects</div>
+  <div class="sec-title">Our Work</div>
+  <div class="gallery-grid">
+    <div class="gallery-item sr"><img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?w=700&q=80" alt="Garden landscaping" loading="lazy"></div>
+    <div class="gallery-item sr"><img src="https://images.unsplash.com/photo-1585320806297-9794b3e4edd0?w=700&q=80" alt="Patio design" loading="lazy"></div>
+    <div class="gallery-item sr"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700&q=80" alt="Garden planting" loading="lazy"></div>
+    <div class="gallery-item sr"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Decking" loading="lazy"></div>
+  </div>
+</section>
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img sr-l">
+      <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&q=80" alt="Landscaper at work" loading="lazy">
+    </div>
+    <div class="about-content sr-r">
+      <div class="sec-label">About Us</div>
+      <div class="sec-title">Transforming Dorset Gardens Since 2008</div>
+      <p>We're a family-run landscaping team based in Wimborne. From a quick patio refresh to a complete garden build from scratch — we design, build, and maintain outdoor spaces that people actually love using.</p>
+      <p>Every job starts with a free site visit and honest quote. No pushy upselling, no subcontracting to strangers — just our own team, doing excellent work.</p>
+      <ul class="about-ticks">
+        <li>15+ years in Dorset gardens</li>
+        <li>Full public liability insurance</li>
+        <li>3D design visuals on larger projects</li>
+        <li>RHS-qualified planting design</li>
+        <li>Free site visit and no-obligation quote</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="testimonials" id="testimonials">
+  <div class="sec-label">Customer Reviews</div>
+  <div class="sec-title">What Our Clients Say</div>
+  <div class="testi-grid">
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Completely transformed our back garden — from a neglected mess to a space we actually live in. The 3D design really helped us visualise it before committing."</blockquote><div class="testi-name">Caroline &amp; Ian D.</div><div class="testi-loc">Wimborne</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"The porcelain patio they laid is stunning. Proper drainage, perfect levels, spotless finish. And they came in on budget. Can't ask for more."</blockquote><div class="testi-name">Martin F.</div><div class="testi-loc">Ferndown</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"On the monthly maintenance plan — they're like clockwork. Lawn is always immaculate and they always leave the place cleaner than when they arrived."</blockquote><div class="testi-name">Susan P.</div><div class="testi-loc">Poole</div></div>
+  </div>
+</section>
+<section class="final-cta" id="contact">
+  <div class="final-inner">
+    <h2>Start With a Free Site Visit</h2>
+    <p>Tell us what you're thinking — we'll come out, take a look, and give you an honest quote. No pressure, no obligation.</p>
+    <a href="tel:01202000000" class="btn-white">📞 Book a Free Visit — 01202 000 000</a>
+  </div>
+</section>
+<footer>
+  Dorset Garden Co · Wimborne, Dorset · <a href="tel:01202000000">01202 000 000</a><br>
+  <span style="margin-top:6px;display:block">Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · pageready.co.uk · Local websites from £299</span>
+</footer>
+<script>
+  const cg=document.getElementById('cg');
+  document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';});
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:0.1});
+  document.querySelectorAll('.sr,.sr-l,.sr-r').forEach((el,i)=>{
+    el.style.transitionDelay=(i%4)*0.08+'s';obs.observe(el);
+  });
+  document.querySelectorAll('.service-card,.gallery-item,.testi').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width)*100;
+      const y=((e.clientY-r.top)/r.height)*100;
+      const base=card.classList.contains('testi')?'rgba(15,28,14,.04)':'#fff';
+      if(!card.classList.contains('gallery-item')){
+        card.style.background=`radial-gradient(circle at ${x}% ${y}%,rgba(22,101,52,.08) 0%,transparent 55%),${base}`;
+      }
+    });
+    card.addEventListener('mouseleave',()=>{if(!card.classList.contains('gallery-item'))card.style.background='';});
+  });
+</script>
+</body>
+</html>
