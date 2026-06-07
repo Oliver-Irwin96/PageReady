@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peak Roofing Solutions | Dorset Roofers | Free Quotes</title>
+<meta name="description" content="Local roofers in Dorset. New roofs, repairs, emergency call-outs. Fully insured. Free quotes. Family-run, honest, reliable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0f1923; --ink-2:#1a2635; --ink-3:#243347;
+  --slate:#344e6a; --slate-mid:#4a6280; --muted:#6b8299;
+  --amber:#f59e0b; --amber-hi:#fbbf24; --amber-glow:rgba(245,158,11,.18);
+  --cream:#f8fafc; --border:#e2e8f0; --border-dark:rgba(255,255,255,.07);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:#fff;overflow-x:hidden;
+  opacity:0;animation:bodyReveal .6s cubic-bezier(.4,0,.2,1) .15s forwards;}
+@keyframes bodyReveal{to{opacity:1;}}
+#cg{width:480px;height:480px;background:radial-gradient(circle,rgba(245,158,11,.06) 0%,transparent 70%);
+  border-radius:50%;position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);
+  transition:left .55s cubic-bezier(.25,.46,.45,.94),top .55s cubic-bezier(.25,.46,.45,.94);left:-999px;top:-999px;}
+.sr{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.sr-l{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+.sr-r{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
+.sr.vis,.sr-l.vis,.sr-r.vis{opacity:1;transform:none;}
+.pr-watermark{background:var(--ink);color:rgba(255,255,255,.35);text-align:center;padding:7px 20px;
+  font-size:11px;letter-spacing:.04em;font-weight:500;position:relative;z-index:200;}
+.pr-watermark a{color:#7b7ff6;text-decoration:none;font-weight:700;}
+.emergency-banner{background:#dc2626;color:#fff;text-align:center;padding:9px 20px;font-size:13px;font-weight:700;}
+.emergency-banner a{color:#fef9c3;text-decoration:none;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);backdrop-filter:blur(18px);
+  padding:0 48px;height:64px;display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border-dark);}
+.logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:900;color:#fff;}
+.logo span{color:var(--amber);}
+.nav-links{display:flex;gap:20px;align-items:center;}
+.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{background:var(--amber);color:var(--ink)!important;padding:8px 20px;border-radius:8px;font-weight:800!important;}
+.nav-cta:hover{background:var(--amber-hi)!important;}
+@media(max-width:640px){nav{padding:0 20px;}.nav-links a:not(.nav-cta){display:none;}}
+.hero{background:var(--ink);padding:88px 48px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=60');
+  background-size:cover;background-position:center;opacity:.13;pointer-events:none;}
+.hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(15,25,35,.85) 0%,rgba(15,25,35,.7) 50%,rgba(15,25,35,.96) 100%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto;}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.12);
+  border:1px solid rgba(245,158,11,.3);color:var(--amber-hi);font-size:12px;font-weight:700;
+  padding:6px 16px;border-radius:20px;margin-bottom:24px;letter-spacing:.06em;text-transform:uppercase;}
+.hero-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.7);}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(32px,5.5vw,62px);font-weight:900;
+  line-height:1.04;color:#fff;margin-bottom:18px;letter-spacing:-.02em;}
+.hero h1 em{color:var(--amber);font-style:normal;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.55);line-height:1.8;max-width:480px;margin:0 auto 32px;font-weight:300;}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:52px;}
+.btn-amber{background:var(--amber);color:var(--ink);padding:15px 32px;border-radius:10px;text-decoration:none;
+  font-weight:800;font-size:15px;box-shadow:0 0 36px rgba(245,158,11,.3);
+  transition:transform .15s,box-shadow .15s,background .15s;}
+.btn-amber:hover{transform:translateY(-2px);box-shadow:0 4px 44px rgba(245,158,11,.45);background:var(--amber-hi);}
+.btn-outline{border:1px solid rgba(255,255,255,.18);color:#fff;padding:13px 26px;border-radius:10px;
+  text-decoration:none;font-weight:600;font-size:15px;transition:border-color .15s;}
+.btn-outline:hover{border-color:rgba(255,255,255,.55);}
+.hero-proof{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;}
+.proof-item{text-align:center;}
+.proof-item strong{font-family:'Syne',sans-serif;font-size:28px;font-weight:900;color:#fff;display:block;line-height:1;}
+.proof-item span{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;display:block;}
+.trust-bar{background:var(--amber);padding:14px 48px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);}
+.trust-item svg{width:16px;height:16px;flex-shrink:0;}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:800;color:var(--ink);margin-bottom:48px;line-height:1.05;}
+.services{padding:88px 48px;background:var(--cream);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:960px;}
+.service-card{background:#fff;border-radius:14px;padding:28px;border:1px solid var(--border);
+  transition:box-shadow .25s,transform .2s,border-color .2s;}
+.service-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.08);transform:translateY(-4px);border-color:var(--amber);}
+.sc-icon{font-size:28px;margin-bottom:14px;}
+.service-card h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ink);}
+.service-card p{font-size:13px;color:var(--muted);line-height:1.7;}
+.about{padding:88px 48px;background:#fff;}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:960px;}
+@media(max-width:700px){.about-inner{grid-template-columns:1fr;}}
+.about-img{border-radius:16px;overflow:hidden;height:380px;}
+.about-img img{width:100%;height:100%;object-fit:cover;}
+.about-content p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:20px;}
+.about-ticks{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
+.tick-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink);font-weight:500;}
+.tick-dot{width:22px;height:22px;background:rgba(245,158,11,.1);border-radius:6px;display:flex;align-items:center;
+  justify-content:center;font-size:12px;color:var(--amber);font-weight:800;flex-shrink:0;margin-top:1px;}
+.testimonials{background:var(--ink-2);padding:80px 48px;}
+.testimonials .sec-label{color:var(--amber-hi);}
+.testimonials .sec-title{color:#fff;margin-bottom:40px;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:900px;}
+.testi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:28px;transition:background .2s,transform .2s;}
+.testi:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.testi-stars{color:var(--amber);font-size:14px;letter-spacing:2px;margin-bottom:12px;}
+.testi blockquote{font-size:14px;font-style:italic;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:16px;font-weight:300;}
+.testi-name{font-size:13px;font-weight:700;color:#fff;}
+.testi-loc{font-size:12px;color:rgba(255,255,255,.3);margin-top:2px;}
+.areas{padding:72px 48px;background:var(--cream);}
+.areas-inner{max-width:900px;}
+.areas-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;}
+.area-pill{background:#fff;border:1px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;color:var(--ink);}
+.final-cta{padding:96px 48px;text-align:center;background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);position:relative;overflow:hidden;}
+.final-inner{position:relative;z-index:2;max-width:560px;margin:0 auto;}
+.final-cta h2{font-family:'Syne',sans-serif;font-size:clamp(28px,5vw,50px);font-weight:900;color:var(--ink);margin-bottom:14px;}
+.final-cta p{font-size:16px;color:rgba(15,25,35,.65);margin-bottom:32px;line-height:1.7;}
+.btn-dark{background:var(--ink);color:#fff;padding:15px 34px;border-radius:10px;text-decoration:none;
+  font-weight:800;font-size:15px;transition:transform .15s,background .15s;display:inline-block;}
+.btn-dark:hover{transform:translateY(-2px);background:var(--ink-2);}
+footer{background:#060c18;color:rgba(255,255,255,.22);text-align:center;padding:24px 48px;font-size:12px;}
+footer a{color:#7b7ff6;text-decoration:none;}
+@media(max-width:600px){
+  .hero,.services,.about,.testimonials,.areas,.final-cta{padding-left:20px;padding-right:20px;}
+  .hero{padding-top:64px;padding-bottom:56px;}
+  .trust-bar{padding:12px 20px;gap:16px;}
+  footer{padding:20px;}
+}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<div class="pr-watermark">Demo site built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · Local websites for Dorset businesses from £299</div>
+<div class="emergency-banner">⚡ Storm damage or leak? Call now: <a href="tel:01202000000">01202 000 000</a> — Emergency repairs 7 days a week</div>
+<nav>
+  <div class="logo">Peak<span>Roofing</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#areas">Areas</a>
+    <a href="tel:01202000000" class="nav-cta">📞 Free Quote</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">Dorset's Trusted Roofers</div>
+    <h1>Your Roof, Fixed Right.<br><em>First Time.</em></h1>
+    <p class="hero-sub">New roofs, repairs, guttering and emergency call-outs across Dorset. Fully insured. Free quotes. No pushy sales.</p>
+    <div class="hero-ctas">
+      <a href="tel:01202000000" class="btn-amber">📞 Get a Free Quote</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item"><strong>15+</strong><span>Years Trading</span></div>
+      <div class="proof-item"><strong>500+</strong><span>Roofs Done</span></div>
+      <div class="proof-item"><strong>Fully</strong><span>Insured</span></div>
+      <div class="proof-item"><strong>Free</strong><span>Quotes</span></div>
+    </div>
+  </div>
+</section>
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Fully Insured &amp; Guaranteed
+  </div>
+  <div class="trust-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    48-Hour Emergency Response
+  </div>
+  <div class="trust-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Local, Family-Run Business
+  </div>
+  <div class="trust-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    5-Star Google Reviews
+  </div>
+</div>
+<section class="services" id="services">
+  <div class="sec-label">What We Do</div>
+  <div class="sec-title">Roofing Services<br>Done Properly</div>
+  <div class="services-grid">
+    <div class="service-card sr"><div class="sc-icon">🏠</div><h3>New Roofs</h3><p>Full replacements using quality tiles, slates, and felt. We strip the old, sort the structure, and leave it weathertight for decades.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🔧</div><h3>Roof Repairs</h3><p>Missing tiles, leaks, sagging — we find the cause and fix it properly, not just patch it. Most repairs completed same week.</p></div>
+    <div class="service-card sr"><div class="sc-icon">⚡</div><h3>Emergency Call-Outs</h3><p>Storm damage? Active leak? We cover Dorset 7 days a week. Call now and we'll aim to be with you same day.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🏗️</div><h3>Flat Roofs</h3><p>GRP fibreglass flat roofs with a 25-year guarantee. Extensions, garages, outbuildings — we've done hundreds across Dorset.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🌧️</div><h3>Guttering &amp; Fascias</h3><p>Blocked, cracked, or sagging gutters? We replace, repair, and clean. Proper UPVC fascias and soffits fitted to last.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🔎</div><h3>Free Roof Inspections</h3><p>Not sure if your roof needs attention? We'll come and look — no charge, no obligation. Honest advice, not a sales pitch.</p></div>
+  </div>
+</section>
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img sr-l">
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Roofer at work" loading="lazy">
+    </div>
+    <div class="about-content sr-r">
+      <div class="sec-label">About Us</div>
+      <div class="sec-title">Honest Roofers.<br>Straight Talking.</div>
+      <p>We're a local, family-run roofing company based in Wimborne. No call centres, no subcontractors, no cowboys. When you call us, you speak to us directly.</p>
+      <p>Over 15 years and 500+ roofs later, our reputation is everything. We won't quote for work you don't need, and we won't cut corners to save time.</p>
+      <div class="about-ticks">
+        <div class="tick-item"><div class="tick-dot">✓</div>Fully insured — public liability &amp; employers' liability</div>
+        <div class="tick-item"><div class="tick-dot">✓</div>All work guaranteed in writing</div>
+        <div class="tick-item"><div class="tick-dot">✓</div>Free written quotes — no hard sell</div>
+        <div class="tick-item"><div class="tick-dot">✓</div>Same team start to finish — no subcontracting</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="testimonials">
+  <div class="sec-label">Reviews</div>
+  <div class="sec-title">What Our Customers Say</div>
+  <div class="testi-grid">
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Had a leak coming through the bedroom ceiling. They came out the next morning, found the issue straight away, and had it fixed by lunchtime. Brilliant service."</blockquote><div class="testi-name">Sarah J.</div><div class="testi-loc">Wimborne</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Used Peak Roofing for a full re-roof on our Victorian terrace. Professional from start to finish, left the place cleaner than they found it. Would recommend to anyone."</blockquote><div class="testi-name">Mark T.</div><div class="testi-loc">Bournemouth</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Called after storm damage on a Sunday. Had a call back within the hour and a temporary fix by evening. Permanent repair sorted days later. Couldn't ask for more."</blockquote><div class="testi-name">Helen R.</div><div class="testi-loc">Poole</div></div>
+  </div>
+</section>
+<section class="areas" id="areas">
+  <div class="areas-inner">
+    <div class="sec-label">Coverage</div>
+    <div class="sec-title">Areas We Cover</div>
+    <p style="font-size:15px;color:var(--muted);line-height:1.8;max-width:580px;">We cover the whole of Dorset and into parts of Hampshire. Not sure if we cover you — just call. We'll be straight with you.</p>
+    <div class="areas-pills">
+      <span class="area-pill">Wimborne</span><span class="area-pill">Bournemouth</span><span class="area-pill">Poole</span>
+      <span class="area-pill">Ferndown</span><span class="area-pill">Christchurch</span><span class="area-pill">Ringwood</span>
+      <span class="area-pill">Blandford Forum</span><span class="area-pill">Dorchester</span><span class="area-pill">Wareham</span>
+      <span class="area-pill">Swanage</span><span class="area-pill">Weymouth</span><span class="area-pill">+ surrounding areas</span>
+    </div>
+  </div>
+</section>
+<section class="final-cta">
+  <div class="final-inner">
+    <h2>Need a Quote?</h2>
+    <p>Call us for a free, no-obligation quote. Honest advice about what your roof actually needs — no pressure, no jargon.</p>
+    <a href="tel:01202000000" class="btn-dark">📞 Call 01202 000 000</a>
+  </div>
+</section>
+<footer>
+  Peak Roofing Solutions · Wimborne, Dorset · <a href="tel:01202000000">01202 000 000</a><br>
+  <span style="margin-top:6px;display:block">Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · pageready.co.uk · Local websites from £299</span>
+</footer>
+<script>
+  const cg=document.getElementById('cg');
+  document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';});
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:0.1});
+  document.querySelectorAll('.sr,.sr-l,.sr-r').forEach((el,i)=>{
+    el.style.transitionDelay=(i%4)*0.08+'s';obs.observe(el);
+  });
+  document.querySelectorAll('.service-card,.testi').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width)*100;
+      const y=((e.clientY-r.top)/r.height)*100;
+      const base=card.classList.contains('testi')?'rgba(26,38,53,.04)':'#fff';
+      card.style.background=`radial-gradient(circle at ${x}% ${y}%,rgba(245,158,11,.07) 0%,transparent 55%),${base}`;
+    });
+    card.addEventListener('mouseleave',()=>card.style.background='');
+  });
+</script>
+</body>
+</html>
