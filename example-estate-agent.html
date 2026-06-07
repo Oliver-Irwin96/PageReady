@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dorset Property Co — Estate Agents, Wimborne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e0a1f;
+  --gold:#b8860b;
+  --gold-hi:#d4a017;
+  --navy:#1e3a5f;
+  --cream:#faf9f6;
+  --border:#e8e0cc;
+  --muted:#64748b;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--cream);overflow-x:hidden;opacity:0;animation:reveal .5s .1s forwards}
+@keyframes reveal{to{opacity:1}}
+#cg{position:fixed;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,.08) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:9999;transition:left .08s,top .08s}
+.sr{opacity:0;transform:translateY(22px);transition:opacity .55s,transform .55s}
+.sr.vis{opacity:1;transform:none}
+.sr-l{opacity:0;transform:translateX(-30px);transition:opacity .6s,transform .6s}
+.sr-l.vis{opacity:1;transform:none}
+.sr-r{opacity:0;transform:translateX(30px);transition:opacity .6s,transform .6s}
+.sr-r.vis{opacity:1;transform:none}
+.pr-bar{background:var(--navy);color:#fff;text-align:center;font-size:.7rem;padding:7px 16px;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.04em}
+.pr-bar a{color:var(--gold-hi);text-decoration:none}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--navy);color:#fff;padding:9px 20px;border-radius:7px;font-size:.88rem;font-weight:600;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--ink)}
+.hero{min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80') center/cover no-repeat;filter:brightness(.28)}
+.hero-inner{position:relative;z-index:2;padding:80px 6%;max-width:780px}
+.hero-pill{display:inline-block;background:rgba(184,134,11,.25);color:var(--gold-hi);border:1px solid rgba(184,134,11,.4);padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:18px}
+.hero h1 span{color:var(--gold-hi)}
+.hero p{color:rgba(255,255,255,.8);font-size:1.1rem;max-width:540px;margin-bottom:32px;line-height:1.7}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:#fff;padding:14px 28px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;transition:background .2s}
+.btn-gold:hover{background:var(--gold-hi)}
+.btn-ghost{border:2px solid rgba(255,255,255,.5);color:#fff;padding:13px 26px;border-radius:8px;font-size:1rem;font-weight:600;text-decoration:none;transition:border-color .2s}
+.btn-ghost:hover{border-color:#fff}
+.trust-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;justify-content:center;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px;padding:18px 36px;border-right:1px solid var(--border);font-size:.85rem;font-weight:600;color:var(--ink)}
+.trust-item:last-child{border-right:none}
+.trust-item .ti{font-size:1.3rem}
+.listings{padding:88px 6%;background:var(--cream)}
+.sec-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--ink);margin-bottom:48px}
+.listings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.listing-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .2s;cursor:pointer}
+.listing-card:hover{box-shadow:0 12px 36px rgba(184,134,11,.14);transform:translateY(-4px)}
+.listing-img{height:200px;overflow:hidden}
+.listing-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.listing-card:hover .listing-img img{transform:scale(1.04)}
+.listing-body{padding:20px}
+.listing-price{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:4px}
+.listing-title{font-weight:600;font-size:.95rem;color:var(--ink);margin-bottom:4px}
+.listing-loc{font-size:.82rem;color:var(--muted);margin-bottom:12px}
+.listing-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:3px 10px;font-size:.75rem;font-weight:600;color:var(--muted)}
+.services{padding:88px 6%;background:#fff}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.service-card{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:28px;transition:box-shadow .2s,transform .2s}
+.service-card:hover{box-shadow:0 8px 28px rgba(184,134,11,.1);transform:translateY(-3px)}
+.sc-icon{font-size:2rem;margin-bottom:14px}
+.sc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:8px}
+.sc-desc{font-size:.86rem;color:var(--muted);line-height:1.6}
+.testimonials{padding:88px 6%;background:var(--navy)}
+.testimonials .sec-label{color:var(--gold-hi)}
+.testimonials .sec-title{color:#fff}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.testi{background:rgba(255,255,255,.06);border:1px solid rgba(184,134,11,.2);border-radius:14px;padding:28px}
+.testi-stars{color:var(--gold-hi);font-size:1rem;margin-bottom:12px}
+.testi blockquote{color:rgba(255,255,255,.85);font-size:.92rem;line-height:1.7;font-style:italic;margin-bottom:16px}
+.testi-name{font-weight:700;color:#fff;font-size:.88rem}
+.testi-loc{color:rgba(255,255,255,.45);font-size:.8rem}
+.valuation-cta{padding:100px 6%;background:linear-gradient(135deg,var(--navy) 0%,#2d5a9e 100%);text-align:center}
+.final-inner h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:16px}
+.final-inner p{color:rgba(255,255,255,.88);font-size:1.05rem;margin-bottom:32px}
+.btn-gold-solid{background:var(--gold);color:#fff;padding:15px 32px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;display:inline-block;transition:transform .2s,background .2s}
+.btn-gold-solid:hover{transform:translateY(-2px);background:var(--gold-hi)}
+footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;padding:28px 6%;font-size:.8rem;line-height:1.8}
+footer a{color:var(--gold-hi);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.trust-item{padding:14px 18px}}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<div class="pr-bar">✦ Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · Local websites from £299 · pageready.co.uk ✦</div>
+<nav>
+  <a href="#" class="nav-logo">Dorset<span>Property Co.</span></a>
+  <ul class="nav-links">
+    <li><a href="#listings">Properties</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#valuation">Free Valuation</a></li>
+  </ul>
+  <a href="tel:01202000000" class="nav-cta">Free Valuation</a>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">Independent Estate Agents · Dorset</div>
+    <h1>Sell Faster.<br><span>Buy Smarter.</span></h1>
+    <p>Personal service, local expertise, and a track record of achieving the best prices for Dorset homeowners. No call centres, no pushy sales — just honest advice.</p>
+    <div class="hero-ctas">
+      <a href="tel:01202000000" class="btn-gold">📞 Free Property Valuation</a>
+      <a href="#listings" class="btn-ghost">View Properties</a>
+    </div>
+  </div>
+</section>
+<div class="trust-bar">
+  <div class="trust-item"><span class="ti">🏠</span> 200+ Homes Sold</div>
+  <div class="trust-item"><span class="ti">⭐</span> 4.9 Google Rating</div>
+  <div class="trust-item"><span class="ti">📍</span> Wimborne &amp; Dorset</div>
+  <div class="trust-item"><span class="ti">🤝</span> No Sale, No Fee</div>
+</div>
+<section class="listings" id="listings">
+  <div class="sec-label">Current Properties</div>
+  <div class="sec-title">Homes for Sale in Dorset</div>
+  <div class="listings-grid">
+    <div class="listing-card sr">
+      <div class="listing-img"><img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80" alt="Detached house" loading="lazy"></div>
+      <div class="listing-body">
+        <div class="listing-price">£485,000</div>
+        <div class="listing-title">4-Bed Detached Family Home</div>
+        <div class="listing-loc">📍 Wimborne, BH21</div>
+        <div class="listing-tags"><span class="tag">4 Beds</span><span class="tag">2 Baths</span><span class="tag">Double Garage</span><span class="tag">Garden</span></div>
+      </div>
+    </div>
+    <div class="listing-card sr">
+      <div class="listing-img"><img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&q=80" alt="Semi detached" loading="lazy"></div>
+      <div class="listing-body">
+        <div class="listing-price">£295,000</div>
+        <div class="listing-title">3-Bed Semi-Detached</div>
+        <div class="listing-loc">📍 Ferndown, BH22</div>
+        <div class="listing-tags"><span class="tag">3 Beds</span><span class="tag">1 Bath</span><span class="tag">Off-Road Parking</span></div>
+      </div>
+    </div>
+    <div class="listing-card sr">
+      <div class="listing-img"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Modern house" loading="lazy"></div>
+      <div class="listing-body">
+        <div class="listing-price">£625,000</div>
+        <div class="listing-title">5-Bed Luxury Detached</div>
+        <div class="listing-loc">📍 Poole, BH14</div>
+        <div class="listing-tags"><span class="tag">5 Beds</span><span class="tag">3 Baths</span><span class="tag">Pool</span><span class="tag">New Build</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="services" id="services">
+  <div class="sec-label">What We Do</div>
+  <div class="sec-title">Full Property Services</div>
+  <div class="services-grid">
+    <div class="service-card sr"><div class="sc-icon">🏠</div><div class="sc-title">Residential Sales</div><p class="sc-desc">From valuation to completion, we manage the entire process. Professional photography, Rightmove listing, and viewings all included.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🔍</div><div class="sc-title">Property Search</div><p class="sc-desc">Tell us what you're looking for and we'll find it — including off-market properties not listed anywhere else.</p></div>
+    <div class="service-card sr"><div class="sc-icon">📊</div><div class="sc-title">Free Valuations</div><p class="sc-desc">Honest, accurate valuations based on real market data. No inflated figures to win your instruction — just the truth.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🏡</div><div class="sc-title">Lettings &amp; Management</div><p class="sc-desc">Full lettings service with tenant find, referencing, and ongoing management. We look after your investment like it's our own.</p></div>
+  </div>
+</section>
+<section class="testimonials" id="testimonials">
+  <div class="sec-label">Client Reviews</div>
+  <div class="sec-title">What Our Clients Say</div>
+  <div class="testi-grid">
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Sold for £15,000 over asking in two weeks. The team's local knowledge is unmatched — they knew exactly who the right buyers were."</blockquote><div class="testi-name">Helen G.</div><div class="testi-loc">Wimborne</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"As a buyer, they found us a house before it even hit the market. Saved us months of searching and endless Rightmove alerts."</blockquote><div class="testi-name">Tom &amp; Rachel S.</div><div class="testi-loc">Ferndown</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Professional from start to finish. The photography alone was worth it — our house looked incredible. Sold in 8 days."</blockquote><div class="testi-name">Fiona P.</div><div class="testi-loc">Poole</div></div>
+  </div>
+</section>
+<section class="valuation-cta" id="valuation">
+  <div class="final-inner">
+    <h2>What's Your Home Worth?</h2>
+    <p>Free, no-obligation valuation from a local expert who knows the Dorset market inside out. No call centres, no automated estimates.</p>
+    <a href="tel:01202000000" class="btn-gold-solid">📞 Book Your Free Valuation — 01202 000 000</a>
+  </div>
+</section>
+<footer>
+  Dorset Property Co · Wimborne, Dorset · <a href="tel:01202000000">01202 000 000</a><br>
+  <span style="margin-top:6px;display:block">Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · pageready.co.uk · Local websites from £299</span>
+</footer>
+<script>
+  const cg=document.getElementById('cg');
+  document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';});
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:0.1});
+  document.querySelectorAll('.sr,.sr-l,.sr-r').forEach((el,i)=>{
+    el.style.transitionDelay=(i%4)*0.08+'s';obs.observe(el);
+  });
+  document.querySelectorAll('.listing-card,.service-card,.testi').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width)*100;
+      const y=((e.clientY-r.top)/r.height)*100;
+      const base=card.classList.contains('testi')?'rgba(14,10,31,.04)':card.classList.contains('service-card')?'var(--cream)':'#fff';
+      card.style.background=`radial-gradient(circle at ${x}% ${y}%,rgba(184,134,11,.08) 0%,transparent 55%),${base}`;
+    });
+    card.addEventListener('mouseleave',()=>card.style.background='');
+  });
+</script>
+</body>
+</html>
