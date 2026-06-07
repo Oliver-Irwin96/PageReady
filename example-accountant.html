@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dorset Accounts — Chartered Accountants, Wimborne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0a1628;
+  --blue:#1d4ed8;
+  --blue-hi:#3b82f6;
+  --slate:#f1f5f9;
+  --cream:#f8fafd;
+  --border:#cbd5e1;
+  --muted:#475569;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--cream);overflow-x:hidden;opacity:0;animation:reveal .5s .1s forwards}
+@keyframes reveal{to{opacity:1}}
+#cg{position:fixed;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(29,78,216,.08) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:9999;transition:left .08s,top .08s}
+.sr{opacity:0;transform:translateY(22px);transition:opacity .55s,transform .55s}
+.sr.vis{opacity:1;transform:none}
+.sr-l{opacity:0;transform:translateX(-30px);transition:opacity .6s,transform .6s}
+.sr-l.vis{opacity:1;transform:none}
+.sr-r{opacity:0;transform:translateX(30px);transition:opacity .6s,transform .6s}
+.sr-r.vis{opacity:1;transform:none}
+.pr-bar{background:var(--ink);color:#fff;text-align:center;font-size:.7rem;padding:7px 16px;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.04em}
+.pr-bar a{color:var(--blue-hi);text-decoration:none}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta{background:var(--blue);color:#fff;padding:9px 20px;border-radius:7px;font-size:.88rem;font-weight:600;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--blue-hi)}
+.hero{min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80') center/cover no-repeat;filter:brightness(.25)}
+.hero-inner{position:relative;z-index:2;padding:80px 6%;max-width:760px}
+.hero-pill{display:inline-block;background:rgba(29,78,216,.25);color:var(--blue-hi);border:1px solid rgba(59,130,246,.4);padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:18px}
+.hero h1 span{color:var(--blue-hi)}
+.hero p{color:rgba(255,255,255,.8);font-size:1.1rem;max-width:520px;margin-bottom:32px;line-height:1.7}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn-blue{background:var(--blue);color:#fff;padding:14px 28px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;transition:background .2s}
+.btn-blue:hover{background:var(--blue-hi)}
+.btn-ghost{border:2px solid rgba(255,255,255,.5);color:#fff;padding:13px 26px;border-radius:8px;font-size:1rem;font-weight:600;text-decoration:none;transition:border-color .2s}
+.btn-ghost:hover{border-color:#fff}
+.trust-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;justify-content:center;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px;padding:18px 36px;border-right:1px solid var(--border);font-size:.85rem;font-weight:600;color:var(--ink)}
+.trust-item:last-child{border-right:none}
+.trust-item .ti{font-size:1.3rem}
+.services{padding:88px 6%;background:var(--cream)}
+.sec-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--ink);margin-bottom:48px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.service-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;transition:box-shadow .2s,transform .2s}
+.service-card:hover{box-shadow:0 8px 28px rgba(29,78,216,.1);transform:translateY(-3px)}
+.sc-icon{font-size:2rem;margin-bottom:14px}
+.sc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:8px}
+.sc-desc{font-size:.86rem;color:var(--muted);line-height:1.6}
+.about{padding:88px 6%;background:#fff}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1100px;margin:0 auto}
+.about-img{border-radius:16px;overflow:hidden;aspect-ratio:4/3}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-content p{color:var(--muted);line-height:1.8;margin-bottom:14px}
+.about-ticks{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.about-ticks li{display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;color:var(--ink)}
+.about-ticks li::before{content:"✓";background:var(--blue);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.testimonials{padding:88px 6%;background:var(--ink)}
+.testimonials .sec-label{color:var(--blue-hi)}
+.testimonials .sec-title{color:#fff}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.testi{background:rgba(255,255,255,.06);border:1px solid rgba(59,130,246,.2);border-radius:14px;padding:28px}
+.testi-stars{color:var(--blue-hi);font-size:1rem;margin-bottom:12px}
+.testi blockquote{color:rgba(255,255,255,.85);font-size:.92rem;line-height:1.7;font-style:italic;margin-bottom:16px}
+.testi-name{font-weight:700;color:#fff;font-size:.88rem}
+.testi-loc{color:rgba(255,255,255,.45);font-size:.8rem}
+.final-cta{padding:100px 6%;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-hi) 100%);text-align:center}
+.final-inner h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:16px}
+.final-inner p{color:rgba(255,255,255,.88);font-size:1.05rem;margin-bottom:32px}
+.btn-white{background:#fff;color:var(--blue);padding:15px 32px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;display:inline-block;transition:transform .2s}
+.btn-white:hover{transform:translateY(-2px)}
+footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;padding:28px 6%;font-size:.8rem;line-height:1.8}
+footer a{color:var(--blue-hi);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.about-inner{grid-template-columns:1fr}.trust-item{padding:14px 18px}}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+<div class="pr-bar">✦ Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · Local websites from £299 · pageready.co.uk ✦</div>
+<nav>
+  <a href="#" class="nav-logo">Dorset<span>Accounts</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Free Consultation</a></li>
+  </ul>
+  <a href="tel:01202000000" class="nav-cta">Free Consultation</a>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">Chartered Accountants · Wimborne</div>
+    <h1>Keep More of<br><span>What You Earn.</span></h1>
+    <p>Straightforward accounting for small businesses and sole traders across Dorset. Tax returns, payroll, bookkeeping — all handled, all on time.</p>
+    <div class="hero-ctas">
+      <a href="tel:01202000000" class="btn-blue">📞 Free Consultation</a>
+      <a href="#services" class="btn-ghost">See What We Do</a>
+    </div>
+  </div>
+</section>
+<div class="trust-bar">
+  <div class="trust-item"><span class="ti">📋</span> Chartered Accountants</div>
+  <div class="trust-item"><span class="ti">🏢</span> 200+ Business Clients</div>
+  <div class="trust-item"><span class="ti">💷</span> Fixed Monthly Fees</div>
+  <div class="trust-item"><span class="ti">📍</span> Wimborne, Dorset</div>
+</div>
+<section class="services" id="services">
+  <div class="sec-label">What We Do</div>
+  <div class="sec-title">Accounting Services for Local Businesses</div>
+  <div class="services-grid">
+    <div class="service-card sr"><div class="sc-icon">📊</div><div class="sc-title">Annual Accounts &amp; Tax Returns</div><p class="sc-desc">Sole trader, limited company, or partnership — we prepare your accounts and file your returns accurately and on time.</p></div>
+    <div class="service-card sr"><div class="sc-icon">💰</div><div class="sc-title">VAT Returns</div><p class="sc-desc">MTD-compliant VAT registration and quarterly returns. We handle the admin so you can focus on running your business.</p></div>
+    <div class="service-card sr"><div class="sc-icon">👥</div><div class="sc-title">Payroll</div><p class="sc-desc">From 1 to 50 employees — PAYE, RTI submissions, payslips, and auto-enrolment pension management.</p></div>
+    <div class="service-card sr"><div class="sc-icon">📚</div><div class="sc-title">Bookkeeping</div><p class="sc-desc">Monthly bookkeeping on Xero or QuickBooks. Clean records, real-time reporting, and no nasty surprises at year-end.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🏦</div><div class="sc-title">Business Start-Up</div><p class="sc-desc">Company formation, HMRC registration, and all the set-up advice you need. We'll get your business started the right way.</p></div>
+    <div class="service-card sr"><div class="sc-icon">🎯</div><div class="sc-title">Tax Planning</div><p class="sc-desc">Proactive advice to legally minimise your tax bill. Most clients save more than our fees. Worth a conversation.</p></div>
+  </div>
+</section>
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img sr-l">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80" alt="Accountant at desk" loading="lazy">
+    </div>
+    <div class="about-content sr-r">
+      <div class="sec-label">About Us</div>
+      <div class="sec-title">Local Accountants Who Actually Explain Things</div>
+      <p>We're a small practice based in Wimborne, working with local tradespeople, retailers, and service businesses across Dorset. No jargon, no unnecessary complexity.</p>
+      <p>Our fixed monthly fees mean you always know exactly what you're paying — and you can pick up the phone and actually get through to us.</p>
+      <ul class="about-ticks">
+        <li>ICAEW Chartered Accountants</li>
+        <li>Fixed monthly fees — no surprises</li>
+        <li>Xero and QuickBooks partners</li>
+        <li>Specialist in small businesses and sole traders</li>
+        <li>Free initial consultation — no obligation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="testimonials" id="testimonials">
+  <div class="sec-label">Client Reviews</div>
+  <div class="sec-title">What Our Clients Say</div>
+  <div class="testi-grid">
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"Switched to them two years ago and saved over £3,000 in tax I didn't know I could claim. Clear, proactive, and always reachable."</blockquote><div class="testi-name">Steve M.</div><div class="testi-loc">Builder, Wimborne</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"As a freelancer, I was terrified of the tax side. They made it completely painless and the fixed fee means I always know what I'm paying."</blockquote><div class="testi-name">Laura C.</div><div class="testi-loc">Graphic Designer, Poole</div></div>
+    <div class="testi sr"><div class="testi-stars">★★★★★</div><blockquote>"They set up our company, handled everything HMRC-related, and do our payroll every month. Like having a finance director at a fraction of the cost."</blockquote><div class="testi-name">James &amp; Donna R.</div><div class="testi-loc">Café Owners, Ferndown</div></div>
+  </div>
+</section>
+<section class="final-cta" id="contact">
+  <div class="final-inner">
+    <h2>Let's Talk About Your Business</h2>
+    <p>Free 30-minute consultation — no obligation. We'll look at your situation and tell you honestly what we can do for you.</p>
+    <a href="tel:01202000000" class="btn-white">📞 Book a Free Chat — 01202 000 000</a>
+  </div>
+</section>
+<footer>
+  Dorset Accounts · Wimborne, Dorset · <a href="tel:01202000000">01202 000 000</a><br>
+  <span style="margin-top:6px;display:block">Demo site — built by <a href="https://pageready.co.uk" target="_blank">PageReady</a> · pageready.co.uk · Local websites from £299</span>
+</footer>
+<script>
+  const cg=document.getElementById('cg');
+  document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';});
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:0.1});
+  document.querySelectorAll('.sr,.sr-l,.sr-r').forEach((el,i)=>{
+    el.style.transitionDelay=(i%4)*0.08+'s';obs.observe(el);
+  });
+  document.querySelectorAll('.service-card,.testi').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width)*100;
+      const y=((e.clientY-r.top)/r.height)*100;
+      const base=card.classList.contains('testi')?'rgba(10,22,40,.04)':'#fff';
+      card.style.background=`radial-gradient(circle at ${x}% ${y}%,rgba(29,78,216,.08) 0%,transparent 55%),${base}`;
+    });
+    card.addEventListener('mouseleave',()=>card.style.background='');
+  });
+</script>
+</body>
+</html>
