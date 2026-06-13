@@ -4,3 +4,7 @@
 _README.md
 .github-token
 
+
+# CK secrets (CK now lives in its own CanineKeepsakes repo)
+*.env
+ck-secrets.env
